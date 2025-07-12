@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation";
 import { ListPreview, TotalBalance } from "@/common";
 
 import "./styles.scss";
+import { trace } from "console";
+import { transcode } from "buffer";
 
 const DemoPage = () => {
   const router = useRouter();
   const [budget, setBudget] = useState({
     budgetName: "",
     owner: "",
+    transactions: [],
     collaborators: "",
     income: 0,
     expenses: 0,
@@ -33,7 +36,7 @@ const DemoPage = () => {
       <h1 className="text-2xl font-bold">{budget.budgetName}</h1>
       <p className="text-lg">Owner: {budget.owner}</p>
       <TotalBalance income={budget.income} expenses={budget.expenses} />
-      <ListPreview listItems={[]} />
+      <ListPreview listItems={budget.transactions} />
     </div>
   );
 };

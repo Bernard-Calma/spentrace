@@ -13,6 +13,12 @@ body {
   .expense {
     color: v.$warning-color;
   }
+
+  .positive,
+  .income,
+  .success {
+    color: v.$success-color;
+  }
 }
 
 .label-input {

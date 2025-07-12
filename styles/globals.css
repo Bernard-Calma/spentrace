@@ -25,6 +25,11 @@ body .negative,
 body .expense {
   color: rgb(255, 30, 30);
 }
+body .positive,
+body .income,
+body .success {
+  color: rgb(22, 163, 74);
+}
 
 .label-input {
   font-family: "Kanit";

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { TotalBalance } from "@/common";
+import { ListPreview, TotalBalance } from "@/common";
 
 import "./styles.scss";
 
@@ -21,7 +21,6 @@ const DemoPage = () => {
     // Check if budget data exists in localStorage
     const savedBudget = localStorage.getItem("budget");
     if (savedBudget) {
-      console.log("Saved Budget:", savedBudget);
       setBudget({ ...budget, ...JSON.parse(savedBudget) });
     } else {
       // If no budget data, redirect to create budget page
@@ -34,6 +33,7 @@ const DemoPage = () => {
       <h1 className="text-2xl font-bold">{budget.budgetName}</h1>
       <p className="text-lg">Owner: {budget.owner}</p>
       <TotalBalance income={budget.income} expenses={budget.expenses} />
+      <ListPreview listItems={[]} />
     </div>
   );
 };

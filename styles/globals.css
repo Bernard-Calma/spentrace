@@ -51,4 +51,26 @@ body .success {
   color: rgb(160, 160, 200);
   font-style: italic;
   cursor: not-allowed;
+}
+
+.list-preview {
+  background-color: rgb(243, 244, 246);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+}
+.list-preview h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+.list-preview ul {
+  list-style: none;
+  padding: 0;
+}
+.list-preview ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #0070bb;
+}
+.list-preview ul li:last-child {
+  border-bottom: none;
 }/*# sourceMappingURL=globals.css.map */

@@ -6,7 +6,7 @@ interface LabelInputProps {
   text: string;
   name: string;
   placeholder: string;
-  value?: string;
+  value?: string | number;
   disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
@@ -36,7 +36,7 @@ const LabelInput = ({
         id={htmlFor}
         name={name}
         placeholder={placeholder}
-        defaultValue={value}
+        value={value}
         disabled={disabled}
         onChange={onChange}
         required={required}

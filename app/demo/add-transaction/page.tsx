@@ -1,6 +1,7 @@
 "use client";
 
 import { LabelInput } from "@/common";
+import { format, parseISO } from "date-fns";
 import { useState } from "react";
 
 interface Transaction {
@@ -34,6 +35,15 @@ const AddTransactionPage = () => {
       });
       return;
     }
+    // Format Date
+    if (name === "date") {
+      const dateValue = new Date(value);
+      setNewTransaction((prev) => ({
+        ...prev,
+        date: parseISO(value),
+      }));
+      return;
+    }
     setNewTransaction((prev) => ({
       ...prev,
       [name]: value,
@@ -49,9 +59,18 @@ const AddTransactionPage = () => {
       return;
     }
     // Add transaction logic here
-    console.log("New Transaction Added:", newTransaction);
+    const transactionId = crypto.randomUUID(); // Generate a unique ID for the transaction
+    const budget = JSON.parse(localStorage.getItem("budget") || "{}");
+    const updatedTransactions = [
+      ...(budget.transactions || []),
+      { ...newTransaction, id: transactionId },
+    ];
+    localStorage.setItem(
+      "budget",
+      JSON.stringify({ ...budget, transactions: updatedTransactions })
+    );
     // Redirect or show success message
-    // window.location.href = "/demo";
+    window.location.href = "/demo";
   };
   return (
     <div className="overlay w-full flex flex-col items-center justify-center p-12 bg-gray-900">
@@ -84,7 +103,57 @@ const AddTransactionPage = () => {
             placeholder="0"
             required
           />
-          <button type="submit">Add Transaction</button>
+          <LabelInput
+            type="date"
+            htmlFor="date"
+            text="Transaction Date:"
+            name="date"
+            value={format(newTransaction.date, "yyyy-MM-dd")} // Format date for input
+            onChange={(e) =>
+              handleChange(e as React.ChangeEvent<HTMLInputElement>)
+            }
+            placeholder="Select date"
+            required
+          />
+          {/* Radio to set if tranasction is expense or income */}
+          <div className="radio-group transaction-type flex gap-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="type"
+                value="expense"
+                checked={newTransaction.type === "expense"}
+                onChange={() =>
+                  setNewTransaction((prev) => ({
+                    ...prev,
+                    type: "expense",
+                  }))
+                }
+              />
+              Expense
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="type"
+                value="income"
+                checked={newTransaction.type === "income"}
+                onChange={() =>
+                  setNewTransaction((prev) => ({
+                    ...prev,
+                    type: "income",
+                  }))
+                }
+              />
+              Income
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="btn-primary mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+          >
+            Add Transaction
+          </button>
         </form>
       </div>
     </div>

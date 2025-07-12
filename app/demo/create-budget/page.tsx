@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { LabelInput } from "@/common";
+
 import "../styles.scss";
 
 function CreateBudgetPage() {
@@ -19,17 +20,20 @@ function CreateBudgetPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     const form = e.target as HTMLFormElement;
-    if (form.checkValidity()) {
+    if (!form.checkValidity()) {
+      form.reportValidity(); // This triggers native browser validation messages
       return;
-    } else {
-      e.preventDefault();
-      console.log("New Budget Created:", newBudget);
     }
+    e.preventDefault();
+    // Proceed with custom logic
+    localStorage.setItem("budget", JSON.stringify(newBudget));
+    // Redirect to demo page or show success message
+    window.location.href = "/demo";
   };
   return (
     <div className="create-budget-page flex flex-col items-center justify-center p-12">
       <h2 className="text-2xl font-bold">🧾 Create Your Budget</h2>
-      <form action="" className="flex flex-col gap-4">
+      <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <LabelInput
           type="text"
           htmlFor="budgetName"
@@ -65,7 +69,6 @@ function CreateBudgetPage() {
         <button
           type="submit"
           className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
-          onClick={handleSubmit}
         >
           Create Budget
         </button>

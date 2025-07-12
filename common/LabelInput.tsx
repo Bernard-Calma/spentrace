@@ -8,6 +8,8 @@ interface LabelInputProps {
   placeholder: string;
   value?: string;
   disabled?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
 const LabelInput = ({
@@ -18,6 +20,8 @@ const LabelInput = ({
   placeholder,
   value,
   disabled,
+  required = false,
+  onChange,
 }: LabelInputProps) => {
   return (
     <div className="flex flex-col gap-2 label-input">
@@ -34,6 +38,8 @@ const LabelInput = ({
         placeholder={placeholder}
         defaultValue={value}
         disabled={disabled}
+        onChange={onChange}
+        required={required}
       />
     </div>
   );

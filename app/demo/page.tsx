@@ -14,7 +14,12 @@ const DemoPage = () => {
   });
 
   useEffect(() => {
-    if (budget.budgetName === "") {
+    const savedBudget = localStorage.getItem("budget");
+    if (savedBudget) {
+      setBudget(JSON.parse(savedBudget));
+    }
+    // Redirect to create budget page if budgetName is empty
+    if (!budget.budgetName) {
       router.push("/demo/create-budget");
     }
   }, [budget]);

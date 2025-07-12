@@ -1,8 +1,31 @@
-import LabelInput from "@/common/LabelInput";
-import React from "react";
+"use client";
+import { useState } from "react";
+import { LabelInput } from "@/common";
 import "../styles.scss";
 
 function CreateBudgetPage() {
+  const [newBudget, setNewBudget] = useState({
+    budgetName: "",
+    owner: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewBudget((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    const form = e.target as HTMLFormElement;
+    if (form.checkValidity()) {
+      return;
+    } else {
+      e.preventDefault();
+      console.log("New Budget Created:", newBudget);
+    }
+  };
   return (
     <div className="create-budget-page flex flex-col items-center justify-center p-12">
       <h2 className="text-2xl font-bold">🧾 Create Your Budget</h2>
@@ -13,6 +36,9 @@ function CreateBudgetPage() {
           text="Budget Name:"
           name="budgetName"
           placeholder="Enter your budget name"
+          value={newBudget.budgetName}
+          onChange={handleChange}
+          required
         />
 
         <LabelInput
@@ -21,6 +47,9 @@ function CreateBudgetPage() {
           text="Owner:"
           name="owner"
           placeholder="Enter your name"
+          value={newBudget.owner}
+          onChange={handleChange}
+          required
         />
 
         <LabelInput
@@ -36,6 +65,7 @@ function CreateBudgetPage() {
         <button
           type="submit"
           className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
+          onClick={handleSubmit}
         >
           Create Budget
         </button>

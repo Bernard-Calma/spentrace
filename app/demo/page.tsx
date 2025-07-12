@@ -14,11 +14,14 @@ const DemoPage = () => {
   });
 
   useEffect(() => {
+    // Check if budget data exists in localStorage
     const savedBudget = localStorage.getItem("budget");
     if (savedBudget) {
       console.log("Saved Budget:", savedBudget);
       setBudget(JSON.parse(savedBudget));
     } else {
+      // If no budget data, redirect to create budget page
+      sessionStorage.setItem("allowCreateBudget", "true");
       router.push("/demo/create-budget");
     }
   }, []);

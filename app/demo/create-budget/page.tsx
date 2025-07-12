@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LabelInput } from "@/common";
 
 import "../styles.scss";
@@ -30,6 +30,14 @@ function CreateBudgetPage() {
     // Redirect to demo page or show success message
     window.location.href = "/demo";
   };
+
+  useEffect(() => {
+    // Check if user is allowed to create a budget
+    const allowCreateBudget = sessionStorage.getItem("allowCreateBudget");
+    if (!allowCreateBudget) {
+      window.location.href = "/";
+    }
+  }, []);
   return (
     <div className="create-budget-page flex flex-col items-center justify-center p-12">
       <h2 className="text-2xl font-bold">🧾 Create Your Budget</h2>

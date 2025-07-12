@@ -13,7 +13,7 @@
   src: url("/fonts/Kanit/Kanit-Light.ttf") format("truetype");
 }
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: rgb(243, 244, 246);
   font-family: "Kanit";
+  color: rgb(75, 85, 99);
 }/*# sourceMappingURL=globals.css.map */

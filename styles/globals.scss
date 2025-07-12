@@ -1,7 +1,7 @@
-@use "./fonts";
+@use "./variables" as v;
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: v.$primary-color;
   font-family: "Kanit";
+  color: v.$text-color;
 }

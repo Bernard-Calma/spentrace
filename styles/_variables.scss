@@ -1,0 +1,13 @@
+@use "./fonts";
+
+$primary-color: rgb(243 244 246); // gray-100
+$secondary-color: white; // white
+$accent-color: #0070bb; // blue-600
+$accent-color_darker: #005f8a; // blue-700
+$text-color_lighter: rgb(107 114 128); // gray-500
+$text-color: rgb(75 85 99); // gray-600
+$text-color_darker: rgb(55 65 81); // gray-700
+$warning-color: rgb(255, 30, 30); // red-600
+$caution-color: rgb(255, 165, 0); // orange-600
+$success-color: rgba(22, 163, 74); // green-600
+$past-due-color: rgb(254, 202, 202); // red-200

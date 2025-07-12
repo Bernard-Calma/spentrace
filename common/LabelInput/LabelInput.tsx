@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./LabelInput.scss";
+
 interface LabelInputProps {
   type: string;
   htmlFor: string;
@@ -20,7 +22,7 @@ const LabelInput = ({
   disabled,
 }: LabelInputProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 label-input">
       <label htmlFor={htmlFor} className="font-semibold">
         {text}
       </label>

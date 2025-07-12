@@ -1,4 +1,4 @@
-import LabelInput from "@/common/LabelInput";
+import LabelInput from "@/common/LabelInput/LabelInput";
 import React from "react";
 
 function CreateBudgetPage() {

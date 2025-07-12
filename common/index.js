@@ -1,3 +1,3 @@
-import LabelInput from "./LabelInput";
+import LabelInput from "./LabelInput/LabelInput";
 
 export { LabelInput };

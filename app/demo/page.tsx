@@ -3,6 +3,8 @@
 import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import "./styles.scss";
+
 const DemoPage = () => {
   const router = useRouter();
   const [budget, setBudget] = useState({

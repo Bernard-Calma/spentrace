@@ -13,7 +13,37 @@
   src: url("/fonts/Kanit/Kanit-Light.ttf") format("truetype");
 }
 body {
+  display: flex;
   background: rgb(243, 244, 246);
   font-family: "Kanit";
   color: rgb(75, 85, 99);
+  min-height: 100vh;
+}
+body .warning,
+body .error,
+body .negative,
+body .expense {
+  color: rgb(255, 30, 30);
+}
+
+.label-input {
+  font-family: "Kanit";
+  font-weight: 700;
+  gap: 0;
+}
+.label-input input {
+  border: 1px solid rgb(75, 85, 99);
+  background-color: rgb(243, 244, 246);
+}
+.label-input input:focus {
+  border-color: #0070bb;
+  border-width: 2px;
+  outline: none;
+}
+.label-input input:disabled {
+  background-color: rgb(75, 85, 99);
+  border-color: #0070bb;
+  color: rgb(160, 160, 200);
+  font-style: italic;
+  cursor: not-allowed;
 }/*# sourceMappingURL=globals.css.map */

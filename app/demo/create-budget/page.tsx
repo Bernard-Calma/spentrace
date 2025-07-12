@@ -1,9 +1,10 @@
-import LabelInput from "@/common/LabelInput/LabelInput";
+import LabelInput from "@/common/LabelInput";
 import React from "react";
+import "../styles.scss";
 
 function CreateBudgetPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-24">
+    <div className="create-budget-page flex flex-col items-center justify-center p-12">
       <h2 className="text-2xl font-bold">🧾 Create Your Budget</h2>
       <form action="" className="flex flex-col gap-4">
         <LabelInput
@@ -25,12 +26,12 @@ function CreateBudgetPage() {
         <LabelInput
           type="text"
           htmlFor="collaborators"
-          text="Collaborators:"
+          text="Invite Collaborators (subscription required)"
           name="collaborators"
           placeholder="Enter collaborator names"
           disabled
         />
-        <p className="text-gray-500">Upgrade to invite others to this budget</p>
+        <p className=" error">Upgrade to invite others to this budget</p>
 
         <button
           type="submit"

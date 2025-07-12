@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Russo One";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/Russo_One/russo-one.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Kanit";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/Kanit/Kanit-Light.ttf") format("truetype");
+}
+.create-budget-page {
+  margin: auto;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.create-budget-page h2 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+.create-budget-page .error {
+  margin: 0 auto;
+}/*# sourceMappingURL=styles.css.map */

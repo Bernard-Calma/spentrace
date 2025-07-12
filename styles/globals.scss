@@ -1,7 +1,41 @@
 @use "./variables" as v;
 
 body {
+  display: flex;
   background: v.$primary-color;
   font-family: "Kanit";
   color: v.$text-color;
+  min-height: 100vh;
+
+  .warning,
+  .error,
+  .negative,
+  .expense {
+    color: v.$warning-color;
+  }
+}
+
+.label-input {
+  font-family: "Kanit";
+  font-weight: 700;
+  gap: 0;
+
+  input {
+    border: 1px solid v.$text-color;
+    background-color: v.$primary-color;
+
+    &:focus {
+      border-color: v.$accent-color;
+      border-width: 2px;
+      outline: none;
+    }
+
+    &:disabled {
+      background-color: v.$text-color;
+      border-color: v.$accent-color;
+      color: v.$text-color_lighter;
+      font-style: italic;
+      cursor: not-allowed;
+    }
+  }
 }

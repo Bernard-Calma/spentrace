@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./LabelInput.scss";
-
 interface LabelInputProps {
   type: string;
   htmlFor: string;

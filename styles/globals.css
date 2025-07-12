@@ -31,6 +31,12 @@ body .success {
   color: rgb(22, 163, 74);
 }
 
+nav {
+  background-color: rgb(243, 244, 246);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .label-input {
   font-family: "Kanit";
   font-weight: 700;

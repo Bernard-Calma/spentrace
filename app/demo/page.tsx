@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ListPreview, TotalBalance } from "@/common";
+import { ListPreview, Navigation, TotalBalance } from "@/common";
 
 import "./styles.scss";
-import { trace } from "console";
-import { transcode } from "buffer";
 
 const DemoPage = () => {
   const router = useRouter();
@@ -32,11 +30,14 @@ const DemoPage = () => {
     }
   }, []);
   return (
-    <div className="demo-page w-full flex flex-col items-center justify-start p-12">
-      <h1 className="text-2xl font-bold">{budget.budgetName}</h1>
-      <p className="text-lg">Owner: {budget.owner}</p>
-      <TotalBalance income={budget.income} expenses={budget.expenses} />
-      <ListPreview listItems={budget.transactions} />
+    <div className="demo-page w-full flex items-center justify-start">
+      <Navigation />
+      <div className="budget-details flex-1 max-w-3xl p-6 bg-white rounded shadow">
+        <h1 className="text-2xl font-bold">{budget.budgetName}</h1>
+        <p className="text-lg">Owner: {budget.owner}</p>
+        <TotalBalance income={budget.income} expenses={budget.expenses} />
+        <ListPreview listItems={budget.transactions} />
+      </div>
     </div>
   );
 };

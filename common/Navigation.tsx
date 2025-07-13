@@ -1,6 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+interface Budget {
+  id: string;
+  budgetName: string;
+  owner: string;
+  transactions: any[];
+  collaborators: string;
+  totalIncome: number;
+  totalExpenses: number;
+}
 
 const Navigation = () => {
+  const [defaultBudget, setDefaultBudget] = useState<Budget>({
+    id: "",
+    budgetName: "",
+    owner: "",
+    transactions: [],
+    collaborators: "",
+    totalIncome: 0,
+    totalExpenses: 0,
+  });
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support
   // Registered: Dashboard, Transactions, Bills, Reports, Profile, Help & Support
@@ -67,34 +89,42 @@ const Navigation = () => {
     // },
     {
       href: "/profile",
-      label: "Profile",
+      label: "Demo User",
       icon: "👤",
       demo: true,
       registered: true,
       subscribed: true,
     },
   ];
+
+  useEffect(() => {
+    const budget = localStorage.getItem("budget");
+    if (budget) {
+      setDefaultBudget(JSON.parse(budget));
+    }
+  }, []);
+
   return (
-    <nav className="navigation flex flex-col justify-between h-full w-48 bg-gray-100 shadow-md">
+    <nav className="navigation flex flex-col justify-between h-full w-48">
       <div className="top-nav flex">
         <Link href="/" className="text-lg font-bold">
           SpenTrace
         </Link>
       </div>
       <ul className="nav-links flex flex-1 flex-col space-y-2 p-4">
-        {navLinks.map(
-          (link) =>
-            (link.demo || link.registered || link.subscribed) && (
-              <li key={link.href} className="nav-item">
-                <Link
-                  href={link.href}
-                  className="flex items-center gap-2 text-gray-700 hover:text-blue-500 transition-colors"
-                >
-                  <span className="icon">{link.icon}</span>
-                  <span className="label">{link.label}</span>
-                </Link>
-              </li>
-            )
+        <Link
+          href={"/"}
+          className="text-gray-700 hover:text-blue-500 transition-colors"
+        >
+          🏠 Dashboard
+        </Link>
+        {defaultBudget.id && (
+          <Link
+            href={"/transactions"}
+            className="text-gray-700 hover:text-blue-500 transition-colors"
+          >
+            💳 Transactions
+          </Link>
         )}
       </ul>
       {/* For User Menu, Help & Support */}

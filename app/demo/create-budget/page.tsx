@@ -26,7 +26,17 @@ function CreateBudgetPage() {
     }
     e.preventDefault();
     // Proceed with custom logic
-    localStorage.setItem("budget", JSON.stringify(newBudget));
+    localStorage.setItem(
+      "budget",
+      JSON.stringify({
+        ...newBudget,
+        id: crypto.randomUUID(), // Generate a unique ID for the budget
+        transactions: [],
+        income: 0,
+        expenses: 0,
+        balance: 0,
+      })
+    );
     // Redirect to demo page or show success message
     window.location.href = "/demo";
   };

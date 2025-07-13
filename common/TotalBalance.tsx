@@ -14,15 +14,15 @@ const TotalBalance = ({ income, expenses }: TotalBalanceProps) => {
     setBalance(income - expenses);
   }, [income, expenses]);
   return (
-    <div className="total-balance mt-4 p-4 bg-gray-100 rounded shadow w-full max-w-md text-center flex items-center justify-between">
-      <p className="text-lg">
-        Income: <span className="income">${income.toFixed(2)}</span>
+    <div className="total-balance py-4 bg-gray-100 w-full text-center flex items-center justify-between gap-4">
+      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
+        Total Income: <span className="income">${income.toFixed(2)}</span>
       </p>
-      <p className="text-lg">
-        Expenses: <span className="expense">${expenses.toFixed(2)}</span>
+      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
+        Total Expenses: <span className="expense">${expenses.toFixed(2)}</span>
       </p>
-      <p className="text-lg">
-        Balance:{" "}
+      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
+        Total Balance:{" "}
         <span className={`balance ${balance <= 0 ? "negative" : "positive"}`}>
           ${balance.toFixed(2)}
         </span>

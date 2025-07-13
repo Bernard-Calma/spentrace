@@ -97,13 +97,13 @@ const Navigation = () => {
   return (
     <nav className="navigation flex flex-col justify-between h-full w-48">
       <div className="top-nav flex">
-        <Link href="/" className="text-lg font-bold">
+        <Link href="/demo" className="text-lg font-bold">
           SpenTrace
         </Link>
       </div>
       <ul className="nav-links flex flex-1 flex-col space-y-2 p-4">
         <Link
-          href={"/"}
+          href={"/demo"}
           className="text-gray-700 hover:text-blue-500 transition-colors"
         >
           🏠 Dashboard

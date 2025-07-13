@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ListPreview, TotalBalance } from "@/common";
+import { BudgetList, ListPreview, TotalBalance } from "@/common";
 
 import "./styles.scss";
 
@@ -33,7 +33,8 @@ const DemoDashboard = () => {
         income={budget.totalIncome}
         expenses={budget.totalExpenses}
       />
-      <div className="budget-container w-full flex flex-1 flex-col bg-white">
+      <div className="budget-container w-full flex flex-1 flex-col bg-white p-2">
+        <BudgetList />
         <div className="budget-header  flex  items-center gap-4 p-4 border-b">
           <div className="budget-info ">
             <h1 className="text-2xl font-bold">{budget.budgetName}</h1>
@@ -41,7 +42,10 @@ const DemoDashboard = () => {
           </div>
           <div className="collaborators">
             <p className="text-sm text-gray-500">
-              Collaborators: {budget.collaborators || "None"}
+              Collaborators:{" "}
+              {budget.collaborators.length > 0
+                ? budget.collaborators.join(", ")
+                : "None"}
             </p>
           </div>
         </div>

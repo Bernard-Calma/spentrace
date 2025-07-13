@@ -1,6 +1,6 @@
 const RecentTransactions = () => {
   return (
-    <div className="recent-transactions w-full bg-white rounded-lg shadow mb-4 pb-4">
+    <div className="recent-transactions w-full bg-white rounded-lg shadow pb-4">
       <div className="recent-transactions_header p-2 flex justify-between items-center border-b border-gray-300 bg-gray-700">
         <div className="header-content flex flex-col text-white">
           <h2 className="font-bold text-lg">Recent Transactions</h2>

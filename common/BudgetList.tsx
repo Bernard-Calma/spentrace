@@ -1,6 +1,6 @@
 const BudgetList = () => {
   return (
-    <div className="budget-list text-sm flex w-full flex-col shadow-md rounded-lg">
+    <div className="budget-list text-sm flex w-full flex-col shadow-md rounded-lg pb-4">
       <div className="budget-list_header p-2 flex justify-between items-center border-b border-gray-300 bg-gray-700">
         <h2 className="text-lg font-bold text-white">Budget Lists</h2>
         <div className="budget-list_actions flex space-x-2">

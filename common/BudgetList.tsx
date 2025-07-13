@@ -1,7 +1,7 @@
 const BudgetList = () => {
   return (
-    <div className="budget-list text-sm flex w-full flex-col bg-gray-50 shadow-md rounded-lg">
-      <div className="budget-list_header p-4">
+    <div className="budget-list text-sm flex w-full flex-col shadow-md rounded-lg">
+      <div className="budget-list_header p-4 flex justify-between items-center border-b border-gray-300 shadow-sm">
         <h2 className="text-lg font-bold">Budget Lists</h2>
         <div className="budget-list_actions flex space-x-2">
           <button className="bg-blue-500 text-white px-4 py-2 rounded">

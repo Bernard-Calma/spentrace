@@ -4,32 +4,29 @@ import { useEffect, useState } from "react";
 import { ListPreview, TotalBalance } from "@/common";
 
 import "./styles.scss";
-import CreateBudgetPage from "./create-budget/page";
 
 const DemoDashboard = () => {
-  const [budget, setBudget] = useState({
+  const [budget, setBudget] = useState<Budget>({
     id: "",
     budgetName: "",
     owner: "",
     transactions: [],
-    collaborators: "",
+    collaborators: [],
     totalIncome: 0,
     totalExpenses: 0,
   });
 
   useEffect(() => {
     // Check if budget data exists in localStorage
-    const savedBudget = localStorage.getItem("budget");
-    if (savedBudget) {
-      setBudget({ ...JSON.parse(savedBudget).defaultBudget });
+    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
+    const localBudget: Budget = demo.defaultBudget || {};
+    if (localBudget.id) {
+      setBudget({ ...localBudget });
     } else {
-      // If no budget data, redirect to create budget page
-      sessionStorage.setItem("allowCreateBudget", "true");
+      // If no budget exists, redirect to create budget page
+      window.location.href = "/demo/create-budget";
     }
   }, []);
-  if (!budget.id) {
-    return <CreateBudgetPage />;
-  }
   return (
     <div className="demo-dashboard h-full w-full flex flex-1 flex-col">
       <TotalBalance

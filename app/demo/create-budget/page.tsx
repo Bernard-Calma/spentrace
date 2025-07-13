@@ -29,23 +29,24 @@ function CreateBudgetPage() {
       return;
     }
     e.preventDefault();
+    // TODO: Will use conditional logic to handle demo and registered users
     // Get existing budgets from localStorage
-    const existingBudgets = localStorage.getItem("demo");
-    console.log(existingBudgets);
-    // Proceed with custom logic
+    // Can be replaced with not just demo but actual user
+    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
+    // Will be replaced with API call in the future
+    // Parse Demo data
+    // Proceed with custom logic to create a new budget
     const id = crypto.randomUUID(); // Generate a unique ID for the budget
-    localStorage.setItem(
-      "demo",
-      JSON.stringify({
-        user: "demo",
-        budgets: [...existingBudgets.budgets, { ...newBudget, id }],
-        defaultBudget: {
-          id,
-          ...newBudget,
-        },
-      })
-    );
-    // Redirect to demo page or show success message
+    const newBudgetData: Budget = {
+      ...newBudget,
+      id,
+    };
+    // Add new budget to Demo data
+    demo.budgets.push(newBudgetData);
+    demo.defaultBudget = newBudgetData;
+    // Save updated Demo data to localStorage
+    localStorage.setItem("demo", JSON.stringify(demo));
+    // Redirect back
     window.location.href = "/demo";
   };
 

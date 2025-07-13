@@ -7,7 +7,15 @@ import "./styles.scss";
 import CreateBudgetPage from "./create-budget/page";
 
 const DemoDashboard = () => {
-  const [budget, setBudget] = useState({});
+  const [budget, setBudget] = useState({
+    id: "",
+    budgetName: "",
+    owner: "",
+    transactions: [],
+    collaborators: "",
+    totalIncome: 0,
+    totalExpenses: 0,
+  });
 
   useEffect(() => {
     // Check if budget data exists in localStorage
@@ -19,12 +27,15 @@ const DemoDashboard = () => {
       sessionStorage.setItem("allowCreateBudget", "true");
     }
   }, []);
-  if (!budget || Object.keys(budget).length === 0) {
+  if (!budget.id) {
     return <CreateBudgetPage />;
   }
   return (
     <div className="demo-dashboard h-full w-full flex flex-1 flex-col">
-      <TotalBalance income={budget.income} expenses={budget.expenses} />
+      <TotalBalance
+        income={budget.totalIncome}
+        expenses={budget.totalExpenses}
+      />
       <div className="budget-container w-full flex flex-1 flex-col bg-white">
         <div className="budget-header  flex  items-center gap-4 p-4 border-b">
           <div className="budget-info ">

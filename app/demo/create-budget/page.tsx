@@ -8,6 +8,10 @@ function CreateBudgetPage() {
   const [newBudget, setNewBudget] = useState({
     budgetName: "",
     owner: "",
+    collaborators: [],
+    transactions: [],
+    totalIncome: 0,
+    totalExpenses: 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,16 +29,20 @@ function CreateBudgetPage() {
       return;
     }
     e.preventDefault();
+    // Get existing budgets from localStorage
+    const existingBudgets = localStorage.getItem("demo");
+    console.log(existingBudgets);
     // Proceed with custom logic
+    const id = crypto.randomUUID(); // Generate a unique ID for the budget
     localStorage.setItem(
-      "budget",
+      "demo",
       JSON.stringify({
-        ...newBudget,
-        id: crypto.randomUUID(), // Generate a unique ID for the budget
-        transactions: [],
-        income: 0,
-        expenses: 0,
-        balance: 0,
+        user: "demo",
+        budgets: [...existingBudgets.budgets, { ...newBudget, id }],
+        defaultBudget: {
+          id,
+          ...newBudget,
+        },
       })
     );
     // Redirect to demo page or show success message
@@ -50,7 +58,7 @@ function CreateBudgetPage() {
   }, []);
   return (
     <div className="create-budget-page flex flex-col items-center justify-center p-12">
-      <h2 className="text-2xl font-bold">🧾 Create Your Budget</h2>
+      <h2 className="text-2xl font-bold">🧾 Create New Budget</h2>
       <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <LabelInput
           type="text"

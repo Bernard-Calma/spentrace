@@ -42,7 +42,7 @@ const BudgetPreview = () => {
     handleSetNextTransactionDue();
   }, []);
   return (
-    <div className="budget-preview relative text-xs flex flex-1 flex-col shadow-md rounded-lg p-4">
+    <div className="budget-preview relative w-full h-full text-xs flex flex-1 flex-col bg-gray-100 shadow-md rounded-lg p-4">
       <h2 className="text-lg font-bold">{budget.budgetName}</h2>
       <p className="absolute top-2 right-2 text-gray-600 text-md hover:underline cursor-pointer">
         View

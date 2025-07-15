@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
 import "../styles/globals.scss";
+import ReduxProvider from "@/store/provider";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${kanit.variable} antialiased`}>{children}</body>
+      <body className={` ${kanit.variable} antialiased`}>
+        <ReduxProvider children={children} />
+      </body>
     </html>
   );
 }

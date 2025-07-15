@@ -5,6 +5,7 @@ interface UserState {
   username: string;
   email: string | null;
   budgets: Budget[];
+  defaultBudget: Budget | {};
 }
 
 const initialState: UserState = {
@@ -12,6 +13,7 @@ const initialState: UserState = {
   username: "",
   email: null,
   budgets: [],
+  defaultBudget: {},
 };
 
 export const userSlice = createSlice({

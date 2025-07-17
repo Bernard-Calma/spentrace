@@ -6,6 +6,10 @@ interface UserState {
   email: string | null;
   budgets: Budget[];
   defaultBudget: Budget | {};
+  subscribed: boolean;
+  bills: string[]; // Bill[]
+  demo: boolean;
+  isLoading: boolean;
 }
 
 const initialState: UserState = {
@@ -14,6 +18,10 @@ const initialState: UserState = {
   email: null,
   budgets: [],
   defaultBudget: {},
+  subscribed: false,
+  bills: [],
+  demo: false,
+  isLoading: false,
 };
 
 export const userSlice = createSlice({

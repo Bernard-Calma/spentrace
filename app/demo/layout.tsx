@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="demo-page w-full flex flex-1 items-center justify-start">
-      <Navigation />
+      {/* <Navigation /> */}
       {children}
     </div>
   );

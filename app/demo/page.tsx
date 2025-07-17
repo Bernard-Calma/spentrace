@@ -6,8 +6,11 @@ import { BudgetList, Calendar, ListPreview, TotalBalance } from "@/common";
 import "./styles.scss";
 import RecentTransactions from "./RecentTransactions";
 import BudgetPreview from "./BudgetPreview";
+import { useDispatch } from "react-redux";
+import { loadFromLocalStorage } from "@/store/features/demoSlice";
 
 const DemoDashboard = () => {
+  const dispatch = useDispatch();
   const [budget, setBudget] = useState<Budget>({
     id: "",
     budgetName: "",
@@ -20,14 +23,19 @@ const DemoDashboard = () => {
 
   useEffect(() => {
     // Check if budget data exists in localStorage
-    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
-    const localBudget: Budget = demo.defaultBudget || {};
-    if (localBudget.id) {
-      setBudget({ ...localBudget });
-    } else {
-      // If no budget exists, redirect to create budget page
-      window.location.href = "/demo/create-budget";
-    }
+    // const existingDemo = localStorage.getItem("demo");
+    // if (!existingDemo) {
+    //   // If demo does not exist, create a new demo object
+    //   const demo = {
+    //     user: "demo",
+    //     budgets: [],
+    //     defaultBudget: {},
+    //   };
+    //   localStorage.setItem("demo", JSON.stringify(demo));
+    //   sessionStorage.setItem("allowCreateBudget", "true");
+    // }
+    // // Redirect to demo page
+    sessionStorage.setItem("allowCreateBudget", "true");
   }, []);
   return (
     <div className="demo-dashboard h-full w-full flex flex-1 flex-col">

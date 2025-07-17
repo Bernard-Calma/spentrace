@@ -16,18 +16,10 @@ const BudgetPreview = () => {
 
   useEffect(() => {
     // Fetch budget data from localStorage
-    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
-    const localBudget: Budget = demo.defaultBudget || {};
-    if (localBudget.id) {
-      setBudget({ ...localBudget });
-    } else {
-      // If no budget exists, redirect to create budget page
-      window.location.href = "/demo/create-budget";
-    }
 
     const handleSetNextTransactionDue = () => {
       const today = new Date();
-      const upcomingTransactions = localBudget.transactions.filter(
+      const upcomingTransactions = budget.transactions.filter(
         (transaction) => new Date(transaction.date) > today
       );
       if (upcomingTransactions.length > 0) {

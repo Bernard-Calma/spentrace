@@ -49,7 +49,7 @@ const LabelInput = ({
         }}
         required={required}
         autoComplete="off"
-        title="No plus or minus signs allowed"
+        title="If disabled, login or subscribe to enable feature."
       />
     </div>
   );

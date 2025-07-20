@@ -2,14 +2,18 @@
 
 import { LabelInput } from "@/common";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
+  const { isDemo } = useSelector((state: any) => state.user);
   const [newTransaction, setNewTransaction] = useState({
     id: crypto.randomUUID(),
     name: "",
     amount: "",
     date: "",
     type: "expense",
+    category: "",
+    notes: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,14 +50,21 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     }));
   };
 
+  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewTransaction((prev) => ({
+      ...prev,
+      notes: e.target.value,
+    }));
+  };
+
   const handleAddTransaction = () => {
     // Logic to add transaction
     console.log("Adding transaction:", newTransaction);
   };
 
   return (
-    <div className="overlay  flex items-center justify-center fixed inset-0 bg-black opacity-80 z-50">
-      <div className="add-transaction-modal relative bg-white p-4 rounded-lg shadow-lg">
+    <div className="overlay flex items-center justify-center fixed inset-0 bg-black opacity-80 z-50">
+      <div className="add-transaction-modal w-96 relative bg-white p-4 rounded-lg shadow-lg">
         <button
           onClick={hideComponent}
           className="close-button absolute top-0 right-2 text-red-500 hover:text-red-800 transition-colors text-5xl cursor-pointer font-bold"
@@ -112,6 +123,33 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           value={newTransaction.date}
           onChange={handleChange}
         />
+
+        <LabelInput
+          type="text"
+          htmlFor="transactionCategory"
+          text="Category"
+          name="category"
+          placeholder="Enter category"
+          value={newTransaction.category}
+          onChange={handleChange}
+          disabled={!isDemo} // Disable if not in demo mode
+        />
+
+        <label className="font-semibold">Notes (optional)</label>
+        <textarea
+          className={`border border-gray-300 rounded p-2 w-full ${
+            !isDemo
+              ? "disabled:bg-gray-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:italic"
+              : ""
+          }`}
+          name="notes"
+          placeholder="Add notes (optional)"
+          value={newTransaction.notes}
+          onChange={handleNotesChange}
+          rows={3}
+          disabled={!isDemo} // Disable if not in demo mode
+          title="If disabled, login or subscribe to enable feature."
+        ></textarea>
 
         <div className="flex justify-end mt-4 gap-2">
           <button

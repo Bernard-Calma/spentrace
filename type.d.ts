@@ -3,7 +3,9 @@ interface Transaction {
   name: string;
   amount: number;
   date: string;
+  category?: string;
   type: "income" | "expense";
+  notes?: string;
 }
 
 interface Budget {

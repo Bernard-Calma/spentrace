@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadFromLocalStorage } from "@/store/features/demoSlice";
 import { AppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
+import { setDefaultBudget } from "@/store/features/userSlice";
 
 const DemoDashboard = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const DemoDashboard = () => {
       console.log("Demo data loaded:", demoData.payload);
       if (demoData.payload.id) {
         setBudget(demoData.payload);
+        dispatch(setDefaultBudget(demoData.payload));
       } else {
         console.warn("No demo data found in localStorage.");
 

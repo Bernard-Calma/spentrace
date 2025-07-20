@@ -6,7 +6,7 @@ import "../styles.scss";
 import { useDispatch } from "react-redux";
 import { createBudget } from "@/store/features/demoSlice";
 import { AppDispatch } from "@/store/store";
-import { addBudget } from "@/store/features/userSlice";
+import { addBudget, setDefaultBudget } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
 
 function CreateBudgetPage() {
@@ -46,6 +46,8 @@ function CreateBudgetPage() {
     dispatch(createBudget(newBudgetData));
     // Call addBudget action in userSlice
     dispatch(addBudget(newBudgetData.id));
+    // Set default budget in userSlice
+    dispatch(setDefaultBudget(newBudgetData));
 
     // Redirect to demo page after creating budget
     router.push("/demo");

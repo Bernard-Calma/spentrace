@@ -37,9 +37,12 @@ export const userSlice = createSlice({
     addBudget: (state, { payload }: { payload: string }) => {
       state.budgets.push(payload);
     },
+    setDefaultBudget: (state, { payload }: { payload: Budget }) => {
+      state.defaultBudget = payload;
+    },
   },
 });
 
-export const { demoUser, addBudget } = userSlice.actions;
+export const { demoUser, addBudget, setDefaultBudget } = userSlice.actions;
 
 export default userSlice.reducer;

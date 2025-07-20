@@ -1,18 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navigation = () => {
-  const [defaultBudget, setDefaultBudget] = useState<Budget>({
-    id: "",
-    budgetName: "",
-    owner: "",
-    transactions: [],
-    collaborators: [],
-    totalIncome: 0,
-    totalExpenses: 0,
-  });
+  const { id } = useSelector((state: any) => state.user.defaultBudget);
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support
   // Registered: Dashboard, Transactions, Bills, Reports, Profile, Help & Support
@@ -87,13 +79,6 @@ const Navigation = () => {
     },
   ];
 
-  useEffect(() => {
-    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
-    if (demo.defaultBudget.id) {
-      setDefaultBudget(demo.defaultBudget);
-    }
-  }, []);
-
   return (
     <nav className="navigation flex flex-col justify-between h-full w-48">
       <div className="top-nav flex">
@@ -108,7 +93,7 @@ const Navigation = () => {
         >
           🏠 Dashboard
         </Link>
-        {defaultBudget.id && (
+        {id && (
           <Link
             href={"/transactions"}
             className="text-gray-700 hover:text-blue-500 transition-colors"

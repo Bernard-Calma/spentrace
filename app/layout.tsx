@@ -3,6 +3,7 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import "../styles/globals.scss";
 import ReduxProvider from "@/store/provider";
+import { Navigation } from "@/common";
 
 const kanit = Kanit({
   variable: "--font-kanit",

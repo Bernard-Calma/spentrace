@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
 
 const Navigation = () => {
+  const pathname = usePathname();
   const { id } = useSelector((state: any) => state.user.defaultBudget);
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support
@@ -80,9 +82,9 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between h-full w-48">
+    <nav className="navigation flex flex-col justify-between h-full w-48 ">
       <div className="top-nav flex">
-        <Link href="/demo" className="text-lg font-bold">
+        <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
           SpenTrace
         </Link>
       </div>
@@ -95,7 +97,7 @@ const Navigation = () => {
         </Link>
         {id && (
           <Link
-            href={"/transactions"}
+            href={`${pathname}/transactions`}
             className="text-gray-700 hover:text-blue-500 transition-colors"
           >
             💳 Transactions

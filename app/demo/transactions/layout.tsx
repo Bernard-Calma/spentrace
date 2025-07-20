@@ -1,4 +1,5 @@
 import { Navigation } from "@/common";
+import { TransactionHeader } from "./components";
 
 export default function RootLayout({
   children,
@@ -6,7 +7,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="demo-page w-full flex flex-1 items-center justify-start">
+    <div className="transactions-page w-full h-full flex flex-col flex-1 justify-start">
+      <TransactionHeader />
       {children}
     </div>
   );

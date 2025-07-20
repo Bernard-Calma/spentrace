@@ -26,14 +26,17 @@ const DemoDashboard = () => {
   });
 
   useEffect(() => {
+    sessionStorage.setItem("allowCreateBudget", "true");
     // Check if demo data exists in localStorage
     const getBudgetData = async () => {
       const demoData = await dispatch(loadFromLocalStorage());
       console.log("Demo data loaded:", demoData.payload);
-      if (demoData) {
+      if (demoData.payload.id) {
         setBudget(demoData.payload);
       } else {
         console.warn("No demo data found in localStorage.");
+
+        router.push("/demo/create-budget");
       }
     };
 
@@ -45,13 +48,7 @@ const DemoDashboard = () => {
     } else {
       // Fetch budget from server
     }
-    // Allow creating a budget in demo mode
-    // Redirect to create budget page if no budget exists
-    if (!budget.id) {
-      sessionStorage.setItem("allowCreateBudget", "true");
-      router.push("/demo/create-budget");
-    }
-  }, [isDemo]);
+  }, []);
   return (
     <div className="demo-dashboard h-full w-full flex flex-1 flex-col">
       <TotalBalance

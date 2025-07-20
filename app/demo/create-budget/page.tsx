@@ -45,7 +45,7 @@ function CreateBudgetPage() {
     // Call createBudget action in demo ... Might be change to budgetSlice
     dispatch(createBudget(newBudgetData));
     // Call addBudget action in userSlice
-    dispatch(addBudget(newBudgetData));
+    dispatch(addBudget(newBudgetData.id));
 
     // Redirect to demo page after creating budget
     router.push("/demo");

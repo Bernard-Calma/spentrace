@@ -51,9 +51,9 @@ const demoSlice = createSlice({
       .addCase(loadFromLocalStorage.fulfilled, (state, { payload }) => {
         // console.log("Demo state loaded:", payload);
         // Set state if payload.transactions exist.
-        if (payload.transactions) {
-          state.transactions = [...payload.transactions];
-        }
+        state.budgetName = payload.budgetName;
+        state.owner = payload.owner;
+        state.transactions = payload.transactions || [];
         state.isLoading = false;
       })
       .addCase(loadFromLocalStorage.rejected, (state, action) => {

@@ -25,25 +25,31 @@ const DemoDashboard = () => {
 
   useEffect(() => {
     // Check if demo data exists in localStorage
-    let demoData = {};
-    const checkIfDemo = async () => {
-      demoData = await dispatch(loadFromLocalStorage());
-      console.log("Demo data loaded:", demoData);
+    const getBudgetData = async () => {
+      const demoData = await dispatch(loadFromLocalStorage());
+      console.log("Demo data loaded:", demoData.payload);
+      if (demoData) {
+        setBudget(demoData.payload);
+      } else {
+        console.warn("No demo data found in localStorage.");
+      }
     };
-    checkIfDemo();
-    // if (!existingDemo) {
-    //   // If demo does not exist, create a new demo object
-    //   const demo = {
-    //     user: "demo",
-    //     budgets: [],
-    //     defaultBudget: {},
-    //   };
-    //   localStorage.setItem("demo", JSON.stringify(demo));
-    //   sessionStorage.setItem("allowCreateBudget", "true");
-    // }
-    // // Redirect to demo page
-    sessionStorage.setItem("allowCreateBudget", "true");
-  }, []);
+
+    // Check if the user is in demo mode
+    // If demo, get budgetFrom localStorage
+    // If not demo, get budget from server
+    if (isDemo) {
+      getBudgetData();
+    } else {
+      // Fetch budget from server
+    }
+    // Allow creating a budget in demo mode
+    // Redirect to create budget page if no budget exists
+    if (!budget.id) {
+      sessionStorage.setItem("allowCreateBudget", "true");
+      window.location.href = "/demo/create-budget";
+    }
+  }, [isDemo]);
   return (
     <div className="demo-dashboard h-full w-full flex flex-1 flex-col">
       <TotalBalance

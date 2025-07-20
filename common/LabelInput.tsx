@@ -42,11 +42,6 @@ const LabelInput = ({
         disabled={disabled}
         pattern={pattern}
         onChange={onChange}
-        onKeyDown={(e) => {
-          if (e.key === "+" || e.key === "-") {
-            e.preventDefault();
-          }
-        }}
         required={required}
         autoComplete="off"
         title="If disabled, login or subscribe to enable feature."

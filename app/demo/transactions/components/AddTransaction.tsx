@@ -28,20 +28,21 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     }
     // Amount should be lower than 100,000
     if (name === "amount" && parseFloat(value) > 100000) {
-      // prevent from adding + and - signs
-      if (value.includes("+") || value.includes("-")) {
-        setNewTransaction((prev) => ({
-          ...prev,
-          amount: "",
-        }));
-        return;
-      }
       const formattedValue = parseFloat(value).toFixed(2);
       setNewTransaction({
         ...newTransaction,
         amount: Math.min(parseFloat(formattedValue), 100000).toFixed(2),
       });
       return;
+    }
+
+    // Restrict number input to 6 decimal places
+    if (name === "amount" && value.includes(".")) {
+      const decimalPlaces = value.split(".")[1].length;
+      if (decimalPlaces > 4) {
+        e.preventDefault();
+        return;
+      }
     }
 
     setNewTransaction((prev) => ({
@@ -72,16 +73,29 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           &times;
         </button>
         <h2 className="text-lg font-semibold">Add Transaction</h2>
-        <LabelInput
-          type="number"
-          htmlFor="transactionAmount"
-          text="Amount"
-          pattern="[0-9]*"
-          name="amount"
-          placeholder="0"
-          value={newTransaction.amount}
-          onChange={handleChange}
-        />
+        <div className="input-amount flex items-center justify-center">
+          {" "}
+          <span className="text-5xl font-bold ">$</span>
+          <input
+            className="field-sizing-content px-2 rounded text-5xl font-bold focus:outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            type="number"
+            placeholder="0"
+            name="amount"
+            pattern="[0-9]*"
+            // no negative
+            min="0"
+            value={newTransaction.amount}
+            onKeyDown={(e) => {
+              // prevent plus or minus signs
+              if (e.key === "+" || e.key === "-") {
+                e.preventDefault();
+              }
+            }}
+            autoComplete="off"
+            onChange={handleChange}
+          />
+        </div>
+
         <div className="input-radio flex justify-center  gap-4 m-4">
           <label>
             <input

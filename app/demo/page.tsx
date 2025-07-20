@@ -6,11 +6,13 @@ import { BudgetList, Calendar, ListPreview, TotalBalance } from "@/common";
 import "./styles.scss";
 import RecentTransactions from "./RecentTransactions";
 import BudgetPreview from "./BudgetPreview";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadFromLocalStorage } from "@/store/features/demoSlice";
+import { AppDispatch } from "@/store/store";
 
 const DemoDashboard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const { isDemo } = useSelector((state: any) => state.user);
   const [budget, setBudget] = useState<Budget>({
     id: "",
     budgetName: "",
@@ -22,8 +24,13 @@ const DemoDashboard = () => {
   });
 
   useEffect(() => {
-    // Check if budget data exists in localStorage
-    // const existingDemo = localStorage.getItem("demo");
+    // Check if demo data exists in localStorage
+    let demoData = {};
+    const checkIfDemo = async () => {
+      demoData = await dispatch(loadFromLocalStorage());
+      console.log("Demo data loaded:", demoData);
+    };
+    checkIfDemo();
     // if (!existingDemo) {
     //   // If demo does not exist, create a new demo object
     //   const demo = {

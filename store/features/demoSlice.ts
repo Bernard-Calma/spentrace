@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { is } from "date-fns/locale";
 
 interface DemoState {
   budgetName: string;
@@ -9,23 +8,6 @@ interface DemoState {
   isLoading: boolean;
 }
 
-export const loadFromLocalStorage = createAsyncThunk(
-  "demo/loadFromLocalStorage",
-  async (_, thunkAPI) => {
-    if (typeof window !== "undefined") {
-      try {
-        const data = localStorage.getItem("demo-state");
-        return data ? JSON.parse(data) : undefined;
-      } catch (err) {
-        console.warn("LocalStorage load failed:", err);
-        return thunkAPI.rejectWithValue("Failed to load demo state");
-      }
-    } else {
-      return thunkAPI.rejectWithValue("LocalStorage is not available");
-    }
-  }
-);
-
 const initialState: DemoState = {
   budgetName: "",
   owner: "",
@@ -33,6 +15,29 @@ const initialState: DemoState = {
   collaborators: [],
   isLoading: false,
 };
+
+export const loadFromLocalStorage = createAsyncThunk(
+  "demo/loadFromLocalStorage",
+  (_, thunkAPI) => {
+    // console.log("Loading demo state from localStorage...");
+    if (typeof window !== "undefined") {
+      // console.log("LocalStorage is available.");
+      try {
+        const data = localStorage.getItem("demo-state");
+        // console.log("LocalStorage data:", data);
+        return data ? JSON.parse(data) : undefined;
+      } catch (err: any) {
+        // console.log("LocalStorage load failed:", err);
+        return thunkAPI.rejectWithValue(
+          err.message || "Failed to load demo state"
+        );
+      }
+    } else {
+      // console.log("LocalStorage is not available in this environment.");
+      return thunkAPI.rejectWithValue("LocalStorage is not available");
+    }
+  }
+);
 
 const demoSlice = createSlice({
   name: "demo",
@@ -44,25 +49,18 @@ const demoSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loadFromLocalStorage.fulfilled, (state, { payload }) => {
-        console.log("Demo state loaded:", payload);
+        // console.log("Demo state loaded:", payload);
         // Set state if payload.transactions exist.
-        if (payload.transactions.length !== -1) {
-          //   state.transactions = [...payload.transactions];
-          let totalIncome = 0;
-          let totalExpense = 0;
-
-          for (let transaction of [...payload.transactions]) {
-            if (transaction.type === "expense") {
-              totalExpense += transaction.amount;
-            } else {
-              totalIncome += transaction.amount;
-            }
-          }
+        if (payload.transactions) {
+          state.transactions = [...payload.transactions];
         }
         state.isLoading = false;
       })
       .addCase(loadFromLocalStorage.rejected, (state, action) => {
-        console.warn("Failed to load demo state:", action.payload);
+        console.log(
+          "Failed to load demo state:",
+          action.payload || action.error.message
+        );
         state.isLoading = false;
       });
   },

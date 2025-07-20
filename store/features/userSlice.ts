@@ -8,7 +8,7 @@ interface UserState {
   defaultBudget: Budget | {};
   subscribed: boolean;
   bills: string[]; // Bill[]
-  demo: boolean;
+  isDemo: boolean;
   isLoading: boolean;
 }
 
@@ -20,7 +20,7 @@ const initialState: UserState = {
   defaultBudget: {},
   subscribed: false,
   bills: [],
-  demo: false,
+  isDemo: false,
   isLoading: false,
 };
 
@@ -32,6 +32,7 @@ export const userSlice = createSlice({
       state.id = "demo";
       state.username = "Demo User";
       state.email = "demo@example.com";
+      state.isDemo = true;
     },
   },
 });

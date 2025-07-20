@@ -1,7 +1,7 @@
 export const loadDemoState = () => {
   try {
-    const data = localStorage.getItem("demo");
-    return data ? JSON.parse(data) : null;
+    const data = localStorage.getItem("demo-state");
+    return data ? JSON.parse(data).demo : null;
   } catch (error) {
     console.error("Error loading demo state:", error);
     return null;
@@ -10,7 +10,7 @@ export const loadDemoState = () => {
 
 export const saveDemoState = (state: any) => {
   try {
-    localStorage.setItem("demo", JSON.stringify(state));
+    localStorage.setItem("demo-state", JSON.stringify(state.demo));
   } catch (error) {
     console.error("Error saving demo state:", error);
   }
@@ -18,7 +18,7 @@ export const saveDemoState = (state: any) => {
 
 export const clearDemoState = () => {
   try {
-    localStorage.removeItem("demo");
+    localStorage.removeItem("demo-state");
   } catch (error) {
     console.error("Error clearing demo state:", error);
   }

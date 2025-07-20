@@ -16,10 +16,10 @@ const TotalBalance = ({ income, expenses }: TotalBalanceProps) => {
   return (
     <div className="total-balance py-4 bg-gray-100 w-full text-center flex items-center justify-between gap-4">
       <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
-        Total Income: <span className="income">${income.toFixed(2)}</span>
+        Total Income: <span className="income">${income}</span>
       </p>
       <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
-        Total Expenses: <span className="expense">${expenses.toFixed(2)}</span>
+        Total Expenses: <span className="expense">${expenses}</span>
       </p>
       <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
         Total Balance:{" "}

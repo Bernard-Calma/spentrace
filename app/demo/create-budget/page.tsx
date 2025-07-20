@@ -3,8 +3,15 @@ import { useEffect, useState } from "react";
 import { LabelInput } from "@/common";
 
 import "../styles.scss";
+import { useDispatch } from "react-redux";
+import { createBudget } from "@/store/features/demoSlice";
+import { AppDispatch } from "@/store/store";
+import { addBudget } from "@/store/features/userSlice";
+import { useRouter } from "next/navigation";
 
 function CreateBudgetPage() {
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [newBudget, setNewBudget] = useState({
     budgetName: "",
     owner: "",
@@ -29,25 +36,19 @@ function CreateBudgetPage() {
       return;
     }
     e.preventDefault();
-    // TODO: Will use conditional logic to handle demo and registered users
-    // Get existing budgets from localStorage
-    // Can be replaced with not just demo but actual user
-    const demo: Demo = JSON.parse(localStorage.getItem("demo") || "{}");
-    // Will be replaced with API call in the future
-    // Parse Demo data
-    // Proceed with custom logic to create a new budget
+
     const id = crypto.randomUUID(); // Generate a unique ID for the budget
     const newBudgetData: Budget = {
       ...newBudget,
       id,
     };
-    // Add new budget to Demo data
-    demo.budgets.push(newBudgetData);
-    demo.defaultBudget = newBudgetData;
-    // Save updated Demo data to localStorage
-    localStorage.setItem("demo", JSON.stringify(demo));
-    // Redirect back
-    window.location.href = "/demo";
+    // Call createBudget action in demo ... Might be change to budgetSlice
+    dispatch(createBudget(newBudgetData));
+    // Call addBudget action in userSlice
+    dispatch(addBudget(newBudgetData));
+
+    // Redirect to demo page after creating budget
+    router.push("/demo");
   };
 
   useEffect(() => {

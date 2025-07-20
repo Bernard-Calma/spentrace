@@ -14,6 +14,7 @@ interface Budget {
   collaborators: string[];
   totalIncome: number;
   totalExpenses: number;
+  isLoading?: boolean;
 }
 
 interface Demo {

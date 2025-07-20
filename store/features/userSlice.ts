@@ -4,7 +4,7 @@ interface UserState {
   id: string;
   username: string;
   email: string | null;
-  budgets: Budget[];
+  budgets: string[]; //Array of Budget Ids
   defaultBudget: Budget | {};
   subscribed: boolean;
   bills: string[]; // Bill[]
@@ -34,9 +34,12 @@ export const userSlice = createSlice({
       state.email = "demo@example.com";
       state.isDemo = true;
     },
+    addBudget: (state, { payload }: { payload: string }) => {
+      state.budgets.push(payload);
+    },
   },
 });
 
-export const { demoUser } = userSlice.actions;
+export const { demoUser, addBudget } = userSlice.actions;
 
 export default userSlice.reducer;

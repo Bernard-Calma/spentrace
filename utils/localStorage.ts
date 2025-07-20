@@ -1,7 +1,7 @@
 export const loadDemoState = () => {
   try {
     const data = localStorage.getItem("demo-state");
-    return data ? JSON.parse(data).demo : null;
+    return data ? JSON.parse(data) : null;
   } catch (error) {
     console.error("Error loading demo state:", error);
     return null;

@@ -9,8 +9,10 @@ import BudgetPreview from "./BudgetPreview";
 import { useDispatch, useSelector } from "react-redux";
 import { loadFromLocalStorage } from "@/store/features/demoSlice";
 import { AppDispatch } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const DemoDashboard = () => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { isDemo } = useSelector((state: any) => state.user);
   const [budget, setBudget] = useState<Budget>({
@@ -47,7 +49,7 @@ const DemoDashboard = () => {
     // Redirect to create budget page if no budget exists
     if (!budget.id) {
       sessionStorage.setItem("allowCreateBudget", "true");
-      window.location.href = "/demo/create-budget";
+      router.push("/demo/create-budget");
     }
   }, [isDemo]);
   return (

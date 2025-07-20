@@ -1,16 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-interface DemoState {
-  budgetName: string;
-  owner: string;
-  transactions: Transaction[] | [];
-  collaborators: string[];
-  isLoading: boolean;
-}
-
-const initialState: DemoState = {
+const initialState: Budget = {
+  id: "",
   budgetName: "",
   owner: "",
+  totalIncome: 0,
+  totalExpenses: 0,
   transactions: [],
   collaborators: [],
   isLoading: false,
@@ -42,7 +37,19 @@ export const loadFromLocalStorage = createAsyncThunk(
 const demoSlice = createSlice({
   name: "demo",
   initialState,
-  reducers: {},
+  reducers: {
+    createBudget: (state, action: PayloadAction<Budget>) => {
+      // console.log("Creating budget:", action.payload);
+      const newBudget = action.payload;
+      state.id = newBudget.id;
+      state.budgetName = newBudget.budgetName;
+      state.owner = newBudget.owner;
+      state.transactions = newBudget.transactions || [];
+      state.collaborators = newBudget.collaborators || [];
+      state.totalIncome = newBudget.totalIncome || 0;
+      state.totalExpenses = newBudget.totalExpenses || 0;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadFromLocalStorage.pending, (state) => {
@@ -66,5 +73,5 @@ const demoSlice = createSlice({
   },
 });
 
-export const {} = demoSlice.actions;
+export const { createBudget } = demoSlice.actions;
 export default demoSlice.reducer;

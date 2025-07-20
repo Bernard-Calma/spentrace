@@ -59,7 +59,7 @@ const DemoDashboard = () => {
       />
       <div className="budget-container flex flex-1 flex-col bg-white p-2 gap-4 shadow-md rounded-lg">
         <div className="dashboard-header flex flex-col lg:flex-row h-auto items-start justify-between gap-4">
-          <BudgetPreview />
+          <BudgetPreview budget={budget} />
           <Calendar itemList={budget.transactions} />
         </div>
 

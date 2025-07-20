@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BudgetPreview = () => {
-  const [budget, setBudget] = useState<Budget>({
-    id: "",
-    budgetName: "",
-    owner: "",
-    transactions: [],
-    collaborators: [],
-    totalIncome: 0,
-    totalExpenses: 0,
-  });
-
+const BudgetPreview = ({ budget }: { budget: Budget }) => {
   const [nextTransactionDue, setNextTransactionDue] =
     useState<Transaction | null>(null);
 

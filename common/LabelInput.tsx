@@ -10,6 +10,7 @@ interface LabelInputProps {
   disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  pattern?: string;
 }
 
 const LabelInput = ({
@@ -22,6 +23,7 @@ const LabelInput = ({
   disabled,
   required = false,
   onChange,
+  pattern,
 }: LabelInputProps) => {
   return (
     <div className="flex flex-col gap-2 label-input">
@@ -38,8 +40,16 @@ const LabelInput = ({
         placeholder={placeholder}
         value={value}
         disabled={disabled}
+        pattern={pattern}
         onChange={onChange}
+        onKeyDown={(e) => {
+          if (e.key === "+" || e.key === "-") {
+            e.preventDefault();
+          }
+        }}
         required={required}
+        autoComplete="off"
+        title="No plus or minus signs allowed"
       />
     </div>
   );

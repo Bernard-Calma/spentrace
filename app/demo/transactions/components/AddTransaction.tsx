@@ -73,10 +73,10 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
   };
 
   return (
-    <div className="overlay flex items-center justify-center fixed inset-0 bg-black opacity-80 z-50">
+    <div className="overlay flex items-center justify-center">
       <form
         onSubmit={handleAddTransaction}
-        className="add-transaction-modal w-96 relative bg-white p-4 rounded-lg shadow-lg"
+        className="add-transaction-form w-96 relative bg-white p-4 rounded-lg shadow-lg"
       >
         <button
           onClick={hideComponent}

@@ -13,7 +13,7 @@ export default function RootLayout({
 
   const handleSetShowAddTransaction = () => {
     setShowAddTransaction(!showAddTransaction);
-    console.log("Show Add Transaction:", !showAddTransaction);
+    // console.log("Show Add Transaction:", !showAddTransaction);
   };
   return (
     <div className="transactions-page w-full h-full flex flex-col flex-1 justify-start">

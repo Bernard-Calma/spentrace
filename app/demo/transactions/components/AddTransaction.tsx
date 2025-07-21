@@ -1,21 +1,24 @@
 "use client";
 
 import { LabelInput } from "@/common";
+import { addTransaction } from "@/store/features/demoSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
+  const dispatch = useDispatch();
   const { isDemo } = useSelector((state: any) => state.user);
   const [newTransaction, setNewTransaction] = useState({
     id: crypto.randomUUID(),
     name: "",
-    amount: "",
+    amount: 0,
     date: "",
     type: "expense",
     category: "",
     notes: "",
-  });
+  } as Transaction);
 
+  console.log("isDemo:", isDemo);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // Handle radio button change for type
@@ -31,7 +34,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
       const formattedValue = parseFloat(value).toFixed(2);
       setNewTransaction({
         ...newTransaction,
-        amount: Math.min(parseFloat(formattedValue), 100000).toFixed(2),
+        amount: Math.min(parseFloat(formattedValue), 100000),
       });
       return;
     }
@@ -58,14 +61,20 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     }));
   };
 
-  const handleAddTransaction = () => {
+  const handleAddTransaction = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // Logic to add transaction
-    console.log("Adding transaction:", newTransaction);
+    // console.log("Adding transaction:", newTransaction);
+    dispatch(addTransaction(newTransaction));
+    hideComponent(); // Hide the modal after adding transaction
   };
 
   return (
     <div className="overlay flex items-center justify-center fixed inset-0 bg-black opacity-80 z-50">
-      <div className="add-transaction-modal w-96 relative bg-white p-4 rounded-lg shadow-lg">
+      <form
+        onSubmit={handleAddTransaction}
+        className="add-transaction-modal w-96 relative bg-white p-4 rounded-lg shadow-lg"
+      >
         <button
           onClick={hideComponent}
           className="close-button absolute top-0 right-2 text-red-500 hover:text-red-800 transition-colors text-5xl cursor-pointer font-bold"
@@ -84,7 +93,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
             pattern="[0-9]*"
             // no negative
             min="0"
-            value={newTransaction.amount}
+            value={newTransaction.amount === 0 ? "" : newTransaction.amount}
             onKeyDown={(e) => {
               // prevent plus or minus signs
               if (e.key === "+" || e.key === "-") {
@@ -93,6 +102,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
             }}
             autoComplete="off"
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -126,6 +136,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           placeholder="Enter transaction name"
           value={newTransaction.name}
           onChange={handleChange}
+          required={true}
         />
 
         <LabelInput
@@ -136,9 +147,11 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           placeholder="Select date"
           value={newTransaction.date}
           onChange={handleChange}
+          required={true}
         />
 
         <LabelInput
+          disabled={isDemo} // Disable if not in demo mode
           type="text"
           htmlFor="transactionCategory"
           text="Category"
@@ -146,13 +159,12 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           placeholder="Enter category"
           value={newTransaction.category}
           onChange={handleChange}
-          disabled={!isDemo} // Disable if not in demo mode
         />
 
         <label className="font-semibold">Notes (optional)</label>
         <textarea
           className={`border border-gray-300 rounded p-2 w-full ${
-            !isDemo
+            isDemo
               ? "disabled:bg-gray-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:italic"
               : ""
           }`}
@@ -161,13 +173,13 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           value={newTransaction.notes}
           onChange={handleNotesChange}
           rows={3}
-          disabled={!isDemo} // Disable if not in demo mode
-          title="If disabled, login or subscribe to enable feature."
+          disabled={isDemo} // Disable if not in demo mode
+          //   title="If disabled, login or subscribe to enable feature."
         ></textarea>
 
         <div className="flex justify-end mt-4 gap-2">
           <button
-            onClick={handleAddTransaction}
+            type="submit"
             className="btn btn-primary bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
           >
             Add Transaction
@@ -179,7 +191,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
             Cancel
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

@@ -1,0 +1,87 @@
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+
+const TransactionItem = ({
+  transcationProp,
+}: {
+  transcationProp: Transaction;
+}) => {
+  const { id } = useSelector((state: any) => state.user);
+  const [transaction, setTransasction] = useState(transcationProp);
+  let [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleShowMenu = () => {
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu]);
+  if (transcationProp)
+    return (
+      <div
+        key={transaction.id}
+        className="transaction-item px-2 flex items-center justify-between border-b border-gray-200"
+      >
+        <p className="transaction-date flex-1">
+          <span
+            ref={menuRef}
+            onClick={handleShowMenu}
+            className="transaction-menu relative pr-2 cursor-pointer"
+          >
+            {showMenu && (
+              <div className="transaction-menu-options absolute text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
+                <p className="hover:bg-gray-200 p-2 hover:font-bold">Edit</p>
+                <p className="hover:bg-gray-200 p-1 hover:font-bold">Delete</p>
+              </div>
+            )}
+            &#8942;
+          </span>
+          {new Date(transaction.date).toLocaleDateString()}
+        </p>
+        <p className="transaction-name flex-2">{transaction.name}</p>
+        <p
+          className={`transaction-amount flex-1 ${
+            transaction.type === "expense" ? "expense" : "income"
+          }`}
+        >
+          {/* Insert comma ',' per 1000 and decimals */}$
+          {transaction.amount > 1000
+            ? transaction.amount
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            : transaction.amount.toFixed(2)}
+        </p>
+        <p className="transaction-added-by flex-1">
+          {transaction.addedBy === id
+            ? "You"
+            : transaction.addedBy || "Unknown"}
+        </p>
+        <select
+          name="status"
+          value={transaction.status}
+          className="transaction-status flex-1"
+        >
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    );
+};
+
+export default TransactionItem;

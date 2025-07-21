@@ -18,7 +18,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     notes: "",
   } as Transaction);
 
-  console.log("isDemo:", isDemo);
+  //   console.log("isDemo:", isDemo);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // Handle radio button change for type

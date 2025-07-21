@@ -6,6 +6,8 @@ interface Transaction {
   category?: string;
   type: "income" | "expense";
   notes?: string;
+  addedBy?: string; // Optional field to track who added the transaction
+  status?: "pending" | "completed" | "cancelled"; // Optional field to track transaction status
 }
 
 interface Budget {

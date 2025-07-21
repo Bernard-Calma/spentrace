@@ -28,9 +28,12 @@ const Transactions = ({
         <AddTransaction hideComponent={closeAddTransaction} />
       )}
       <div className="transaction-header w-full flex items-center justify-between p-2 font-bold text-lg rounded-tl border-black bg-gray-300">
-        <p>Due Date</p>
-        <p className="flex-1 text-center">Name</p>
-        <p className="text-right">Amount</p>
+        <p className="flex-1">Due Date</p>
+        <p className="flex-3">Name</p>
+        <p className="flex-1">Amount</p>
+
+        <p className="flex-1">Added by</p>
+        <p className="flex-1">Status</p>
       </div>
       <div className="transaction-list w-full flex flex-1 flex-col space-y-2">
         {/* Map through transactions and render them here */}

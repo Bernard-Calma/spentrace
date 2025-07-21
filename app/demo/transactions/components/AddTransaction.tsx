@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
+  const { id } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const { isDemo } = useSelector((state: any) => state.user);
   const [newTransaction, setNewTransaction] = useState({
@@ -16,6 +17,8 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     type: "expense",
     category: "",
     notes: "",
+    addedBy: id, // Automatically set to the current user's ID
+    status: "pending", // Default status can be set to 'pending'
   } as Transaction);
 
   //   console.log("isDemo:", isDemo);

@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { usePathname } from "next/navigation";
 
 const Navigation = () => {
-  const pathname = usePathname();
   const { id } = useSelector((state: any) => state.user.defaultBudget);
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support

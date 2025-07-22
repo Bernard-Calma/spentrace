@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AddTransaction, TransactionItem } from "./components";
 
@@ -12,17 +12,11 @@ const Transactions = ({
   showAddTransaction: boolean;
 }) => {
   const id = useSelector((state: any) => state.user.id);
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    ...useSelector(
-      (state: any) => state.user.defaultBudget.transactions || []
-    ).map((transaction: any) => ({
-      ...transaction,
-      amount:
-        typeof transaction.amount === "string"
-          ? parseFloat(transaction.amount)
-          : transaction.amount,
-    })),
-  ]);
+  const storeTransactions = useSelector(
+    (state: any) => state.user.defaultBudget.transactions || []
+  );
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(storeTransactions);
 
   // update transactions state
   const updateTransactions = {
@@ -32,6 +26,11 @@ const Transactions = ({
       );
     },
   };
+
+  // update transactions when storeTransactions change
+  useEffect(() => {
+    setTransactions(storeTransactions);
+  }, [storeTransactions]);
   return (
     <div className="transactions-body w-full h-full flex flex-col items-start justify-start bg-white rounded-lg shadow-md">
       {showAddTransaction && (
@@ -50,6 +49,7 @@ const Transactions = ({
         {transactions.length > 0 ? (
           transactions.map((transaction) => (
             <TransactionItem
+              key={transaction.id}
               transcationProp={transaction}
               updateTransactions={updateTransactions}
             />

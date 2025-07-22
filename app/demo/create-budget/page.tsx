@@ -17,6 +17,8 @@ function CreateBudgetPage() {
     owner: "",
     collaborators: [],
     transactions: [],
+    history: [],
+    id: crypto.randomUUID(), // Generate a unique ID for the budget
     totalIncome: 0,
     totalExpenses: 0,
   });

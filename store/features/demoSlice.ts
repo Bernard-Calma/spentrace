@@ -88,7 +88,15 @@ const demoSlice = createSlice({
         // Set state if payload.transactions exist.
         state.budgetName = payload.budgetName;
         state.owner = payload.owner;
-        state.transactions = payload.transactions || [];
+        // Change all transaction amounts to numbers if they are strings
+        state.transactions =
+          payload.transactions.map((transaction: any) => ({
+            ...transaction,
+            amount:
+              typeof transaction.amount === "string"
+                ? parseFloat(transaction.amount)
+                : transaction.amount,
+          })) || [];
         state.isLoading = false;
       })
       .addCase(loadFromLocalStorage.rejected, (state, action) => {

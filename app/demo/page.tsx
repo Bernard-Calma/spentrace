@@ -22,6 +22,7 @@ const DemoDashboard = () => {
     owner: "",
     transactions: [],
     collaborators: [],
+    history: [],
     totalIncome: 0,
     totalExpenses: 0,
   });

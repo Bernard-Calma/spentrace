@@ -62,10 +62,7 @@ const demoSlice = createSlice({
     deleteTransaction: (state, action: PayloadAction<string>) => {
       // console.log("Deleting transaction with id:", action.payload);
       const transactionId = action.payload;
-      state.transactions = state.transactions.filter(
-        (transaction) => transaction.id !== transactionId
-      );
-      // Update totalIncome and totalExpenses after deletion
+      // Update totalIncome and totalExpenses before deletion
       const deletedTransaction = state.transactions.find(
         (transaction) => transaction.id === transactionId
       );
@@ -76,6 +73,9 @@ const demoSlice = createSlice({
           state.totalIncome -= deletedTransaction.amount;
         }
       }
+      state.transactions = state.transactions.filter(
+        (transaction) => transaction.id !== transactionId
+      );
     },
   },
   extraReducers: (builder) => {

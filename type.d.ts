@@ -15,6 +15,7 @@ interface Budget {
   budgetName: string;
   owner: string;
   transactions: Transaction[];
+  history: Transaction[]; // History of transactions for the budget
   collaborators: string[];
   totalIncome: number;
   totalExpenses: number;

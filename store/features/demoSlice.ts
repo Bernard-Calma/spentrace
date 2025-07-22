@@ -8,6 +8,7 @@ const initialState: Budget = {
   totalIncome: 0,
   totalExpenses: 0,
   transactions: [],
+  history: [],
   collaborators: [],
   isLoading: false,
 };

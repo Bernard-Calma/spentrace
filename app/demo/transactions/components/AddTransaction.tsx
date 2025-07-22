@@ -67,7 +67,12 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
   const handleAddTransaction = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Logic to add transaction
+    // Convert amount to number if it's a string
+    if (typeof newTransaction.amount === "string") {
+      newTransaction.amount = parseFloat(newTransaction.amount);
+    }
     // console.log("Adding transaction:", newTransaction);
+
     dispatch(addTransaction(newTransaction));
     hideComponent(); // Hide the modal after adding transaction
   };

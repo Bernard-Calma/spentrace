@@ -32,7 +32,7 @@ const DemoDashboard = () => {
     // Check if demo data exists in localStorage
     const getBudgetData = async () => {
       const demoData = await dispatch(loadFromLocalStorage());
-      console.log("Demo data loaded:", demoData.payload);
+      // console.log("Demo data loaded:", demoData.payload);
       if (demoData.payload.id) {
         setBudget(demoData.payload);
         dispatch(setDefaultBudget(demoData.payload));

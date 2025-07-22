@@ -18,15 +18,6 @@ const Transactions = ({
   const [transactions, setTransactions] =
     useState<Transaction[]>(storeTransactions);
 
-  // update transactions state
-  const updateTransactions = {
-    delete: (id: string) => {
-      setTransactions((prev) =>
-        prev.filter((transaction) => transaction.id !== id)
-      );
-    },
-  };
-
   // update transactions when storeTransactions change
   useEffect(() => {
     setTransactions(storeTransactions);
@@ -51,7 +42,6 @@ const Transactions = ({
             <TransactionItem
               key={transaction.id}
               transcationProp={transaction}
-              updateTransactions={updateTransactions}
             />
           ))
         ) : (

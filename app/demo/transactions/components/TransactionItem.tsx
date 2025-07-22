@@ -6,12 +6,8 @@ type newStatus = "pending" | "completed" | "cancelled";
 
 const TransactionItem = ({
   transcationProp,
-  updateTransactions,
 }: {
   transcationProp: Transaction;
-  updateTransactions: {
-    delete: (id: string) => void;
-  };
 }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.user);
@@ -25,10 +21,8 @@ const TransactionItem = ({
 
   const handleDeleteTransaction = () => {
     // console.log("Deleting transaction:", transaction.id);
-    // Update the transaction state to remove the deleted transaction
     // Dispatch delete action here
     dispatch(deleteTransaction(transaction.id));
-    updateTransactions.delete(transaction.id);
     setShowMenu(false);
   };
 
@@ -64,27 +58,29 @@ const TransactionItem = ({
         key={transaction.id}
         className="transaction-item px-2 flex items-center justify-between border-b border-gray-200"
       >
-        <p className="transaction-date flex-1">
+        <div className="transaction-date flex-1 flex">
           <span
             ref={menuRef}
             onClick={handleShowMenu}
             className="transaction-menu relative pr-2 cursor-pointer"
           >
             {showMenu && (
-              <div className="transaction-menu-options absolute text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
-                <p className="hover:bg-gray-200 p-2 hover:font-bold">Edit</p>
-                <p
+              <div className="transaction-menu-options absolute flex flex-col text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
+                <span className="hover:bg-gray-200 p-2 hover:font-bold">
+                  Edit
+                </span>
+                <span
                   className="hover:bg-gray-200 p-1 hover:font-bold"
                   onClick={handleDeleteTransaction}
                 >
                   Delete
-                </p>
+                </span>
               </div>
             )}
             &#8942;
           </span>
-          {new Date(transaction.date).toLocaleDateString()}
-        </p>
+          <p>{new Date(transaction.date).toLocaleDateString()}</p>
+        </div>
         <p className="transaction-name flex-2">{transaction.name}</p>
         <p
           className={`transaction-amount flex-1 ${

@@ -31,7 +31,6 @@ const DemoDashboard = () => {
           totalExpenses: 0,
         }
   );
-
   useEffect(() => {
     if (!budget.id) {
       sessionStorage.setItem("allowCreateBudget", "true");
@@ -52,7 +51,10 @@ const DemoDashboard = () => {
           <BudgetPreview budget={budget} />
           <Calendar itemList={budget.transactions} />
         </div>
-        <RecentTransactions />
+        <RecentTransactions
+          transactions={budget.transactions}
+          budgetName={budget.budgetName}
+        />
         <BudgetList />
       </div>
     </div>

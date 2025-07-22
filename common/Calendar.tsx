@@ -1,10 +1,16 @@
 "use client";
-import { useState } from "react";
 
-const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+import { useEffect, useState } from "react";
 
-const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
+  console.log("Calendar component rendered with itemListProp:", itemListProp);
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const today = new Date();
+  const [currentDate, setCurrentDate] = useState(
+    new Date(today.getFullYear(), today.getMonth(), 1)
+  );
+
+  const [itemList, setItemList] = useState(itemListProp || []);
 
   const daysInMonth = new Date(
     currentDate.getFullYear(),
@@ -18,6 +24,11 @@ const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
   ).getDay();
 
   const getDayExpenses = (day: number) => {
+    console.log(
+      new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+        .toISOString()
+        .split("T")[0]
+    );
     const dateStr = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -26,7 +37,7 @@ const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
       .toISOString()
       .split("T")[0];
     return itemList
-      .filter((t) => t.date === dateStr && t.amount < 0)
+      .filter((t) => t.date === dateStr && t.type === "expense")
       .reduce((sum, t) => sum + Math.abs(t.amount), 0);
   };
 
@@ -43,13 +54,12 @@ const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
   };
 
   const renderCalendar = () => {
-    const today = new Date();
     const cells = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
       cells.push(
         <div
           key={`empty-${i}`}
-          className="calendar-day empty bg-gray-200 shadow"
+          className="calendar-day empty bg-gray-100 shadow-sm rounded-lg"
         ></div>
       );
     }
@@ -60,25 +70,26 @@ const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
         currentDate.getFullYear() === today.getFullYear();
       const totalExpenses = getDayExpenses(day);
       cells.push(
-        <div key={day} className={"calendar-day bg-white shadow "}>
-          <div
-            className={`day-number px-2 ${isToday ? " today font-bold " : ""}`}
-          >
-            {day}
-          </div>
+        <div
+          key={day}
+          className={
+            "calendar-day flex flex-col text-sm bg-white shadow-sm rounded-lg p-2"
+          }
+        >
+          <div className={`day-number ${isToday ? " today" : ""}`}>{day}</div>
           {totalExpenses > 999 ? (
             <div
-              className={`day-total flex w-full justify-end ${
+              className={`day-total ${
                 totalExpenses > 0 ? "expense" : ""
-              }`}
+              } text-right`}
             >
               ${(totalExpenses / 1000).toFixed(1)}K
             </div>
           ) : (
             <div
-              className={`day-total flex w-full justify-end ${
+              className={`day-total ${
                 totalExpenses > 0 ? "expense" : ""
-              }`}
+              } text-right`}
             >
               ${totalExpenses.toFixed(0)}
             </div>
@@ -91,47 +102,40 @@ const Calendar = ({ itemList }: { itemList: Transaction[] }) => {
       cells.push(
         <div
           key={`pad-${cells.length}`}
-          className="calendar-day empty bg-gray-200"
+          className="calendar-day empty bg-gray-100 shadow-sm rounded-lg"
         ></div>
       );
     }
     return cells;
   };
 
-  const renderWeekDays = () => {
-    return weekDays.map((day) => (
-      <div key={day} className="day text-center font-semibold">
-        {day}
-      </div>
-    ));
-  };
+  // Update itemList when prop changes
+  useEffect(() => {
+    setItemList(itemListProp || []);
+  }, [itemListProp]);
 
   return (
-    <div className="calendar-container flex-1  w-full h-full bg-gray-100 rounded-lg p-4 shadow">
-      <div className="calendar-header flex justify-between items-center mb-4">
-        <button
-          className="text-blue-500 hover:underline"
-          onClick={handlePrevMonth}
-        >
-          Previous Month
-        </button>
-        <div className="month-year text-gray-700">{`${currentDate.toLocaleString(
-          "default",
-          { month: "long" }
-        )} ${currentDate.getFullYear()}`}</div>
-        <button
-          className="text-blue-500 hover:underline"
-          onClick={handleNextMonth}
-        >
-          Next Month
-        </button>
+    <div className="summary calendar-box flex flex-col flex-1 bg-white rounded-lg shadow-md p-2">
+      <div className="calendar-header flex items-center justify-around mb-4">
+        <button onClick={handlePrevMonth}>&lt;</button>
+        <h2 className="subtitle text-lg font-semibold">
+          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentDate.getFullYear()}
+        </h2>
+        <button onClick={handleNextMonth}>&gt;</button>
       </div>
-      <div className="calendar ">
-        <div className="week-days grid grid-cols-7 gap-1">
-          {renderWeekDays()}
+      <div className="summary-content calendar flex flex-col w-1/2 m-auto">
+        <div className="calendar-weekdays grid grid-cols-7 gap-2">
+          {weekdays.map((day) => (
+            <div
+              key={day}
+              className="calendar-weekday text-center font-semibold"
+            >
+              {day}
+            </div>
+          ))}
         </div>
-        <div className="calendar-grid grid grid-cols-7 gap-1 text-sm">
-          {/* Render calendar days here */}
+        <div className="calendar-grid grid grid-cols-7 gap-2">
           {renderCalendar()}
         </div>
       </div>

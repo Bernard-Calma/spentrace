@@ -1,9 +1,24 @@
+"use client";
+
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 
 const BudgetPreview = ({ budget }: { budget: Budget }) => {
-  const nextTransactionDue = budget.transactions.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  )[0];
+  const [nextTransactionDue, setNextTransactionDue] =
+    useState<Transaction | null>(null);
+
+  useEffect(() => {
+    // Find the next transaction due date
+    const upcomingTransactions = budget.transactions.filter(
+      (transaction) => new Date(transaction.date) > new Date()
+    );
+    if (upcomingTransactions.length > 0) {
+      const sortedTransactions = upcomingTransactions.sort((a, b) =>
+        new Date(a.date) < new Date(b.date) ? -1 : 1
+      );
+      setNextTransactionDue(sortedTransactions[0]);
+    }
+  }, [budget.transactions]);
 
   return (
     <div className="budget-preview relative w-full h-full text-xs flex flex-1 flex-col bg-gray-100 shadow-md rounded-lg p-4">

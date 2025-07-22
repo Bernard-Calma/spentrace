@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AddTransaction, TransactionItem } from "./components";
 
@@ -41,7 +41,7 @@ const Transactions = ({
           transactions.map((transaction) => (
             <TransactionItem
               key={transaction.id}
-              transcationProp={transaction}
+              transactionProp={transaction}
             />
           ))
         ) : (

@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 type newStatus = "pending" | "completed" | "cancelled";
 
 const TransactionItem = ({
-  transcationProp,
+  transactionProp,
 }: {
-  transcationProp: Transaction;
+  transactionProp: Transaction;
 }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.user);
-  const [transaction, setTransasction] = useState(transcationProp);
+  const [transaction, setTransaction] = useState(transactionProp);
   let [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ const TransactionItem = ({
     } else if (e.target.value === "cancelled") {
       newStatus = "cancelled";
     }
-    setTransasction({ ...transaction, status: newStatus });
+    setTransaction({ ...transaction, status: newStatus });
   };
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const TransactionItem = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showMenu]);
-  if (transcationProp)
+  if (transactionProp)
     return (
       <div
         key={transaction.id}

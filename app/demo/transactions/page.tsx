@@ -12,8 +12,8 @@ const Transactions = ({
   showAddTransaction: boolean;
 }) => {
   const id = useSelector((state: any) => state.user.id);
-  const storeTransactions = useSelector(
-    (state: any) => state.user.defaultBudget.transactions || []
+  const storeTransactions: Transaction[] = useSelector(
+    (state: any) => state.demo.transactions || []
   );
   const [transactions, setTransactions] =
     useState<Transaction[]>(storeTransactions);

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { add } from "date-fns";
 
 const initialState: Budget = {
   id: "",
@@ -60,6 +59,24 @@ const demoSlice = createSlice({
       state.totalIncome +=
         newTransaction.type === "income" ? newTransaction.amount : 0;
     },
+    deleteTransaction: (state, action: PayloadAction<string>) => {
+      // console.log("Deleting transaction with id:", action.payload);
+      const transactionId = action.payload;
+      state.transactions = state.transactions.filter(
+        (transaction) => transaction.id !== transactionId
+      );
+      // Update totalIncome and totalExpenses after deletion
+      const deletedTransaction = state.transactions.find(
+        (transaction) => transaction.id === transactionId
+      );
+      if (deletedTransaction) {
+        if (deletedTransaction.type === "expense") {
+          state.totalExpenses -= deletedTransaction.amount;
+        } else {
+          state.totalIncome -= deletedTransaction.amount;
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,5 +101,6 @@ const demoSlice = createSlice({
   },
 });
 
-export const { createBudget, addTransaction } = demoSlice.actions;
+export const { createBudget, addTransaction, deleteTransaction } =
+  demoSlice.actions;
 export default demoSlice.reducer;

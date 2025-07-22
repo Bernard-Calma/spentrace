@@ -12,8 +12,8 @@ const Transactions = ({
   showAddTransaction: boolean;
 }) => {
   const id = useSelector((state: any) => state.user.id);
-  const [transactions, setTransactions] = useState<Transaction[]>(
-    useSelector(
+  const [transactions, setTransactions] = useState<Transaction[]>([
+    ...useSelector(
       (state: any) => state.user.defaultBudget.transactions || []
     ).map((transaction: any) => ({
       ...transaction,
@@ -21,8 +21,17 @@ const Transactions = ({
         typeof transaction.amount === "string"
           ? parseFloat(transaction.amount)
           : transaction.amount,
-    }))
-  );
+    })),
+  ]);
+
+  // update transactions state
+  const updateTransactions = {
+    delete: (id: string) => {
+      setTransactions((prev) =>
+        prev.filter((transaction) => transaction.id !== id)
+      );
+    },
+  };
   return (
     <div className="transactions-body w-full h-full flex flex-col items-start justify-start bg-white rounded-lg shadow-md">
       {showAddTransaction && (
@@ -40,7 +49,10 @@ const Transactions = ({
         {/* Map through transactions and render them here */}
         {transactions.length > 0 ? (
           transactions.map((transaction) => (
-            <TransactionItem transcationProp={transaction} />
+            <TransactionItem
+              transcationProp={transaction}
+              updateTransactions={updateTransactions}
+            />
           ))
         ) : (
           <p className="text-gray-500">No transactions found.</p>

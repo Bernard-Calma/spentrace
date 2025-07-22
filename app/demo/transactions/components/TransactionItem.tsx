@@ -1,11 +1,17 @@
+import { deleteTransaction } from "@/store/features/demoSlice";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const TransactionItem = ({
   transcationProp,
+  updateTransactions,
 }: {
   transcationProp: Transaction;
+  updateTransactions: {
+    delete: (id: string) => void;
+  };
 }) => {
+  const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.user);
   const [transaction, setTransasction] = useState(transcationProp);
   let [showMenu, setShowMenu] = useState(false);
@@ -13,6 +19,15 @@ const TransactionItem = ({
 
   const handleShowMenu = () => {
     setShowMenu(true);
+  };
+
+  const handleDeleteTransaction = () => {
+    console.log("Deleting transaction:", transaction.id);
+    // Update the transaction state to remove the deleted transaction
+    // Dispatch delete action here
+    dispatch(deleteTransaction(transaction.id));
+    updateTransactions.delete(transaction.id);
+    setShowMenu(false);
   };
 
   useEffect(() => {
@@ -45,7 +60,12 @@ const TransactionItem = ({
             {showMenu && (
               <div className="transaction-menu-options absolute text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
                 <p className="hover:bg-gray-200 p-2 hover:font-bold">Edit</p>
-                <p className="hover:bg-gray-200 p-1 hover:font-bold">Delete</p>
+                <p
+                  className="hover:bg-gray-200 p-1 hover:font-bold"
+                  onClick={handleDeleteTransaction}
+                >
+                  Delete
+                </p>
               </div>
             )}
             &#8942;

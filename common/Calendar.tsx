@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
 
 const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
@@ -119,8 +120,7 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
       <div className="calendar-header flex items-center justify-around mb-4">
         <button onClick={handlePrevMonth}>&lt;</button>
         <h2 className="subtitle text-lg font-semibold">
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentDate.getFullYear()}
+          {format(currentDate, "MMMM yyyy")}
         </h2>
         <button onClick={handleNextMonth}>&gt;</button>
       </div>

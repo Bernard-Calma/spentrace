@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 const BudgetList = () => {
   const { storeUser, isDemo } = useSelector((state: any) => state.user);
-  const { demo } = useSelector((state: any) => state);
+  const demo = useSelector((state: any) => state.demo);
   return (
     <div className="budget-list text-sm flex w-full flex-col shadow-md rounded-lg pb-4">
       <div className="budget-list_header p-2 flex justify-between items-center border-b border-gray-300 bg-gray-700">

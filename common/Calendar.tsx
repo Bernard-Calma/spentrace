@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { useEffect, useState } from "react";
 
 const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
-  console.log("Calendar component rendered with itemListProp:", itemListProp);
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(
@@ -25,11 +24,6 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
   ).getDay();
 
   const getDayExpenses = (day: number) => {
-    console.log(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-        .toISOString()
-        .split("T")[0]
-    );
     const dateStr = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),

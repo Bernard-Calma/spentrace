@@ -25,8 +25,8 @@ const RecentTransactions = ({
         <li className="font-bold flex-1 text-center">Date</li>
         <li className="font-bold flex-1 text-center">Name</li>
         <li className="font-bold flex-1 text-center">Amount</li>
-        <li className="font-bold flex-1 text-center">Type</li>
         <li className="font-bold flex-1 text-center">Budget</li>
+        <li className="font-bold flex-1 text-center">Status</li>
       </ul>
       <ul className="transactions-list_body flex flex-col w-full bg-white rounded-lg shadow">
         {/* Example static data for demonstration */}
@@ -54,11 +54,16 @@ const RecentTransactions = ({
                 {transaction.type === "expense" ? "-" : "+"}$
                 {transaction.amount.toFixed(2)}
               </span>
-              <span className="flex-1 text-center">
-                {transaction.type.charAt(0).toUpperCase() +
-                  transaction.type.slice(1)}
-              </span>
               <span className="flex-1 text-center">{budgetName}</span>
+              <span
+                className={`flex-1 text-center ${
+                  transaction.status === "paid"
+                    ? "text-green-500"
+                    : "text-yellow-500"
+                }`}
+              >
+                {transaction.status === "paid" ? "Paid" : "Pending"}
+              </span>
             </li>
           ))
         )}

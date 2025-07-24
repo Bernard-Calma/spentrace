@@ -8,7 +8,7 @@ interface Transaction {
   assignedTo: string; // Optional field to assign the transaction to a specific user
   notes?: string;
   addedBy?: string; // Optional field to track who added the transaction
-  status?: "pending" | "completed" | "cancelled"; // Optional field to track transaction status
+  status?: "pending" | "sent" | "paid" | "cancelled"; // Optional field to track transaction status
   payTo?: string; // Optional field to specify who the transaction was paid to
 }
 

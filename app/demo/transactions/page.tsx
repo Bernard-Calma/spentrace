@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { AddTransaction, TransactionItem } from "./components";
+import { TransactionItem } from "./components";
 
 const Transactions = ({
   closeAddTransaction,
@@ -24,9 +24,6 @@ const Transactions = ({
   }, [storeTransactions]);
   return (
     <div className="transactions-body w-full h-full flex flex-col items-start justify-start bg-white rounded-lg shadow-md">
-      {showAddTransaction && (
-        <AddTransaction hideComponent={closeAddTransaction} />
-      )}
       <div className="transaction-header w-full flex items-center justify-between p-2 font-bold text-sm rounded-tl border-black bg-gray-300">
         <p className="flex-1">Status</p>
         <p className="flex-1">Due Date</p>

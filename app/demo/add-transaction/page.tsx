@@ -32,10 +32,10 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     const { name, value } = e.target;
     // Handle radio button change for type
     if (name === "type") {
-      setNewTransaction((prev) => ({
-        ...prev,
+      setNewTransaction({
+        ...newTransaction,
         type: value as "income" | "expense",
-      }));
+      });
       return;
     }
     // Amount should be lower than 100,000
@@ -80,7 +80,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     // console.log("Adding transaction:", newTransaction);
 
     dispatch(addTransaction(newTransaction));
-    hideComponent(); // Hide the modal after adding transaction
+    router.back();
   };
 
   return (
@@ -153,6 +153,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
                 : ""
             }`}
             disabled={isDemo} // Disable if not in demo mode
+            required
           >
             <option value={id}>You</option>
             {collaborators.map((user: string) => (

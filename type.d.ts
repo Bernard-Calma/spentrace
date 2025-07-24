@@ -5,9 +5,11 @@ interface Transaction {
   date: string;
   category?: string;
   type: "income" | "expense";
+  assignedTo: string; // Optional field to assign the transaction to a specific user
   notes?: string;
   addedBy?: string; // Optional field to track who added the transaction
   status?: "pending" | "completed" | "cancelled"; // Optional field to track transaction status
+  paidTo?: string; // Optional field to specify who the transaction was paid to
 }
 
 interface Budget {

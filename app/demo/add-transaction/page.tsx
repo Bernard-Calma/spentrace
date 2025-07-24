@@ -230,7 +230,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
             Add Transaction
           </button>
           <button
-            onClick={hideComponent}
+            onClick={() => router.back()}
             className="btn btn-secondary mr-2 bg-gray-300 text-gray-800 rounded p-2 hover:bg-gray-400 transition-colors"
           >
             Cancel

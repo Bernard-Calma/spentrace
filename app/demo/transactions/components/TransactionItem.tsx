@@ -11,6 +11,7 @@ const TransactionItem = ({
 }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.user);
+  const { collaborators } = useSelector((state: any) => state.demo);
   const [transaction, setTransaction] = useState(transactionProp);
   let [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,7 @@ const TransactionItem = ({
     return (
       <div
         key={transaction.id}
-        className="transaction-item px-2 flex items-center justify-between border-b border-gray-200"
+        className="transaction-item px-2 flex items-center justify-between border-b border-gray-200 text-sm hover:bg-gray-50"
       >
         <div className="transaction-date flex-1 flex">
           <span
@@ -79,8 +80,21 @@ const TransactionItem = ({
             )}
             &#8942;
           </span>
-          <p>{new Date(transaction.date).toLocaleDateString()}</p>
+          <select
+            name="status"
+            value={transaction.status}
+            className="transaction-status flex-1"
+            onChange={handleChangeStatus}
+          >
+            <option value="pending">Pending</option>
+            <option value="completed">Sent</option>
+            <option value="completed">Paid</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
         </div>
+        <p className="transaction-date flex-1">
+          {new Date(transaction.date).toLocaleDateString()}
+        </p>
         <p className="transaction-name flex-2">{transaction.name}</p>
         <p
           className={`transaction-amount flex-1 ${
@@ -95,21 +109,29 @@ const TransactionItem = ({
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             : transaction.amount.toFixed(2)}
         </p>
+
         <p className="transaction-added-by flex-1">
           {transaction.addedBy === id
             ? "You"
             : transaction.addedBy || "Unknown"}
         </p>
         <select
-          name="status"
-          value={transaction.status}
-          className="transaction-status flex-1"
+          name="assignedTo"
+          value={transaction.assignedTo}
+          className="transaction-assigned-to flex-1"
           onChange={handleChangeStatus}
         >
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
+          <option value={id}>You</option>
+          {/* Map through collaborators to show options */}
+          {collaborators.map((user: string) => (
+            <option key={user} value={user}>
+              {user}
+            </option>
+          ))}
         </select>
+        <p className="transaction-pay-to flex-1">
+          {transaction.payTo || "Unknown"}
+        </p>
       </div>
     );
 };

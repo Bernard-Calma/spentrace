@@ -2,7 +2,7 @@ import { deleteTransaction } from "@/store/features/demoSlice";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-type newStatus = "pending" | "completed" | "cancelled";
+type newStatus = "pending" | "sent" | "paid" | "cancelled";
 
 const TransactionItem = ({
   transactionProp,
@@ -30,8 +30,8 @@ const TransactionItem = ({
   const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let newStatus: newStatus = "pending";
     // Update the transaction status
-    if (e.target.value === "completed") {
-      newStatus = "completed";
+    if (e.target.value === "sent") {
+      newStatus = "sent";
     } else if (e.target.value === "cancelled") {
       newStatus = "cancelled";
     }
@@ -129,8 +129,8 @@ const TransactionItem = ({
           onChange={handleChangeStatus}
         >
           <option value="pending">Pending</option>
-          <option value="completed">Sent</option>
-          <option value="completed">Paid</option>
+          <option value="sent">Sent</option>
+          <option value="paid">Paid</option>
           <option value="cancelled">Cancelled</option>
         </select>
       </div>

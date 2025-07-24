@@ -80,21 +80,11 @@ const TransactionItem = ({
             )}
             &#8942;
           </span>
-          <select
-            name="status"
-            value={transaction.status}
-            className="transaction-status flex-1"
-            onChange={handleChangeStatus}
-          >
-            <option value="pending">Pending</option>
-            <option value="completed">Sent</option>
-            <option value="completed">Paid</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
+          <p className="transaction-date flex-1">
+            {new Date(transaction.date).toLocaleDateString()}
+          </p>
         </div>
-        <p className="transaction-date flex-1">
-          {new Date(transaction.date).toLocaleDateString()}
-        </p>
+
         <p className="transaction-name flex-2">{transaction.name}</p>
         <p
           className={`transaction-amount flex-1 ${
@@ -115,6 +105,9 @@ const TransactionItem = ({
             ? "You"
             : transaction.addedBy || "Unknown"}
         </p>
+        <p className="transaction-pay-to flex-1">
+          {transaction.payTo || "Unknown"}
+        </p>
         <select
           name="assignedTo"
           value={transaction.assignedTo}
@@ -129,9 +122,17 @@ const TransactionItem = ({
             </option>
           ))}
         </select>
-        <p className="transaction-pay-to flex-1">
-          {transaction.payTo || "Unknown"}
-        </p>
+        <select
+          name="status"
+          value={transaction.status}
+          className="transaction-status flex-1"
+          onChange={handleChangeStatus}
+        >
+          <option value="pending">Pending</option>
+          <option value="completed">Sent</option>
+          <option value="completed">Paid</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
       </div>
     );
 };

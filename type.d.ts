@@ -9,7 +9,7 @@ interface Transaction {
   notes?: string;
   addedBy?: string; // Optional field to track who added the transaction
   status?: "pending" | "completed" | "cancelled"; // Optional field to track transaction status
-  paidTo?: string; // Optional field to specify who the transaction was paid to
+  payTo?: string; // Optional field to specify who the transaction was paid to
 }
 
 interface Budget {

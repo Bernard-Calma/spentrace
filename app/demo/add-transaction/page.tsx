@@ -186,6 +186,16 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
         />
 
         <LabelInput
+          type="text"
+          htmlFor="payTo"
+          text="Pay To"
+          name="payTo"
+          placeholder="Enter recipient"
+          value={newTransaction.payTo}
+          onChange={handleChange}
+        />
+
+        <LabelInput
           disabled={isDemo} // Disable if not in demo mode
           type="text"
           htmlFor="transactionCategory"

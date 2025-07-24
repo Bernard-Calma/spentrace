@@ -78,7 +78,7 @@ const demoSlice = createSlice({
       );
     },
     editTransaction: (state, action: PayloadAction<Transaction>) => {
-      // console.log("Editing transaction:", action.payload
+      // console.log("Editing transaction:", action.payload);
       const updatedTransaction = action.payload;
       state.transactions = state.transactions.map((transaction) =>
         transaction.id === updatedTransaction.id
@@ -121,6 +121,10 @@ const demoSlice = createSlice({
   },
 });
 
-export const { createBudget, addTransaction, deleteTransaction } =
-  demoSlice.actions;
+export const {
+  createBudget,
+  addTransaction,
+  deleteTransaction,
+  editTransaction,
+} = demoSlice.actions;
 export default demoSlice.reducer;

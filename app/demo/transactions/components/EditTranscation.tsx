@@ -1,7 +1,7 @@
 "use client";
 
 import { LabelInput } from "@/common";
-import { addTransaction } from "@/store/features/demoSlice";
+import { addTransaction, editTransaction } from "@/store/features/demoSlice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,6 @@ const EditTransaction = ({
   transaction: Transaction;
   handleToggleTransaction: (transaction: Transaction | null) => void;
 }) => {
-  console.log(
-    "EditTransaction component rendered with transaction:",
-    transaction
-  );
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -69,27 +65,27 @@ const EditTransaction = ({
     }));
   };
 
-  const handleAddTransaction = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditTransaction = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Logic to add transaction
+    // Logic to edit transaction
     // Convert amount to number if it's a string
     if (typeof newTransaction.amount === "string") {
       newTransaction.amount = parseFloat(newTransaction.amount);
     }
-    // console.log("Adding transaction:", newTransaction);
+    // console.log("Editing transaction:", newTransaction);
 
-    dispatch(addTransaction(newTransaction));
-    router.back();
+    dispatch(editTransaction(newTransaction));
+    handleToggleTransaction(null); // Close the form after editing
   };
 
   return (
     <div className="overlay flex items-center justify-center ">
       <form
-        onSubmit={handleAddTransaction}
+        onSubmit={handleEditTransaction}
         className="add-transaction-form w-96 relative bg-white p-4 rounded-lg shadow-lg"
       >
         <button
-          onClick={() => handleToggleTransaction()}
+          onClick={() => handleToggleTransaction(null)}
           className="close-button absolute top-0 right-2 text-red-500 hover:text-red-800 transition-colors text-5xl cursor-pointer font-bold"
         >
           &times;
@@ -151,6 +147,7 @@ const EditTransaction = ({
                 ? "disabled:bg-gray-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:italic font-semibold"
                 : ""
             }`}
+            value={newTransaction.assignedTo}
             disabled={isDemo} // Disable if not in demo mode
             required
           >
@@ -227,7 +224,7 @@ const EditTransaction = ({
             type="submit"
             className="btn btn-primary bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
           >
-            Add Transaction
+            Save
           </button>
           <button
             onClick={() => router.back()}

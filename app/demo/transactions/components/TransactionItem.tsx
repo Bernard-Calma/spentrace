@@ -1,4 +1,5 @@
 import { deleteTransaction } from "@/store/features/demoSlice";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,10 +7,13 @@ type newStatus = "pending" | "sent" | "paid" | "cancelled";
 
 const TransactionItem = ({
   transactionProp,
+  handleToggleTransaction,
 }: {
   transactionProp: Transaction;
+  handleToggleTransaction: (transaction: Transaction) => void;
 }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { id } = useSelector((state: any) => state.user);
   const { collaborators } = useSelector((state: any) => state.demo);
   const [transaction, setTransaction] = useState(transactionProp);
@@ -67,7 +71,12 @@ const TransactionItem = ({
           >
             {showMenu && (
               <div className="transaction-menu-options absolute flex flex-col text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
-                <span className="hover:bg-gray-200 p-2 hover:font-bold">
+                <span
+                  className="hover:bg-gray-200 p-2 hover:font-bold"
+                  onClick={() => {
+                    handleToggleTransaction(transaction);
+                  }}
+                >
                   Edit
                 </span>
                 <span

@@ -1,10 +1,6 @@
 import { useRouter } from "next/navigation";
 
-const TransactionHeader = ({
-  showAddTransaction,
-}: {
-  showAddTransaction: () => void;
-}) => {
+const TransactionHeader = () => {
   const router = useRouter();
   return (
     <div className="transaction-header flex items-center justify-between p-4 bg-gray-100">

@@ -77,6 +77,18 @@ const demoSlice = createSlice({
         (transaction) => transaction.id !== transactionId
       );
     },
+    editTransaction: (state, action: PayloadAction<Transaction>) => {
+      // console.log("Editing transaction:", action.payload
+      const updatedTransaction = action.payload;
+      state.transactions = state.transactions.map((transaction) =>
+        transaction.id === updatedTransaction.id
+          ? {
+              ...transaction,
+              ...updatedTransaction,
+            }
+          : transaction
+      );
+    },
   },
   extraReducers: (builder) => {
     builder

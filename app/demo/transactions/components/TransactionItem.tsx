@@ -1,5 +1,5 @@
 import { deleteTransaction } from "@/store/features/demoSlice";
-import { useRouter } from "next/navigation";
+import { RootState } from "@/store/store";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,9 +13,8 @@ const TransactionItem = ({
   handleToggleTransaction: (transaction: Transaction) => void;
 }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const { id } = useSelector((state: any) => state.user);
-  const { collaborators } = useSelector((state: any) => state.demo);
+  const { id } = useSelector((state: RootState) => state.user);
+  const { collaborators } = useSelector((state: RootState) => state.demo);
   const [transaction, setTransaction] = useState(transactionProp);
   let [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -57,6 +56,12 @@ const TransactionItem = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showMenu]);
+
+  // If transactionProp changes, update the local state
+  useEffect(() => {
+    setTransaction(transactionProp);
+  }, [transactionProp]);
+
   if (transactionProp)
     return (
       <div

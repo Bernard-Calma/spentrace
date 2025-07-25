@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { TransactionHeader, TransactionItem } from "./components";
 import EditTransaction from "./components/EditTranscation";
+import { RootState } from "@/store/store";
 
 const Transactions = () => {
-  const id = useSelector((state: any) => state.user.id);
+  const id = useSelector((state: RootState) => state.user.id);
   const storeTransactions: Transaction[] = useSelector(
-    (state: any) => state.demo.transactions || []
+    (state: RootState) => state.demo.transactions || []
   );
   const [transactions, setTransactions] =
     useState<Transaction[]>(storeTransactions);
+
   const [showTransaction, setShowTransaction] = useState({
     show: false,
     transaction: {} as Transaction,

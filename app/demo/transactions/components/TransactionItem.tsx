@@ -1,5 +1,6 @@
 import { deleteTransaction, editTransaction } from "@/store/features/demoSlice";
 import { RootState } from "@/store/store";
+import { format, parseISO } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -89,7 +90,7 @@ const TransactionItem = ({
             &#8942;
           </span>
           <p className="transaction-date flex-1">
-            {new Date(transaction.date).toLocaleDateString()}
+            {format(parseISO(transaction.date), "MMMM do")}
           </p>
         </div>
 

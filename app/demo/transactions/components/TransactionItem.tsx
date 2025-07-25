@@ -1,4 +1,4 @@
-import { deleteTransaction } from "@/store/features/demoSlice";
+import { deleteTransaction, editTransaction } from "@/store/features/demoSlice";
 import { RootState } from "@/store/store";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,14 +31,8 @@ const TransactionItem = ({
   };
 
   const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let newStatus: newStatus = "pending";
-    // Update the transaction status
-    if (e.target.value === "sent") {
-      newStatus = "sent";
-    } else if (e.target.value === "cancelled") {
-      newStatus = "cancelled";
-    }
-    setTransaction({ ...transaction, status: newStatus });
+    let newStatus: newStatus = e.target.value as newStatus;
+    dispatch(editTransaction({ ...transaction, status: newStatus }));
   };
 
   useEffect(() => {

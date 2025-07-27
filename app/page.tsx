@@ -2,10 +2,9 @@
 import { demoUser } from "@/store/features/userSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
-  const { isDemo } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
   // Create a demo object
@@ -21,7 +20,7 @@ export default function Home() {
       <Link
         href="/demo"
         className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
-        onClick={isDemo ? handleCreateDemo : () => {}}
+        onClick={handleCreateDemo}
       >
         Demo
       </Link>

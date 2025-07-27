@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const Navigation = () => {
-  const { id } = useSelector((state: any) => state.user.defaultBudget);
+  const { isDemo, defaultBudget } = useSelector((state: any) => state.user);
+  const { id } = defaultBudget || {};
+
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support
   // Registered: Dashboard, Transactions, Bills, Reports, Profile, Help & Support
@@ -70,7 +72,7 @@ const Navigation = () => {
     //   subscribed: true,
     // },
     {
-      href: "/profile",
+      href: isDemo ? "/demo" : "/profile",
       label: "Demo User",
       icon: "👤",
       demo: true,

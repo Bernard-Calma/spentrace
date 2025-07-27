@@ -95,7 +95,7 @@ const Navigation = () => {
         </Link>
         {id && (
           <Link
-            href={`demo/transactions`}
+            href={`/demo/transactions`}
             className="text-gray-700 hover:text-blue-500 transition-colors"
           >
             💳 Transactions

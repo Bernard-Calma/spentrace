@@ -114,33 +114,51 @@ const TransactionItem = ({
             ? "You"
             : transaction.addedBy || "Unknown"}
         </p>
-        <p className="transaction-pay-to flex-1">
-          {transaction.payTo || "Unassigned"}
-        </p>
-        <select
-          name="assignedTo"
-          value={transaction.assignedTo}
-          className="transaction-assigned-to flex-1"
-          onChange={handleChangeStatus}
+        <p
+          className={`transaction-pay-to flex-1 ${
+            transaction.type === "income" ? "italic" : ""
+          }`}
         >
-          <option value={id}>You</option>
-          {/* Map through collaborators to show options */}
-          {collaborators.map((user: string) => (
-            <option key={user} value={user}>
-              {user}
-            </option>
-          ))}
-        </select>
+          {transaction.type === "income" ? "Income" : transaction.payTo}
+        </p>
+        {transaction.type === "income" ? (
+          <p className="transaction-assigned-to flex-1 italic">You</p>
+        ) : (
+          <select
+            name="assignedTo"
+            value={transaction.assignedTo}
+            className="transaction-assigned-to flex-1"
+            onChange={handleChangeStatus}
+          >
+            <option value={id}>You</option>
+            {/* Map through collaborators to show options */}
+            {collaborators.map((user: string) => (
+              <option key={user} value={user}>
+                {user}
+              </option>
+            ))}
+          </select>
+        )}
+
         <select
           name="status"
           value={transaction.status}
           className="transaction-status flex-1"
           onChange={handleChangeStatus}
         >
-          <option value="pending">Pending</option>
-          <option value="sent">Sent</option>
-          <option value="paid">Paid</option>
-          <option value="cancelled">Cancelled</option>
+          {transaction.type === "expense" ? (
+            <>
+              <option value="pending">Pending</option>
+              <option value="sent">Sent</option>
+              <option value="paid">Paid</option>
+              <option value="cancelled">Cancelled</option>
+            </>
+          ) : (
+            <>
+              <option value="pending">Pending</option>
+              <option value="sent">Paid</option>
+            </>
+          )}
         </select>
       </div>
     );

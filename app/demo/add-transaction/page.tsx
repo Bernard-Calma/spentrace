@@ -22,6 +22,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
     type: "expense",
     category: "",
     notes: "",
+    payTo: "",
     addedBy: id, // Automatically set to the current user's ID
     status: "pending", // Default status can be set to 'pending'
     assignedTo: id, // Default assigned to current user
@@ -107,6 +108,7 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
             pattern="[0-9]*"
             // no negative
             min="0"
+            step="0.01"
             value={newTransaction.amount === 0 ? "" : newTransaction.amount}
             onKeyDown={(e) => {
               // prevent plus or minus signs
@@ -192,8 +194,11 @@ const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
           text="Pay To"
           name="payTo"
           placeholder="Enter recipient"
-          value={newTransaction.payTo}
+          value={
+            newTransaction.type === "income" ? "Income" : newTransaction.payTo
+          }
           onChange={handleChange}
+          disabled={newTransaction.type === "income"} // Disable if income
         />
 
         <LabelInput

@@ -19,6 +19,8 @@ const Transactions = () => {
     transaction: {} as Transaction,
   });
 
+  const [filter, setFilter] = useState<TransactionStatus>("all");
+
   const handleToggleTransaction = (transaction: Transaction | null) => {
     setShowTransaction({
       show: !showTransaction.show,
@@ -28,8 +30,22 @@ const Transactions = () => {
 
   // update transactions when storeTransactions change
   useEffect(() => {
-    setTransactions(storeTransactions);
-  }, [storeTransactions]);
+    const handleTransactionFilters = (filter: TransactionStatus) => {
+      // Filter transactions based on the selected status
+      const filteredTransactions = storeTransactions.filter(
+        (transaction) => transaction.status === filter
+      );
+      setTransactions(filteredTransactions);
+    };
+
+    // If filter is 'all', show all transactions
+    if (filter === "all") {
+      setTransactions(storeTransactions);
+    } else {
+      handleTransactionFilters(filter);
+    }
+  }, [storeTransactions, filter]);
+  // Handle filter change
   return (
     <div className="transactions-page w-full h-full flex flex-col flex-1 justify-start">
       {showTransaction.show && (
@@ -44,7 +60,7 @@ const Transactions = () => {
           </div>
         </div>
       )}
-      <TransactionHeader />
+      <TransactionHeader setFilter={setFilter} />
       <div className="relative transactions-body w-full h-full flex flex-col items-start justify-start bg-white rounded-lg shadow-md">
         {showTransaction.show && (
           <EditTransaction

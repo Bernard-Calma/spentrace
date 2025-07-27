@@ -7,10 +7,15 @@ import demoReducer from "./features/demoSlice";
 const preloadedState = {
   // If no demo state exists in localStorage, initialize with an empty demo state
   demo: loadDemoState() || {
+    id: "",
     budgetName: "",
     owner: "",
+    totalIncome: 0,
+    totalExpenses: 0,
+    history: [],
     transactions: [],
     collaborators: [],
+
     isLoading: false,
   },
 };

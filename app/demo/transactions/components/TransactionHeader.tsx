@@ -1,15 +1,29 @@
 import { useRouter } from "next/navigation";
 
-const TransactionHeader = () => {
+const TransactionHeader = ({
+  setFilter,
+}: {
+  setFilter: (filter: TransactionStatus) => void;
+}) => {
   const router = useRouter();
   return (
     <div className="transaction-header flex items-center justify-between p-4 bg-gray-100">
       <h2 className="text-md font-semibold">Transactions</h2>
       <div className="flex items-center space-x-4">
-        <p className="menu-refresh cursor-pointer" title={"refresh"}>
+        <p
+          className="menu-refresh cursor-pointer"
+          title={"refresh"}
+          onClick={() => setFilter("all")}
+        >
           🔄
         </p>
-        <p className="menu-previous cursor-pointer" title={"previous"}>
+        <p
+          className="menu-previous cursor-pointer"
+          title={"previous"}
+          onClick={() => {
+            setFilter("sent");
+          }}
+        >
           🕘
         </p>
         <p className="menu-filter cursor-pointer" title={"filter"}>

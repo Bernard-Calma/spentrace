@@ -29,3 +29,10 @@ interface Demo {
   budgets: Budget[];
   defaultBudget: Budget;
 }
+
+type TransactionStatus = "pending" | "sent" | "paid" | "cancelled" | "all";
+type TransactionType = "income" | "expense";
+type TransactionSort = {
+  field: "date" | "amount" | "name" | "status";
+  order: "asc" | "desc";
+};

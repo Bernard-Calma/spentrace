@@ -115,7 +115,7 @@ const TransactionItem = ({
             : transaction.addedBy || "Unknown"}
         </p>
         <p className="transaction-pay-to flex-1">
-          {transaction.payTo || "Unknown"}
+          {transaction.payTo || "Unassigned"}
         </p>
         <select
           name="assignedTo"

@@ -82,8 +82,8 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between h-full w-48 ">
-      <div className="top-nav flex">
+    <nav className="navigation flex flex-col justify-between h-full w-48">
+      <div className="top-nav flex ">
         <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
           SpenTrace
         </Link>

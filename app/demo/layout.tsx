@@ -1,4 +1,6 @@
-import { Navigation } from "@/common";
+"use client";
+
+import { MobileNavigation, Navigation } from "@/common";
 
 export default function RootLayout({
   children,
@@ -6,9 +8,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="demo-page w-full flex justify-start">
+    <div className="demo-page w-full md:flex justify-start">
       <Navigation />
       {children}
+      <MobileNavigation />
     </div>
   );
 }

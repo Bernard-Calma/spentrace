@@ -14,19 +14,21 @@ const TotalBalance = ({ income, expenses }: TotalBalanceProps) => {
     setBalance(income - expenses);
   }, [income, expenses]);
   return (
-    <div className="total-balance py-4 bg-gray-100 w-full text-center flex items-center justify-between gap-4">
-      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
-        Total Income: <span className="income">${income}</span>
-      </p>
-      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
-        Total Expenses: <span className="expense">${expenses}</span>
-      </p>
-      <p className="text-lg font-semibold bg-white p-2 rounded flex-1 shadow">
-        Total Balance:{" "}
-        <span className={`balance ${balance <= 0 ? "negative" : "positive"}`}>
+    <div className="total-balance py-4 bg-gray-100 w-full text-center flex items-center justify-between lg:gap-4 gap-2  ">
+      <div className="text-xs lg:text-lg font-semibold bg-white lg:p-2 rounded flex-1 lg:flex justify-center gap-2 shadow">
+        <p>Total Income:</p>
+        <p className="income">${income}</p>
+      </div>
+      <div className="text-xs lg:text-lg font-semibold bg-white lg:p-2 rounded flex-1 lg:flex justify-center gap-2 shadow">
+        <p>Total Expenses:</p>
+        <p className="expense">${expenses}</p>
+      </div>
+      <div className="text-xs lg:text-lg font-semibold bg-white lg:p-2 rounded flex-1 lg:flex justify-center gap-2 shadow">
+        <p>Total Balance:</p>
+        <p className={`balance ${balance <= 0 ? "negative" : "positive"}`}>
           ${balance.toFixed(2)}
-        </span>
-      </p>
+        </p>
+      </div>
     </div>
   );
 };

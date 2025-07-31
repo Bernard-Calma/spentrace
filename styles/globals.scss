@@ -99,6 +99,7 @@ nav {
   body {
     height: 100vh;
     overscroll-behavior: none; // Prevent scrolling on mobile
+    overflow: hidden;
   }
 
   .navigation {
@@ -127,13 +128,18 @@ nav {
     }
   }
 
-  // Page Styles
-  // Prevent body overflow
-  // Ensure body does not overflow on small screens
-  body {
-    overflow: hidden;
+  .calendar-box {
+    width: 100%;
+    .calendar {
+      margin: 0;
+      width: 100%;
+      .calendar-day {
+        align-items: center;
+      }
+    }
   }
 
+  // Page Styles
   .demo-page {
     position: relative;
     height: 100vh;

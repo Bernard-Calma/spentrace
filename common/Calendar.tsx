@@ -110,7 +110,7 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
   }, [itemListProp]);
 
   return (
-    <div className="summary calendar-box flex flex-col flex-1 bg-white rounded-lg shadow-md p-2 sm:w-full">
+    <div className="summary calendar-box flex flex-col flex-1 bg-white rounded-lg shadow-md p-2">
       <div className="calendar-header flex items-center justify-around mb-4">
         <button onClick={handlePrevMonth}>&lt;</button>
         <h2 className="subtitle text-lg font-semibold">

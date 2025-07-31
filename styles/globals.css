@@ -100,6 +100,7 @@ nav {
   body {
     height: 100vh;
     overscroll-behavior: none;
+    overflow: hidden;
   }
   .navigation {
     display: none;
@@ -123,8 +124,15 @@ nav {
   .mobile-navigation a:hover {
     color: #0070bb;
   }
-  body {
-    overflow: hidden;
+  .calendar-box {
+    width: 100%;
+  }
+  .calendar-box .calendar {
+    margin: 0;
+    width: 100%;
+  }
+  .calendar-box .calendar .calendar-day {
+    align-items: center;
   }
   .demo-page {
     position: relative;

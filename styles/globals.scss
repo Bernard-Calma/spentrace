@@ -95,6 +95,12 @@ nav {
 // Mobile menu styles
 // Navigation styles
 @media screen and (max-width: 920px) {
+  html,
+  body {
+    height: 100vh;
+    overscroll-behavior: none; // Prevent scrolling on mobile
+  }
+
   .navigation {
     display: none; // Hide the desktop navigation on mobile
   }

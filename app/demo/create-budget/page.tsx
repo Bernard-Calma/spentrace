@@ -18,7 +18,7 @@ function CreateBudgetPage() {
     collaborators: [],
     transactions: [],
     history: [],
-    id: crypto.randomUUID(), // Generate a unique ID for the budget
+    id: "localBudget", // Generate a unique ID for the budget
     totalIncome: 0,
     totalExpenses: 0,
   });
@@ -39,10 +39,8 @@ function CreateBudgetPage() {
     }
     e.preventDefault();
 
-    const id = crypto.randomUUID(); // Generate a unique ID for the budget
     const newBudgetData: Budget = {
       ...newBudget,
-      id,
     };
     // Call createBudget action in demo ... Might be change to budgetSlice
     dispatch(createBudget(newBudgetData));

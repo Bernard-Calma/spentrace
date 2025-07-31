@@ -96,6 +96,11 @@ nav {
 }
 
 @media screen and (max-width: 920px) {
+  html,
+  body {
+    height: 100vh;
+    overscroll-behavior: none;
+  }
   .navigation {
     display: none;
   }

@@ -5,13 +5,13 @@ const MobileNavigation = () => {
     <nav className="mobile-navigation">
       <ul className="mobile-nav-links w-full flex justify-around">
         <li>
-          <Link href="/demo/transactions">Transactions</Link>
+          <Link href="/demo">📊</Link>
         </li>
         <li>
-          <Link href="/demo/add-transaction">Add Transaction</Link>
+          <Link href="/demo/transactions">🧾</Link>
         </li>
         <li>
-          <Link href="/demo/budgets">Budgets</Link>
+          <Link href="/demo">💰</Link>
         </li>
       </ul>
     </nav>

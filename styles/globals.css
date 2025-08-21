@@ -102,6 +102,9 @@ nav {
     overscroll-behavior: none;
     overflow: hidden;
   }
+  .overlay {
+    position: relative;
+  }
   .navigation {
     display: none;
   }

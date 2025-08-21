@@ -11,7 +11,7 @@ const MobileNavigation = () => {
           <Link href="/demo/transactions">🧾</Link>
         </li>
         <li>
-          <Link href="/demo">💰</Link>
+          <Link href="/demo/bills">💰</Link>
         </li>
       </ul>
     </nav>

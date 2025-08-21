@@ -1,3 +1,4 @@
-import BillsHeader from "./header";
+import BillsHeader from "./Header";
+import BillsList from "./BillsList";
 
-export { BillsHeader };
+export { BillsHeader, BillsList };

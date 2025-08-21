@@ -13,6 +13,9 @@ const BillsHeader = () => {
     <header className="bills-header flex flex-col">
       <div className="flex items-center justify-between">
         <h2>Bills</h2>
+        <p>
+          Total: $<span>100</span>
+        </p>
         <div className="flex justify-between gap-4">
           <p
             className={`cursor-pointer ${filter === "paid" ? "font-bold" : ""}`}
@@ -36,7 +39,7 @@ const BillsHeader = () => {
           </p>
         </div>
       </div>
-      <div className="month-selector flex items-center justify-between px-4">
+      <div className="month-selector flex items-center justify-between px-4 bg-gray-200">
         <button
           onClick={() =>
             setCurrentDate(

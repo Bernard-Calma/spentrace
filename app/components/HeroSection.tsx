@@ -1,6 +1,6 @@
 const HeroSection = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between px-8 py-16 max-w-6xl mx-auto gap-12">
+    <section className="flex flex-col md:min-h-screen md:flex-row items-center justify-between px-8 py-16 max-w-6xl mx-auto gap-12">
       <div className="space-y-6 text-center md:text-left">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight">
           Share Budgets, <span className="text-blue-600">Track Spending</span>

@@ -1,5 +1,9 @@
 @use "./variables" as v;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   display: flex;
   background: v.$primary-color;
@@ -99,7 +103,7 @@ nav {
   body {
     height: 100vh;
     overscroll-behavior: none; // Prevent scrolling on mobile
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   .overlay {

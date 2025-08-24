@@ -17,7 +17,7 @@ const FeatureSection = () => {
 
   return (
     <>
-      <section id="features" className="w-full m-auto bg-white py-16 px-6">
+      <section id="features" className="w-full m-auto bg-white py-16 px-6 ">
         <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Features That Empower Your Budgeting
         </h3>

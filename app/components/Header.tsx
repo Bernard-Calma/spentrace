@@ -2,16 +2,16 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="w-full mb-auto p-4 flex justify-between items-center bg-white shadow-md">
+    <header className="md:sticky w-full mb-auto p-4 flex justify-between items-center bg-white shadow-md z-50">
       <h1 className="text-2xl font-bold text-blue-600">SpenTrace</h1>
-      {/* <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
-        <Link href="/subscribe/feature" className="hover:text-blue-600">
+      <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
+        <a href="#features" className="hover:text-blue-600">
           Features
-        </Link>
-        <Link href="/subscribe/plans" className="hover:text-blue-600">
+        </a>
+        <a href="#plans" className="hover:text-blue-600">
           Plans
-        </Link>
-      </div> */}
+        </a>
+      </div>
       <div className="flex space-x-4">
         <Link
           href="/login"

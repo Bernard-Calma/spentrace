@@ -4,14 +4,14 @@ const Header = () => {
   return (
     <header className="w-full mb-auto p-4 flex justify-between items-center bg-white shadow-md">
       <h1 className="text-2xl font-bold text-blue-600">SpenTrace</h1>
-      <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
+      {/* <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
         <Link href="/subscribe/feature" className="hover:text-blue-600">
           Features
         </Link>
         <Link href="/subscribe/plans" className="hover:text-blue-600">
           Plans
         </Link>
-      </div>
+      </div> */}
       <div className="flex space-x-4">
         <Link
           href="/login"

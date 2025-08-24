@@ -48,7 +48,9 @@ export default function RootLayout({
         {/* <!-- Optional: name shown on home screen --> */}
         <meta name="apple-mobile-web-app-title" content="SpenTrace" />
       </head>
-      <body className={` ${kanit.variable} antialiased`}>
+      <body
+        className={` ${kanit.variable} antialiased flex flex-col min-h-screen`}
+      >
         <ReduxProvider children={children} />
       </body>
     </html>

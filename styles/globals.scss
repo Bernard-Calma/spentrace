@@ -102,6 +102,10 @@ nav {
     overflow: hidden;
   }
 
+  .overlay {
+    position: relative;
+  }
+
   .navigation {
     display: none; // Hide the desktop navigation on mobile
   }

@@ -74,9 +74,9 @@ const Transactions = () => {
           <p className="flex-1">Due Date</p>
           <p className="flex-2">Name</p>
           <p className="flex-1">Amount</p>
-          <p className="flex-1">Added by</p>
-          <p className="flex-1">Pay To</p>
-          <p className="flex-1">Assigned To</p>
+          <p className="flex-1 hidden sm:block">Added by</p>
+          <p className="flex-1 hidden sm:block">Pay To</p>
+          <p className="flex-1 hidden sm:block">Assigned To</p>
           <p className="flex-1">Status</p>
         </div>
         <div className="transaction-list w-full flex flex-1 flex-col">

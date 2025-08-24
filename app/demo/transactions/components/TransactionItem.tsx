@@ -67,10 +67,10 @@ const TransactionItem = ({
           <span
             ref={menuRef}
             onClick={handleShowMenu}
-            className="transaction-menu relative pr-2 cursor-pointer"
+            className="transaction-menu relative pr-2 cursor-pointer hidden sm:block"
           >
             {showMenu && (
-              <div className="transaction-menu-options absolute flex flex-col text-xs bg-gray-100 border border-gray-300 shadow-md  z-1">
+              <div className="transaction-menu-options absolute flex flex-col text-xs bg-gray-100 border border-gray-300 shadow-md z-1">
                 <span
                   className="hover:bg-gray-200 p-2 hover:font-bold"
                   onClick={() => {
@@ -109,7 +109,7 @@ const TransactionItem = ({
             : transaction.amount.toFixed(2)}
         </p>
 
-        <p className="transaction-added-by flex-1">
+        <p className="transaction-added-by flex-1 hidden sm:block">
           {transaction.addedBy === id
             ? "You"
             : transaction.addedBy || "Unknown"}
@@ -117,7 +117,7 @@ const TransactionItem = ({
         <p
           className={`transaction-pay-to flex-1 ${
             transaction.type === "income" ? "italic" : ""
-          }`}
+          } hidden sm:block`}
         >
           {transaction.type === "income" ? "Income" : transaction.payTo}
         </p>
@@ -127,7 +127,7 @@ const TransactionItem = ({
           <select
             name="assignedTo"
             value={transaction.assignedTo}
-            className="transaction-assigned-to flex-1"
+            className="transaction-assigned-to flex-1 hidden sm:block"
             onChange={handleChangeStatus}
           >
             <option value={id}>You</option>

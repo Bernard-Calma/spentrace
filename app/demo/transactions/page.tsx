@@ -6,6 +6,8 @@ import { TransactionHeader, TransactionItem } from "./components";
 import EditTransaction from "./components/EditTranscation";
 import { RootState } from "@/store/store";
 
+import "./styles.scss";
+
 const Transactions = () => {
   const id = useSelector((state: RootState) => state.user.id);
   const storeTransactions: Transaction[] = useSelector(

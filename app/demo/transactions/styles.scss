@@ -1,0 +1,42 @@
+@use "../../../styles/variables" as v;
+
+@media screen and (max-width: 920px) {
+  .transactions-page {
+    .transaction-header {
+      padding: 0;
+      justify-content: space-between;
+      text-align: center;
+      font-size: 0.75rem;
+      p {
+        flex: 1;
+      }
+    }
+
+    .transaction-item {
+      padding: 0;
+      text-align: center;
+      font-size: 0.6rem;
+
+      div {
+        align-items: center;
+        justify-content: center;
+      }
+
+      div,
+      select,
+      p {
+        flex: 1;
+        text-align: center;
+
+        option {
+          box-sizing: unset;
+        }
+      }
+
+      .transaction-menu {
+        padding: 0.25rem;
+        margin: auto 0;
+      }
+    }
+  }
+}

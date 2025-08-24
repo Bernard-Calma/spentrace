@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "Russo One";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/Russo_One/russo-one.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Kanit";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/Kanit/Kanit-Light.ttf") format("truetype");
+}
+@media screen and (max-width: 920px) {
+  .transactions-page .transaction-header {
+    padding: 0;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  .transactions-page .transaction-header p {
+    flex: 1;
+  }
+  .transactions-page .transaction-item {
+    padding: 0;
+    text-align: center;
+    font-size: 0.6rem;
+  }
+  .transactions-page .transaction-item div {
+    align-items: center;
+    justify-content: center;
+  }
+  .transactions-page .transaction-item div,
+  .transactions-page .transaction-item select,
+  .transactions-page .transaction-item p {
+    flex: 1;
+    text-align: center;
+  }
+  .transactions-page .transaction-item div option,
+  .transactions-page .transaction-item select option,
+  .transactions-page .transaction-item p option {
+    box-sizing: unset;
+  }
+  .transactions-page .transaction-item .transaction-menu {
+    padding: 0.25rem;
+    margin: auto 0;
+  }
+}/*# sourceMappingURL=styles.css.map */

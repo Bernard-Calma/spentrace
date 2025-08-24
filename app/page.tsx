@@ -2,7 +2,13 @@
 import { demoUser } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { Footer, Header, HeroSection, PlanSection } from "./components";
+import {
+  FeatureSection,
+  Footer,
+  Header,
+  HeroSection,
+  PlanSection,
+} from "./components";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -19,6 +25,7 @@ export default function Home() {
       <Header />
       <main className="flex w-full flex-col items-center justify-center">
         <HeroSection />
+        <FeatureSection />
         <PlanSection />
       </main>
       <Footer />

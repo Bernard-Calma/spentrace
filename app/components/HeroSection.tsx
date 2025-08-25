@@ -1,4 +1,10 @@
+"use client";
+
+import { demoUser } from "@/store/features/userSlice";
+import { useDispatch } from "react-redux";
+
 const HeroSection = () => {
+  const dispatch = useDispatch();
   return (
     <section className="flex flex-col md:min-h-screen md:flex-row items-center justify-between px-8 py-16 max-w-6xl mx-auto gap-12">
       <div className="space-y-6 text-center md:text-left">
@@ -17,6 +23,7 @@ const HeroSection = () => {
             Get Started
           </a>
           <a
+            onClick={() => dispatch(demoUser())}
             href="/demo"
             className="px-6 py-3 border border-gray-300 rounded-xl shadow hover:bg-gray-100 transition"
           >

@@ -1,6 +1,10 @@
+"use client";
+import { demoUser } from "@/store/features/userSlice";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
   return (
     <header className="md:sticky w-full mb-auto p-4 flex justify-between items-center bg-white shadow-md z-50">
       <h1 className="text-2xl font-bold text-blue-600">SpenTrace</h1>
@@ -20,6 +24,7 @@ const Header = () => {
           Login
         </Link>
         <Link
+          onClick={() => dispatch(demoUser())}
           href="/demo"
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >

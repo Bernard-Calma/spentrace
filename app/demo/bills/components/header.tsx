@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const BillsHeader = () => {
+const BillsHeader = ({ handleToggleAdd }: { handleToggleAdd: () => void }) => {
   const today = new Date();
   const [filter, setFilter] = useState("all");
   const [currentDate, setCurrentDate] = useState(
@@ -11,11 +11,16 @@ const BillsHeader = () => {
 
   return (
     <header className="bills-header flex flex-col">
-      <div className="flex items-center justify-between">
-        <h2>Bills</h2>
-        <p>
-          Total: $<span>100</span>
-        </p>
+      <div className="p-4 flex items-center justify-between">
+        <h2 className="text-md font-semibold">Bills</h2>
+        <div className="flex gap-4">
+          <p>
+            Total Paid: <span className="income">$50</span>
+          </p>
+          <p>
+            Total Unpaid: <span className="expense">$50</span>
+          </p>
+        </div>
         <div className="flex justify-between gap-4">
           <p
             className={`cursor-pointer ${filter === "paid" ? "font-bold" : ""}`}
@@ -37,9 +42,15 @@ const BillsHeader = () => {
           >
             Show All
           </p>
+          <button
+            className="btn btn-primary px-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow transition-colors cursor-pointer"
+            onClick={handleToggleAdd}
+          >
+            + Add Bill
+          </button>
         </div>
       </div>
-      <div className="month-selector flex items-center justify-between px-4 bg-gray-200">
+      {/* <div className="month-selector flex items-center justify-between px-4 bg-gray-200">
         <button
           onClick={() =>
             setCurrentDate(
@@ -64,7 +75,7 @@ const BillsHeader = () => {
         >
           Next
         </button>
-      </div>
+      </div> */}
     </header>
   );
 };

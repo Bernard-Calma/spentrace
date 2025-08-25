@@ -11,7 +11,7 @@ const BillsHeader = ({ handleToggleAdd }: { handleToggleAdd: () => void }) => {
 
   return (
     <header className="bills-header flex flex-col">
-      <div className="p-4 flex items-center justify-between">
+      <div className="p-4 flex items-center justify-between ">
         <h2 className="text-md font-semibold">Bills</h2>
         <div className="flex gap-4">
           <p>

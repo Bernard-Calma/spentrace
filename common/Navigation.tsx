@@ -82,7 +82,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between h-full w-48">
+    <nav className="navigation flex flex-col justify-between min-h-screen w-48">
       <div className="top-nav flex ">
         <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
           SpenTrace
@@ -103,6 +103,9 @@ const Navigation = () => {
             💳 Transactions
           </Link>
         )}
+        <li>
+          <Link href="/demo/bills">💰 Bills</Link>
+        </li>
       </ul>
       {/* For User Menu, Help & Support */}
       <div className="bottom-nav flex flex-col p-2 space-y-2">

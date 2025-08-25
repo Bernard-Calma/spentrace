@@ -19,6 +19,27 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   });
 
   const handleChange = (e: any) => {
+    const { name, value } = e.target;
+
+    // Amount should be lower than 100,000
+    if (name === "amount" && parseFloat(value) > 100000) {
+      const formattedValue = parseFloat(value).toFixed(2);
+      setNewBill({
+        ...newBill,
+        amount: Math.min(parseFloat(formattedValue), 100000),
+      });
+      return;
+    }
+
+    // Restrict number input to 6 decimal places
+    if (name === "amount" && value.includes(".")) {
+      const decimalPlaces = value.split(".")[1].length;
+      if (decimalPlaces > 4) {
+        e.preventDefault();
+        return;
+      }
+    }
+
     setNewBill({
       ...newBill,
       [e.target.name]: e.target.value,

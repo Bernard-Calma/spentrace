@@ -16,21 +16,8 @@ const DemoDashboard = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { isDemo } = useSelector((state: any) => state.user);
-  const storeBudget: Budget = useSelector((state: any) => state.demo);
-  const [budget, setBudget] = useState<Budget>(
-    isDemo
-      ? storeBudget
-      : {
-          id: "",
-          budgetName: "",
-          owner: "",
-          transactions: [],
-          collaborators: [],
-          history: [],
-          totalIncome: 0,
-          totalExpenses: 0,
-        }
-  );
+  const budget: Budget = useSelector((state: any) => state.demo);
+
   useEffect(() => {
     if (budget.id === "") {
       sessionStorage.setItem("allowCreateBudget", "true");

@@ -33,43 +33,37 @@ const BudgetList = () => {
           <li className="font-bold flex-1 text-center">Total Expenses</li>
           <li className="font-bold flex-1 text-center">No. of Transactions</li>
         </ul>
-        {isDemo ? (
-          <ul className="list-none w-full ">
-            {/* This is where the budget items will be mapped */}
-            {/* Example static data for demonstration */}
-            <li className="flex justify-between items-center py-2 border-b">
-              <span className="flex-1 text-center cursor-pointer">
-                {demo.budgetName}
-              </span>
-              <span className="flex-1 text-center">{demo.owner}</span>
-              <p
-                className={`flex-1 text-center ${
-                  demo.collaborators.length > 0
-                    ? "cursor-pointer"
-                    : "cursor-not-allowed text-gray-500"
-                }`}
-              >
-                {demo.collaborators.length > 0
-                  ? demo.collaborators.join(", ")
-                  : "Add"}
-              </p>
-              <span className="flex-1 text-center income">
-                ${demo.totalIncome}
-              </span>
-              <span className="flex-1 text-center expense">
-                ${demo.totalExpenses}
-              </span>
-              <span className="flex-1 text-center">
-                {demo.transactions.length}
-              </span>
-            </li>
-            {/* Add more budget items as needed */}
-          </ul>
-        ) : (
-          <div className="user-message p-4 text-center text-gray-600">
-            Welcome, {storeUser.name}! Here are your budgets.
-          </div>
-        )}
+        <ul className="list-none w-full ">
+          {/* This is where the budget items will be mapped */}
+          {/* Example static data for demonstration */}
+          <li className="flex justify-between items-center py-2 border-b">
+            <span className="flex-1 text-center cursor-pointer">
+              {demo.budgetName}
+            </span>
+            <span className="flex-1 text-center">{demo.owner}</span>
+            <p
+              className={`flex-1 text-center ${
+                demo.collaborators.length > 0
+                  ? "cursor-pointer"
+                  : "cursor-not-allowed text-gray-500"
+              }`}
+            >
+              {demo.collaborators.length > 0
+                ? demo.collaborators.join(", ")
+                : "Add"}
+            </p>
+            <span className="flex-1 text-center income">
+              ${demo.totalIncome}
+            </span>
+            <span className="flex-1 text-center expense">
+              ${demo.totalExpenses}
+            </span>
+            <span className="flex-1 text-center">
+              {demo.transactions.length}
+            </span>
+          </li>
+          {/* Add more budget items as needed */}
+        </ul>
       </div>
     </div>
   );

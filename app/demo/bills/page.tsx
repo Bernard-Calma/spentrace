@@ -28,6 +28,7 @@ const Bills = () => {
 
   useEffect(() => {
     setBillList(bills);
+    handleFilterBills(filter);
   }, [bills]);
 
   return (

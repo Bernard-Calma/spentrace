@@ -20,7 +20,7 @@ const Bills = () => {
           <p className="flex-1 text-center">Due Date</p>
           <p className="flex-1 text-center">Name</p>
           <p className="flex-1 text-center">Amount</p>
-          <p className="flex-1 text-center">Status</p>
+          <p className="flex-1 text-center">Paid</p>
         </div>
         <BillsList />
       </div>

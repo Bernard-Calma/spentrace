@@ -95,6 +95,13 @@ const demoSlice = createSlice({
       const newBill = action.payload;
       state.bills.push(newBill);
     },
+    editBill: (state, action: PayloadAction<Bill>) => {
+      // console.log("Editing bill:", action.payload);
+      const updatedBill = action.payload;
+      state.bills = state.bills.map((bill) =>
+        bill.id === updatedBill.id ? { ...bill, ...updatedBill } : bill
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -133,5 +140,6 @@ export const {
   deleteTransaction,
   editTransaction,
   addBill,
+  editBill,
 } = demoSlice.actions;
 export default demoSlice.reducer;

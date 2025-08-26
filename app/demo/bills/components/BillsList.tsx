@@ -1,22 +1,33 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { editBill } from "@/store/features/demoSlice";
+import { format } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
 
 const BillsList = () => {
+  const dispatch = useDispatch();
   const { bills } = useSelector((state: any) => state.demo);
+
+  const handleTogglePaid = (bill: Bill) => {
+    dispatch(editBill({ ...bill, paid: !bill.paid }));
+  };
   return (
     <div>
       <ul>
         {bills.map((bill: Bill) => (
           <li key={bill.id}>
             <div className="px-2 flex items-center justify-between border-b border-gray-200 text-sm hover:bg-gray-50">
-              <p className="flex-1 text-center">{bill.dueDate}</p>
+              <p className="flex-1 text-center">
+                {format(new Date(bill.dueDate), "MMM dd")}
+              </p>
               <p className="flex-1 text-center">{bill.name}</p>
               <p className="flex-1 text-center">${bill.amount}</p>
-              <div className="flex-1 flex justify-center align-center gap-2 text-center">
-                <p>{bill.paid}</p>
-                <input type="checkbox" checked={bill.paid} />
-              </div>
+              <input
+                className="flex-1 text-center"
+                type="checkbox"
+                checked={bill.paid}
+                onChange={() => handleTogglePaid(bill)}
+              />
             </div>
           </li>
         ))}

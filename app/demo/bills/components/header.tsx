@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-const BillsHeader = ({ handleToggleAdd }: { handleToggleAdd: () => void }) => {
+const BillsHeader = ({
+  handleToggleAdd,
+  handleFilterBills,
+}: {
+  handleToggleAdd: () => void;
+  handleFilterBills: (filter: string) => void;
+}) => {
   const today = new Date();
   const [filter, setFilter] = useState("all");
   const [currentDate, setCurrentDate] = useState(
@@ -24,7 +30,7 @@ const BillsHeader = ({ handleToggleAdd }: { handleToggleAdd: () => void }) => {
         <div className="flex justify-between gap-4">
           <p
             className={`cursor-pointer ${filter === "paid" ? "font-bold" : ""}`}
-            onClick={() => setFilter("paid")}
+            onClick={() => handleFilterBills("paid")}
           >
             Paid
           </p>
@@ -32,13 +38,13 @@ const BillsHeader = ({ handleToggleAdd }: { handleToggleAdd: () => void }) => {
             className={`cursor-pointer ${
               filter === "unpaid" ? "font-bold" : ""
             }`}
-            onClick={() => setFilter("unpaid")}
+            onClick={() => handleFilterBills("unpaid")}
           >
             Unpaid
           </p>
           <p
             className={`cursor-pointer ${filter === "all" ? "font-bold" : ""}`}
-            onClick={() => setFilter("all")}
+            onClick={() => handleFilterBills("all")}
           >
             Show All
           </p>

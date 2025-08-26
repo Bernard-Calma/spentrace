@@ -4,9 +4,8 @@ import { editBill } from "@/store/features/demoSlice";
 import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 
-const BillsList = () => {
+const BillsList = ({ bills }: { bills: Bill[] }) => {
   const dispatch = useDispatch();
-  const { bills } = useSelector((state: any) => state.demo);
 
   const handleTogglePaid = (bill: Bill) => {
     dispatch(editBill({ ...bill, paid: !bill.paid }));

@@ -16,7 +16,6 @@ const preloadedState = {
     transactions: [],
     bills: [],
     collaborators: [],
-
     isLoading: false,
   },
 };

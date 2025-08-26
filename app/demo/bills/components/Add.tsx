@@ -2,6 +2,7 @@
 
 import { LabelInput } from "@/common";
 import { addBill } from "@/store/features/demoSlice";
+import { format } from "date-fns";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,7 +15,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
   const [newBill, setNewBill] = useState({
     id: bills.length + 1 + "",
-    dueDate: new Date(),
+    dueDate: format(new Date(), "yyyy-MM-dd"),
     name: "",
     amount: 0,
     category: "",
@@ -53,6 +54,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   const handleSubmitAddBill = (e: any) => {
     e.preventDefault();
     dispatch(addBill(newBill));
+    handleToggleAdd();
   };
   return (
     <div className="overlay flex items-center justify-center">

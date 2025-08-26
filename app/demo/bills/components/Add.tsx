@@ -1,15 +1,19 @@
 "use client";
 
 import { LabelInput } from "@/common";
+import { addBill } from "@/store/features/demoSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   handleToggleAdd,
 }) => {
+  const dispatch = useDispatch();
   const { isDemo } = useSelector((state: any) => state.user);
+  const { bills } = useSelector((state: any) => state.demo);
 
   const [newBill, setNewBill] = useState({
+    id: bills.length + 1 + "",
     dueDate: new Date(),
     name: "",
     amount: 0,
@@ -48,7 +52,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
   const handleSubmitAddBill = (e: any) => {
     e.preventDefault();
-    console.log(newBill);
+    dispatch(addBill(newBill));
   };
   return (
     <div className="overlay flex items-center justify-center">

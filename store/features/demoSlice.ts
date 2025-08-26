@@ -7,6 +7,7 @@ const initialState: Budget = {
   totalIncome: 0,
   totalExpenses: 0,
   transactions: [],
+  bills: [],
   history: [],
   collaborators: [],
   isLoading: false,
@@ -89,6 +90,11 @@ const demoSlice = createSlice({
           : transaction
       );
     },
+    addBill: (state, action: PayloadAction<Bill>) => {
+      // console.log("Adding bill:", action.payload);
+      const newBill = action.payload;
+      state.bills.push(newBill);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -126,5 +132,6 @@ export const {
   addTransaction,
   deleteTransaction,
   editTransaction,
+  addBill,
 } = demoSlice.actions;
 export default demoSlice.reducer;

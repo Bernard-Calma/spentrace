@@ -49,7 +49,7 @@ const Transactions = () => {
   }, [storeTransactions, filter]);
   // Handle filter change
   return (
-    <div className="transactions-page w-full h-full flex flex-col flex-1 justify-start">
+    <div className="transactions-page max-w-512 mx-auto h-full flex flex-col flex-1 justify-start">
       {showTransaction.show && (
         <div className="transaction-modal fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="transaction-modal-content bg-white p-4 rounded-lg shadow-lg">

@@ -12,11 +12,22 @@ interface Transaction {
   payTo?: string; // Optional field to specify who the transaction was paid to
 }
 
+interface Bill {
+  id: string;
+  name: string;
+  amount: number;
+  dueDate: date;
+  category?: string;
+  status?: "pending" | "paid" | "overdue";
+  notes?: string;
+}
+
 interface Budget {
   id: string;
   budgetName: string;
   owner: string;
   transactions: Transaction[];
+  bills: Bill[];
   history: Transaction[]; // History of transactions for the budget
   collaborators: string[];
   totalIncome: number;

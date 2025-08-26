@@ -14,6 +14,7 @@ const preloadedState = {
     totalExpenses: 0,
     history: [],
     transactions: [],
+    bills: [],
     collaborators: [],
 
     isLoading: false,

@@ -1,3 +1,5 @@
+type repeat = "" | "daily" | "weekly" | "bi-weekly" | "monthly" | undefined;
+
 interface Transaction {
   id: string;
   name: string;
@@ -20,6 +22,8 @@ interface Bill {
   category?: string;
   paid: boolean;
   notes?: string;
+  repeat?: repeat;
+  endRepeat?: string;
 }
 
 interface Budget {

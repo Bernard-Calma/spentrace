@@ -16,6 +16,8 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   const [newBill, setNewBill] = useState({
     id: bills.length + 1 + "",
     dueDate: format(new Date(), "yyyy-MM-dd"),
+    repeat: undefined,
+    endRepeat: undefined,
     name: "",
     amount: 0,
     category: "",
@@ -53,6 +55,9 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
   const handleSubmitAddBill = (e: any) => {
     e.preventDefault();
+    if (newBill.repeat === "") {
+      delete newBill.endRepeat;
+    }
     dispatch(addBill(newBill));
     handleToggleAdd();
   };
@@ -113,6 +118,37 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
           onChange={handleChange}
           required={true}
         />
+
+        <div>
+          <label htmlFor="repeat" className="text-md font-semibold">
+            Repeat
+          </label>
+          <select
+            name="repeat"
+            id="repeat"
+            className="bg-gray-100 border border-black rounded p-2 w-full"
+            value={newBill.repeat}
+            onChange={handleChange}
+          >
+            <option value="">No Repeat</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="bi-weekly">Bi-Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+
+        {newBill.repeat && (
+          <LabelInput
+            type="date"
+            htmlFor="endRepeat"
+            text="End Repeat"
+            name="endRepeat"
+            placeholder="Select date"
+            onChange={handleChange}
+            required={true}
+          />
+        )}
 
         <LabelInput
           disabled={isDemo} // Disable if not in demo mode

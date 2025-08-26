@@ -5,12 +5,15 @@ import { useState } from "react";
 const BillsHeader = ({
   handleToggleAdd,
   handleFilterBills,
+  filter,
+  setFilter,
 }: {
   handleToggleAdd: () => void;
   handleFilterBills: (filter: string) => void;
+  filter: string;
+  setFilter: (filter: string) => void;
 }) => {
   const today = new Date();
-  const [filter, setFilter] = useState("all");
   const [currentDate, setCurrentDate] = useState(
     new Date(today.getFullYear(), today.getMonth(), 1)
   );

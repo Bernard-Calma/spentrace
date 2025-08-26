@@ -10,6 +10,7 @@ const Bills = () => {
 
   const [showAdd, setShowAdd] = useState(false);
   const [billList, setBillList] = useState(bills);
+  const [filter, setFilter] = useState("all");
 
   const handleToggleAdd = (): void => {
     setShowAdd(!showAdd);
@@ -34,6 +35,8 @@ const Bills = () => {
       <BillsHeader
         handleToggleAdd={handleToggleAdd}
         handleFilterBills={handleFilterBills}
+        filter={filter}
+        setFilter={setFilter}
       />
       {showAdd && <AddBill handleToggleAdd={handleToggleAdd} />}
       <div className="bills-body self-center w-256 h-full bg-white rounded-lg shadow-md">

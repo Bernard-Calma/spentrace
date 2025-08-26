@@ -2,7 +2,7 @@
 
 import { editBill } from "@/store/features/demoSlice";
 import { format } from "date-fns";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const BillsList = ({ bills }: { bills: Bill[] }) => {
   const dispatch = useDispatch();
@@ -10,8 +10,11 @@ const BillsList = ({ bills }: { bills: Bill[] }) => {
   const handleTogglePaid = (bill: Bill) => {
     dispatch(editBill({ ...bill, paid: !bill.paid }));
   };
+  if (bills.length === 0) {
+    return <p>No bills found.</p>;
+  }
   return (
-    <div>
+    <div className="bills-list">
       <ul>
         {bills.map((bill: Bill) => (
           <li key={bill.id}>

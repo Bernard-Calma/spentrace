@@ -30,7 +30,10 @@ const BillsHeader = ({
         <div className="flex justify-between gap-4">
           <p
             className={`cursor-pointer ${filter === "paid" ? "font-bold" : ""}`}
-            onClick={() => handleFilterBills("paid")}
+            onClick={() => {
+              handleFilterBills("paid");
+              setFilter("paid");
+            }}
           >
             Paid
           </p>
@@ -38,13 +41,19 @@ const BillsHeader = ({
             className={`cursor-pointer ${
               filter === "unpaid" ? "font-bold" : ""
             }`}
-            onClick={() => handleFilterBills("unpaid")}
+            onClick={() => {
+              handleFilterBills("unpaid");
+              setFilter("unpaid");
+            }}
           >
             Unpaid
           </p>
           <p
             className={`cursor-pointer ${filter === "all" ? "font-bold" : ""}`}
-            onClick={() => handleFilterBills("all")}
+            onClick={() => {
+              handleFilterBills("all");
+              setFilter("all");
+            }}
           >
             Show All
           </p>

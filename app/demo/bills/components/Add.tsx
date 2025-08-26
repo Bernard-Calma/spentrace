@@ -2,7 +2,7 @@
 
 import { LabelInput } from "@/common";
 import { addBill } from "@/store/features/demoSlice";
-import { format } from "date-fns";
+import { compareAsc, format } from "date-fns";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,11 +13,11 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   const { isDemo } = useSelector((state: any) => state.user);
   const { bills } = useSelector((state: any) => state.demo);
 
-  const [newBill, setNewBill] = useState({
+  const [newBill, setNewBill] = useState<Bill>({
     id: bills.length + 1 + "",
     dueDate: format(new Date(), "yyyy-MM-dd"),
     repeat: undefined,
-    endRepeat: undefined,
+    endRepeat: null,
     name: "",
     amount: 0,
     category: "",
@@ -43,6 +43,38 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
       const decimalPlaces = value.split(".")[1].length;
       if (decimalPlaces > 4) {
         e.preventDefault();
+        return;
+      }
+    }
+
+    // Ensure endRepeat is after dueDate
+    if (name === "endRepeat") {
+      if (compareAsc(newBill.dueDate, e.target.value) === -1) {
+        setNewBill({
+          ...newBill,
+          dueDate: e.target.value,
+        });
+      } else {
+        setNewBill({
+          ...newBill,
+          endRepeat: newBill.dueDate,
+        });
+        return;
+      }
+    }
+
+    if (name === "dueDate" && newBill.repeat && newBill.endRepeat) {
+      if (compareAsc(newBill.endRepeat, e.target.value) === 1) {
+        setNewBill({
+          ...newBill,
+          dueDate: e.target.value,
+        });
+      } else {
+        setNewBill({
+          ...newBill,
+          dueDate: e.target.value,
+          endRepeat: e.target.value,
+        });
         return;
       }
     }
@@ -101,19 +133,19 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
         <LabelInput
           type="text"
-          htmlFor="transactionName"
-          text="Transaction Name"
+          htmlFor="name"
+          text="Name"
           name="name"
-          placeholder="Enter transaction name"
+          placeholder="Name"
           onChange={handleChange}
           required={true}
         />
 
         <LabelInput
           type="date"
-          htmlFor="transactionDate"
+          htmlFor="dueDate"
           text="Date"
-          name="date"
+          name="dueDate"
           placeholder="Select date"
           onChange={handleChange}
           required={true}
@@ -145,6 +177,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
             text="End Repeat"
             name="endRepeat"
             placeholder="Select date"
+            value={newBill.endRepeat || ""}
             onChange={handleChange}
             required={true}
           />

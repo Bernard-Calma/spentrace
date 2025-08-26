@@ -23,7 +23,7 @@ interface Bill {
   paid: boolean;
   notes?: string;
   repeat?: repeat;
-  endRepeat?: string;
+  endRepeat?: string | null; // null means no end date
 }
 
 interface Budget {

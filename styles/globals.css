@@ -12,6 +12,10 @@
   font-display: swap;
   src: url("/fonts/Kanit/Kanit-Light.ttf") format("truetype");
 }
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   display: flex;
   background: rgb(243, 244, 246);
@@ -100,7 +104,6 @@ nav {
   body {
     height: 100vh;
     overscroll-behavior: none;
-    overflow: hidden;
   }
   .overlay {
     position: relative;

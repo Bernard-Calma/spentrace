@@ -2,9 +2,16 @@
 
 import { editBill } from "@/store/features/demoSlice";
 import { format } from "date-fns";
+import Link from "next/link";
 import { useDispatch } from "react-redux";
 
-const BillsList = ({ bills }: { bills: Bill[] }) => {
+const BillsList = ({
+  bills,
+  handleToggleBill,
+}: {
+  bills: Bill[];
+  handleToggleBill: (bill: Bill) => void;
+}) => {
   const dispatch = useDispatch();
 
   const handleTogglePaid = (bill: Bill) => {
@@ -17,8 +24,12 @@ const BillsList = ({ bills }: { bills: Bill[] }) => {
     <div className="bills-list">
       <ul>
         {bills.map((bill: Bill) => (
-          <li key={bill.id}>
-            <div className="px-2 flex items-center justify-between border-b border-gray-200 text-sm hover:bg-gray-50">
+          <Link
+            key={bill.id}
+            onClick={() => handleToggleBill(bill)}
+            href={`bills/${bill.id}`}
+          >
+            <div className="px-2 flex items-center justify-between border-b border-gray-200 text-sm cursor-pointer hover:bg-blue-300">
               <p className="flex-1 text-center">
                 {format(new Date(bill.dueDate), "MMM dd")}
               </p>
@@ -31,7 +42,7 @@ const BillsList = ({ bills }: { bills: Bill[] }) => {
                 onChange={() => handleTogglePaid(bill)}
               />
             </div>
-          </li>
+          </Link>
         ))}
       </ul>
     </div>

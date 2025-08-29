@@ -9,11 +9,18 @@ const Bills = () => {
   const { bills } = useSelector((state: any) => state.demo);
 
   const [showAdd, setShowAdd] = useState(false);
+  const [showBill, setShowBill] = useState(false);
+  const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [billList, setBillList] = useState(bills);
   const [filter, setFilter] = useState("all");
 
   const handleToggleAdd = (): void => {
     setShowAdd(!showAdd);
+  };
+
+  const handleToggleBill = (bill: Bill): void => {
+    setShowBill(!showBill);
+    setSelectedBill(bill);
   };
 
   const handleFilterBills = (filter: string): void => {
@@ -47,7 +54,7 @@ const Bills = () => {
           <p className="flex-1 text-center">Amount</p>
           <p className="flex-1 text-center">Paid</p>
         </div>
-        <BillsList bills={billList} />
+        <BillsList bills={billList} handleToggleBill={handleToggleBill} />
       </div>
     </div>
   );

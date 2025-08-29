@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { BillDetails } from "./components";
+
 const BillItem = async ({
   params,
 }: {
@@ -5,7 +8,13 @@ const BillItem = async ({
 }) => {
   const { billId } = await params;
 
-  return <div>Bill Item: {billId}</div>;
+  if (billId) {
+    return (
+      <div className="bill-item w-full flex items-center justify-center">
+        <BillDetails billId={billId} />
+      </div>
+    );
+  }
 };
 
 export default BillItem;

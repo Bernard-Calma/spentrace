@@ -18,6 +18,7 @@ function CreateBudgetPage() {
     collaborators: [],
     transactions: [],
     history: [],
+    bills: [],
     id: "localBudget", // Generate a unique ID for the budget
     totalIncome: 0,
     totalExpenses: 0,

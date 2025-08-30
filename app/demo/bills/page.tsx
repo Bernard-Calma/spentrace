@@ -54,7 +54,11 @@ const Bills = () => {
           <p className="flex-1 text-center">Amount</p>
           <p className="flex-1 text-center">Paid</p>
         </div>
-        <BillsList bills={billList} handleToggleBill={handleToggleBill} />
+        {bills?.length > 0 ? (
+          <BillsList bills={billList} handleToggleBill={handleToggleBill} />
+        ) : (
+          <p className="text-center">No bills found.</p>
+        )}
       </div>
     </div>
   );

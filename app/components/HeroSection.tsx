@@ -1,6 +1,7 @@
 "use client";
 
 import { demoUser } from "@/store/features/userSlice";
+import Link from "next/link";
 import { useDispatch } from "react-redux";
 
 const HeroSection = () => {
@@ -16,19 +17,19 @@ const HeroSection = () => {
           collaborate on budgets. Add expenses, set limits, and track together.
         </p>
         <div className="space-x-4">
-          <a
+          <Link
             href="/register"
             className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition"
           >
             Get Started
-          </a>
-          <a
+          </Link>
+          <Link
             onClick={() => dispatch(demoUser())}
             href="/demo"
             className="px-6 py-3 border border-gray-300 rounded-xl shadow hover:bg-gray-100 transition"
           >
             Live Demo
-          </a>
+          </Link>
         </div>
       </div>
     </section>

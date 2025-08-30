@@ -1,7 +1,7 @@
 "use client";
 
 import { editBill } from "@/store/features/demoSlice";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
@@ -31,7 +31,7 @@ const BillsList = ({
           >
             <div className="px-2 flex items-center justify-between border-b border-gray-200 text-sm cursor-pointer hover:bg-blue-300">
               <p className="flex-1 text-center">
-                {format(new Date(bill.dueDate), "MMM dd")}
+                {format(parseISO(bill.dueDate), "MMM dd")}
               </p>
               <p className="flex-1 text-center">{bill.name}</p>
               <p className="flex-1 text-center">${bill.amount}</p>

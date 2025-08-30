@@ -20,7 +20,11 @@ const BillDetails = ({ billId }: { billId: string }) => {
     return <p className="text-red-500 m-auto">Bill not found</p>;
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.currentTarget;
 
     // Amount should be lower than 100,000

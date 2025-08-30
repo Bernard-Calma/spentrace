@@ -25,7 +25,11 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
     notes: "",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
 
     // Amount should be lower than 100,000

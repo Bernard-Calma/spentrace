@@ -1,6 +1,8 @@
 "use client";
 
 import { LabelInput } from "@/common";
+import { compareAsc } from "date-fns";
+import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -8,7 +10,7 @@ const BillDetails = ({ billId }: { billId: string }) => {
   const { isDemo } = useSelector((state: any) => state.user);
   const { bills } = useSelector((state: any) => state.demo);
   console.log();
-  const [bill] = useState(bills.find((b: Bill) => b.id === billId));
+  const [bill, setBill] = useState(bills.find((b: Bill) => b.id === billId));
 
   if (!bill) {
     return <p className="text-red-500 m-auto">Bill not found</p>;
@@ -16,6 +18,62 @@ const BillDetails = ({ billId }: { billId: string }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
+
+    // Amount should be lower than 100,000
+    if (name === "amount" && parseFloat(value) > 100000) {
+      const formattedValue = parseFloat(value).toFixed(2);
+      setBill({
+        ...bill,
+        amount: Math.min(parseFloat(formattedValue), 100000),
+      });
+      return;
+    }
+
+    // Restrict number input to 6 decimal places
+    if (name === "amount" && value.includes(".")) {
+      const decimalPlaces = value.split(".")[1].length;
+      if (decimalPlaces > 4) {
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // Ensure endRepeat is after dueDate
+    if (name === "endRepeat") {
+      if (compareAsc(bill.dueDate, e.target.value) === -1) {
+        setBill({
+          ...bill,
+          dueDate: e.target.value,
+        });
+      } else {
+        setBill({
+          ...bill,
+          endRepeat: bill.dueDate,
+        });
+        return;
+      }
+    }
+
+    if (name === "dueDate" && bill.repeat && bill.endRepeat) {
+      if (compareAsc(bill.endRepeat, e.target.value) === 1) {
+        setBill({
+          ...bill,
+          dueDate: e.target.value,
+        });
+      } else {
+        setBill({
+          ...bill,
+          dueDate: e.target.value,
+          endRepeat: e.target.value,
+        });
+        return;
+      }
+    }
+
+    setBill({
+      ...bill,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -61,6 +119,7 @@ const BillDetails = ({ billId }: { billId: string }) => {
         text="Name"
         name="name"
         placeholder="Name"
+        value={bill.name}
         onChange={handleChange}
         required={true}
       />
@@ -71,6 +130,7 @@ const BillDetails = ({ billId }: { billId: string }) => {
         text="Date"
         name="dueDate"
         placeholder="Select date"
+        value={bill.dueDate}
         onChange={handleChange}
         required={true}
       />
@@ -139,14 +199,14 @@ const BillDetails = ({ billId }: { billId: string }) => {
           type="submit"
           className="btn btn-primary bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition-colors"
         >
-          Add Bill
+          Update
         </button>
-        <button
-          // onClick={handleToggleAdd}
+        <Link
+          href="/demo/bills"
           className="btn btn-secondary mr-2 bg-gray-300 text-gray-800 rounded p-2 hover:bg-gray-400 transition-colors"
         >
           Cancel
-        </button>
+        </Link>
       </div>
     </form>
   );

@@ -1,12 +1,16 @@
 "use client";
 
 import { LabelInput } from "@/common";
+import { editBill } from "@/store/features/demoSlice";
 import { compareAsc } from "date-fns";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const BillDetails = ({ billId }: { billId: string }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { isDemo } = useSelector((state: any) => state.user);
   const { bills } = useSelector((state: any) => state.demo);
   console.log();
@@ -76,9 +80,15 @@ const BillDetails = ({ billId }: { billId: string }) => {
     });
   };
 
+  const handleSubmitEditBill = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(editBill(bill));
+    router.push("/demo/bills");
+  };
+
   return (
     <form
-      // onSubmit={handleSubmitAddBill}
+      onSubmit={handleSubmitEditBill}
       className="add-transaction-form w-96 relative bg-white p-4 rounded-lg shadow-lg"
     >
       <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,6 @@ import "./styles.scss";
 const DemoDashboard = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const { isDemo } = useSelector((state: any) => state.user);
   const budget: Budget = useSelector((state: any) => state.demo);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const BillsHeader = ({
   handleToggleAdd,
@@ -13,10 +14,20 @@ const BillsHeader = ({
   filter: string;
   setFilter: (filter: string) => void;
 }) => {
-  const today = new Date();
-  const [currentDate, setCurrentDate] = useState(
-    new Date(today.getFullYear(), today.getMonth(), 1)
-  );
+  const { bills } = useSelector((state: any) => state.demo);
+  const [totalPaid, setTotalPaid] = useState<number>(0);
+  const [totalUnpaid, setTotalUnpaid] = useState<number>(0);
+
+  useEffect(() => {
+    const paid = bills
+      .filter((bill: Bill) => bill.paid)
+      .reduce((sum: number, bill: Bill) => sum + bill.amount, 0);
+    const unpaid = bills
+      .filter((bill: Bill) => !bill.paid)
+      .reduce((sum: number, bill: Bill) => sum + bill.amount, 0);
+    setTotalPaid(parseFloat(paid));
+    setTotalUnpaid(parseFloat(unpaid));
+  }, [bills]);
 
   return (
     <header className="bills-header flex flex-col">
@@ -24,10 +35,11 @@ const BillsHeader = ({
         <h2 className="text-md font-semibold">Bills</h2>
         <div className="flex gap-4">
           <p>
-            Total Paid: <span className="income">$50</span>
+            Total Paid: <span className="income">${totalPaid.toFixed(2)}</span>
           </p>
           <p>
-            Total Unpaid: <span className="expense">$50</span>
+            Total Unpaid:{" "}
+            <span className="expense">${totalUnpaid.toFixed(2)}</span>
           </p>
         </div>
         <div className="flex justify-between gap-4">

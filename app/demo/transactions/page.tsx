@@ -21,7 +21,7 @@ const Transactions = () => {
     transaction: {} as Transaction,
   });
 
-  const [filter, setFilter] = useState<TransactionStatus>("all");
+  const [filter, setFilter] = useState<TransactionFilters>("all");
 
   const handleToggleTransaction = (transaction: Transaction | null) => {
     setShowTransaction({
@@ -32,20 +32,26 @@ const Transactions = () => {
 
   // update transactions when storeTransactions change
   useEffect(() => {
-    const handleTransactionFilters = (filter: TransactionStatus) => {
+    const handleTransactionFilters = (filter: TransactionFilters) => {
+      let filteredTransactions = [] as Transaction[];
       // Filter transactions based on the selected status
-      const filteredTransactions = storeTransactions.filter(
-        (transaction) => transaction.status === filter
-      );
+      if (filter === "completed") {
+        filteredTransactions = storeTransactions.filter(
+          (transaction) =>
+            transaction.status === "paid" || transaction.status === "cancelled"
+        );
+        setTransactions(filteredTransactions);
+      } else if (filter === "all") {
+        filteredTransactions = storeTransactions;
+      } else {
+        filteredTransactions = storeTransactions.filter(
+          (transaction) => transaction.status === filter
+        );
+      }
       setTransactions(filteredTransactions);
     };
 
-    // If filter is 'all', show all transactions
-    if (filter === "all") {
-      setTransactions(storeTransactions);
-    } else {
-      handleTransactionFilters(filter);
-    }
+    handleTransactionFilters(filter);
   }, [storeTransactions, filter]);
   // Handle filter change
   return (

@@ -4,7 +4,7 @@ import { useState } from "react";
 const TransactionHeader = ({
   setFilter,
 }: {
-  setFilter: (filter: TransactionStatus) => void;
+  setFilter: (filter: TransactionFilters) => void;
 }) => {
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
@@ -13,7 +13,7 @@ const TransactionHeader = ({
     setShowFilters(!showFilters);
   };
 
-  const handleFilterChange = (filter: TransactionStatus) => {
+  const handleFilterChange = (filter: TransactionFilters) => {
     setFilter(filter);
     setShowFilters(false);
   };
@@ -32,7 +32,7 @@ const TransactionHeader = ({
           className="menu-previous cursor-pointer"
           title={"previous"}
           onClick={() => {
-            handleFilterChange("paid");
+            handleFilterChange("completed");
           }}
         >
           🕘

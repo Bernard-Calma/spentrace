@@ -45,7 +45,8 @@ interface Demo {
   defaultBudget: Budget;
 }
 
-type TransactionStatus = "pending" | "sent" | "paid" | "cancelled" | "all";
+type TransactionStatus = "pending" | "sent" | "paid" | "cancelled";
+type TransactionFilters = TransactionStatus | "all" | "completed";
 type TransactionType = "income" | "expense";
 type TransactionSort = {
   field: "date" | "amount" | "name" | "status";

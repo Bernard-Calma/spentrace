@@ -171,7 +171,7 @@ const TransactionItem = ({
           ) : (
             <>
               <option value="pending">Pending</option>
-              <option value="sent">Paid</option>
+              <option value="paid">Paid</option>
             </>
           )}
         </select>

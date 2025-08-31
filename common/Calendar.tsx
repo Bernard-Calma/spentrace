@@ -36,6 +36,19 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
       .reduce((sum, t) => sum + Math.abs(t.amount), 0);
   };
 
+  const getDayIncomes = (day: number) => {
+    const dateStr = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      day
+    )
+      .toISOString()
+      .split("T")[0];
+    return itemList
+      .filter((t) => t.date === dateStr && t.type === "income")
+      .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+  };
+
   const handlePrevMonth = () => {
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
@@ -63,31 +76,33 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
         day === today.getDate() &&
         currentDate.getMonth() === today.getMonth() &&
         currentDate.getFullYear() === today.getFullYear();
-      const totalExpenses = getDayExpenses(day);
+      const totalExpense = getDayExpenses(day);
+      const totalIncome = getDayIncomes(day);
+
       cells.push(
         <div
           key={day}
           className={
-            "calendar-day flex flex-col text-sm bg-white shadow-sm rounded-lg p-2"
+            "calendar-day flex flex-col text-sm bg-white shadow-sm rounded-lg p-2 pointer-events-none select-none"
           }
         >
           <div className={`day-number ${isToday ? " today" : ""}`}>{day}</div>
-          {totalExpenses > 999 ? (
+          {totalExpense !== 0 || totalIncome !== 0 ? (
             <div
               className={`day-total ${
-                totalExpenses > 0 ? "expense" : ""
+                totalExpense > 0 ? "expense" : totalIncome > 0 ? "income" : ""
               } text-right`}
             >
-              ${(totalExpenses / 1000).toFixed(1)}K
+              {totalExpense > 0
+                ? totalExpense >= 1000
+                  ? `$${(totalExpense / 1000).toFixed(1)}K`
+                  : `$${totalExpense.toFixed(0)}`
+                : totalIncome >= 1000
+                ? `$${(totalIncome / 1000).toFixed(1)}K`
+                : `$${totalIncome.toFixed(0)}`}
             </div>
           ) : (
-            <div
-              className={`day-total ${
-                totalExpenses > 0 ? "expense" : ""
-              } text-right`}
-            >
-              ${totalExpenses.toFixed(0)}
-            </div>
+            <div className="day-total text-right">$0</div>
           )}
         </div>
       );
@@ -104,7 +119,7 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
     return cells;
   };
 
-  // Update itemList when prop changes
+  // Update itemList when prop changesa
   useEffect(() => {
     setItemList(itemListProp || []);
   }, [itemListProp]);

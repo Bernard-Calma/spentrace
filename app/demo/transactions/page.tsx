@@ -7,15 +7,17 @@ import EditTransaction from "./components/EditTranscation";
 import { RootState } from "@/store/store";
 
 import "./styles.scss";
-import { isAfter } from "date-fns";
+import { format, isAfter, isBefore, parseISO } from "date-fns";
+import { parse } from "path";
 
 const Transactions = () => {
   const id = useSelector((state: RootState) => state.user.id);
   const storeTransactions: Transaction[] = useSelector(
-    (state: RootState) => state.demo.transactions || []
+    (state: RootState) => state.demo.transactions
   );
-  const [transactions, setTransactions] =
-    useState<Transaction[]>(storeTransactions);
+  const [transactions, setTransactions] = useState<Transaction[]>([
+    ...storeTransactions,
+  ]);
 
   const [showTransaction, setShowTransaction] = useState({
     show: false,
@@ -33,53 +35,41 @@ const Transactions = () => {
 
   // update transactions when storeTransactions change
   useEffect(() => {
-    const handleTransactionFilters = (filter: TransactionFilters) => {
-      let filteredTransactions = [] as Transaction[];
-      // Filter transactions based on the selected status
-      if (filter === "completed") {
-        filteredTransactions = storeTransactions.filter(
-          (transaction) =>
-            transaction.status === "paid" || transaction.status === "cancelled"
-        );
-        setTransactions(filteredTransactions);
-      } else if (filter === "all") {
-        filteredTransactions = storeTransactions;
-      } else {
-        filteredTransactions = storeTransactions.filter(
-          (transaction) => transaction.status === filter
-        );
-      }
-      setTransactions(filteredTransactions);
-    };
+    let filteredTransactions: Transaction[] = [];
 
-    const handleSortTransactions = () => {
-      const sortedTransactions = [...transactions].sort((a, b) => {
-        if (a.date < b.date) return -1;
-        if (a.date > b.date) return 1;
-        return 0;
-      });
-      setTransactions(sortedTransactions);
-    };
-
-    const handleGetRunningTotal = () => {
-      let balance = 0;
-      setTransactions(
-        transactions.map((transaction) => {
-          var updatedTransaction = { ...transaction };
-          if (transaction.type === "income") {
-            balance += updatedTransaction.amount;
-          } else {
-            balance -= updatedTransaction.amount;
-          }
-          updatedTransaction.runningTotal = balance;
-          return updatedTransaction;
-        })
+    // 1. Filter
+    if (filter === "completed") {
+      filteredTransactions = storeTransactions.filter(
+        (transaction) =>
+          transaction.status === "paid" || transaction.status === "cancelled"
       );
-    };
+    } else if (filter === "all") {
+      filteredTransactions = [...storeTransactions];
+    } else {
+      filteredTransactions = storeTransactions.filter(
+        (transaction) => transaction.status === filter
+      );
+    }
 
-    handleTransactionFilters(filter);
-    handleSortTransactions();
-    handleGetRunningTotal();
+    // 2. Sort
+    filteredTransactions.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
+    // 3. Running total
+    let balance = 0;
+    const processed = filteredTransactions.map((transaction) => {
+      const updatedTransaction = { ...transaction };
+      balance +=
+        transaction.type === "income"
+          ? updatedTransaction.amount
+          : -updatedTransaction.amount;
+      updatedTransaction.runningTotal = balance;
+      return updatedTransaction;
+    });
+
+    // ✅ single update, no flicker
+    setTransactions(processed);
   }, [storeTransactions, filter]);
   // Handle filter change
   return (
@@ -105,7 +95,7 @@ const Transactions = () => {
           />
         )}
         <div className="transaction-header w-full flex items-center justify-between p-2 font-bold text-sm rounded-tl border-black bg-gray-300">
-          <p className="flex-1">Due Date</p>
+          <p className="flex-1">Date</p>
           <p className="flex-2">Name</p>
           <p className="flex-1">Amount</p>
           <p className="flex-1 hidden sm:block">Running Total</p>

@@ -135,7 +135,9 @@ const TransactionItem = ({
           {transaction.type === "income" ? "Income" : transaction.payTo}
         </p>
         {transaction.type === "income" ? (
-          <p className="transaction-assigned-to flex-1 italic">You</p>
+          <p className="transaction-assigned-to flex-1 italic hidden sm:block">
+            You
+          </p>
         ) : (
           <select
             name="assignedTo"

@@ -14,7 +14,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
   const { bills } = useSelector((state: any) => state.demo);
 
   const [newBill, setNewBill] = useState<Bill>({
-    id: bills.length + 1 + "",
+    id: bills?.length + 1 + "",
     dueDate: format(new Date(), "yyyy-MM-dd"),
     repeat: undefined,
     endRepeat: null,
@@ -44,7 +44,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
     // Restrict number input to 6 decimal places
     if (name === "amount" && value.includes(".")) {
-      const decimalPlaces = value.split(".")[1].length;
+      const decimalPlaces = value?.split(".")[1].length;
       if (decimalPlaces > 4) {
         e.preventDefault();
         return;

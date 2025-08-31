@@ -47,6 +47,7 @@ const demoSlice = createSlice({
       state.budgetName = newBudget.budgetName;
       state.owner = newBudget.owner;
       state.transactions = newBudget.transactions || [];
+      state.bills = newBudget.bills || [];
       state.collaborators = newBudget.collaborators || [];
       state.totalIncome = newBudget.totalIncome || 0;
       state.totalExpenses = newBudget.totalExpenses || 0;

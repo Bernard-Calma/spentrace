@@ -7,6 +7,7 @@ import EditTransaction from "./components/EditTranscation";
 import { RootState } from "@/store/store";
 
 import "./styles.scss";
+import { isAfter } from "date-fns";
 
 const Transactions = () => {
   const id = useSelector((state: RootState) => state.user.id);
@@ -60,8 +61,25 @@ const Transactions = () => {
       setTransactions(sortedTransactions);
     };
 
+    const handleGetRunningTotal = () => {
+      let balance = 0;
+      setTransactions(
+        transactions.map((transaction) => {
+          var updatedTransaction = { ...transaction };
+          if (transaction.type === "income") {
+            balance += updatedTransaction.amount;
+          } else {
+            balance -= updatedTransaction.amount;
+          }
+          updatedTransaction.runningTotal = balance;
+          return updatedTransaction;
+        })
+      );
+    };
+
     handleTransactionFilters(filter);
     handleSortTransactions();
+    handleGetRunningTotal();
   }, [storeTransactions, filter]);
   // Handle filter change
   return (
@@ -90,6 +108,7 @@ const Transactions = () => {
           <p className="flex-1">Due Date</p>
           <p className="flex-2">Name</p>
           <p className="flex-1">Amount</p>
+          <p className="flex-1 hidden sm:block">Running Total</p>
           <p className="flex-1 hidden sm:block">Added by</p>
           <p className="flex-1 hidden sm:block">Pay To</p>
           <p className="flex-1 hidden sm:block">Assigned To</p>

@@ -109,6 +109,19 @@ const TransactionItem = ({
             : transaction.amount.toFixed(2)}
         </p>
 
+        <p
+          className={`transaction-running-total flex-1 hidden sm:block ${
+            (transaction.runningTotal ?? 0) > 0 ? "income" : "expense"
+          }`}
+        >
+          $
+          {transaction.runningTotal !== undefined
+            ? transaction.runningTotal > 0
+              ? transaction.runningTotal.toFixed(2)
+              : Math.abs(transaction.runningTotal).toFixed(2)
+            : "Unknown"}
+        </p>
+
         <p className="transaction-added-by flex-1 hidden sm:block">
           {transaction.addedBy === id
             ? "You"

@@ -1,6 +1,13 @@
 "use client";
 
-import { format } from "date-fns";
+import {
+  differenceInDays,
+  format,
+  isAfter,
+  isEqual,
+  parse,
+  parseISO,
+} from "date-fns";
 import { useEffect, useState } from "react";
 
 const BudgetPreview = ({ budget }: { budget: Budget }) => {
@@ -8,16 +15,17 @@ const BudgetPreview = ({ budget }: { budget: Budget }) => {
     useState<Transaction | null>(null);
 
   useEffect(() => {
-    // Find the next transaction due date
-    const upcomingTransactions = budget.transactions.filter(
-      (transaction) => new Date(transaction.date) > new Date()
+    // Get the earliest transaction
+    const earliestTransaction = budget.transactions.reduce(
+      (earliest: Transaction | null, transaction: Transaction) => {
+        if (!earliest || new Date(transaction.date) < new Date(earliest.date)) {
+          return transaction;
+        }
+        return earliest;
+      },
+      null
     );
-    if (upcomingTransactions.length > 0) {
-      const sortedTransactions = upcomingTransactions.sort((a, b) =>
-        new Date(a.date) < new Date(b.date) ? -1 : 1
-      );
-      setNextTransactionDue(sortedTransactions[0]);
-    }
+    setNextTransactionDue(earliestTransaction);
   }, [budget.transactions]);
 
   return (
@@ -35,19 +43,30 @@ const BudgetPreview = ({ budget }: { budget: Budget }) => {
         {nextTransactionDue ? (
           <div className="next-transaction flex flex-col">
             <h3 className="text-md font-semibold text-red-600">
-              {/* Show remaining days until due date */}
-              Next Transaction Due{" "}
-              {`(${Math.ceil(
-                (new Date(nextTransactionDue.date).getTime() -
-                  new Date().getTime()) /
-                  (1000 * 60 * 60 * 24) || 0
-              )} days)`}
-              :
+              {
+                //If overdue show warning
+                isEqual(
+                  format(parseISO(nextTransactionDue.date), "yyyy-MM-dd"),
+                  format(new Date(), "yyyy-MM-dd")
+                )
+                  ? "Due Today"
+                  : differenceInDays(
+                      parseISO(nextTransactionDue.date),
+                      parseISO(format(new Date(), "yyyy-MM-dd"))
+                    ) === 1
+                  ? "Due Tomorrow."
+                  : isAfter(parseISO(nextTransactionDue.date), new Date())
+                  ? `Due in ${differenceInDays(
+                      parseISO(nextTransactionDue.date),
+                      parseISO(format(new Date(), "yyyy-MM-dd"))
+                    )} days`
+                  : "Overdue"
+              }
             </h3>
             <p className="text-xl">
               {nextTransactionDue.name} -{" "}
-              {format(nextTransactionDue.date, "MMMM dd")} - $
-              {nextTransactionDue.amount}
+              {format(parseISO(nextTransactionDue.date), "MMMM dd")} - $
+              {nextTransactionDue.amount.toFixed(2)}
             </p>
           </div>
         ) : (

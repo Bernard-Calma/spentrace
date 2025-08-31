@@ -10,17 +10,11 @@ const Bills = () => {
 
   const [showAdd, setShowAdd] = useState(false);
   const [showBill, setShowBill] = useState(false);
-  const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [billList, setBillList] = useState(bills);
   const [filter, setFilter] = useState("all");
 
   const handleToggleAdd = (): void => {
     setShowAdd(!showAdd);
-  };
-
-  const handleToggleBill = (bill: Bill): void => {
-    setShowBill(!showBill);
-    setSelectedBill(bill);
   };
 
   const handleFilterBills = (filter: string): void => {
@@ -52,10 +46,11 @@ const Bills = () => {
           <p className="flex-1 text-center">Due Date</p>
           <p className="flex-1 text-center">Name</p>
           <p className="flex-1 text-center">Amount</p>
+          <p className="flex-1 text-center">Repeat</p>
           <p className="flex-1 text-center">Paid</p>
         </div>
         {bills?.length > 0 ? (
-          <BillsList bills={billList} handleToggleBill={handleToggleBill} />
+          <BillsList bills={billList} />
         ) : (
           <p className="text-center">No bills found.</p>
         )}

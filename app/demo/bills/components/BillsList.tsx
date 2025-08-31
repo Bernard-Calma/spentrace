@@ -25,6 +25,7 @@ const BillsList = ({ bills }: { bills: Bill[] }) => {
               </p>
               <p className="flex-1 text-center">{bill.name}</p>
               <p className="flex-1 text-center">${bill.amount}</p>
+              <p className="flex-1 text-center">{bill.repeat || "One-time"}</p>
               <div className="flex-1 flex items-center justify-center">
                 <input
                   type="checkbox"

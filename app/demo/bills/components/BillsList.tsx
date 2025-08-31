@@ -5,13 +5,7 @@ import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
-const BillsList = ({
-  bills,
-  handleToggleBill,
-}: {
-  bills: Bill[];
-  handleToggleBill: (bill: Bill) => void;
-}) => {
+const BillsList = ({ bills }: { bills: Bill[] }) => {
   const dispatch = useDispatch();
 
   const handleTogglePaid = (bill: Bill) => {
@@ -24,11 +18,7 @@ const BillsList = ({
     <div className="bills-list">
       <ul>
         {bills.map((bill: Bill) => (
-          <Link
-            key={bill.id}
-            onClick={() => handleToggleBill(bill)}
-            href={`bills/${bill.id}`}
-          >
+          <Link key={bill.id} href={`bills/${bill.id}`}>
             <div className="px-2 flex items-center justify-between border-b border-gray-200 text-sm cursor-pointer hover:bg-blue-300">
               <p className="flex-1 text-center">
                 {format(parseISO(bill.dueDate), "MMM dd")}
@@ -36,9 +26,10 @@ const BillsList = ({
               <p className="flex-1 text-center">{bill.name}</p>
               <p className="flex-1 text-center">${bill.amount}</p>
               <input
-                className="flex-1 text-center"
+                className="flex-1 text-center z-10"
                 type="checkbox"
                 checked={bill.paid}
+                onClick={(e) => e.stopPropagation()}
                 onChange={() => handleTogglePaid(bill)}
               />
             </div>

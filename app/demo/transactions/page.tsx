@@ -51,7 +51,17 @@ const Transactions = () => {
       setTransactions(filteredTransactions);
     };
 
+    const handleSortTransactions = () => {
+      const sortedTransactions = [...transactions].sort((a, b) => {
+        if (a.date < b.date) return -1;
+        if (a.date > b.date) return 1;
+        return 0;
+      });
+      setTransactions(sortedTransactions);
+    };
+
     handleTransactionFilters(filter);
+    handleSortTransactions();
   }, [storeTransactions, filter]);
   // Handle filter change
   return (

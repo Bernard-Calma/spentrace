@@ -17,7 +17,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
     id: bills?.length + 1 + "",
     dueDate: format(new Date(), "yyyy-MM-dd"),
     repeat: undefined,
-    endRepeat: null,
+    endRepeat: "one-time",
     name: "",
     amount: 0,
     category: "",
@@ -91,7 +91,7 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
 
   const handleSubmitAddBill = (e: any) => {
     e.preventDefault();
-    if (newBill.repeat === "") {
+    if (newBill.repeat === "one-time") {
       delete newBill.endRepeat;
     }
     dispatch(addBill(newBill));
@@ -162,11 +162,16 @@ const AddBill: React.FC<{ handleToggleAdd: () => void }> = ({
           <select
             name="repeat"
             id="repeat"
-            className="bg-gray-100 border border-black rounded p-2 w-full"
+            className={`bg-gray-100 border border-black rounded p-2 w-full ${
+              isDemo
+                ? "disabled:bg-gray-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:italic"
+                : ""
+            }`}
+            disabled={isDemo} // Disable if not in demo mode
             value={newBill.repeat}
             onChange={handleChange}
           >
-            <option value="">No Repeat</option>
+            <option value="one-time">One-Time</option>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
             <option value="bi-weekly">Bi-Weekly</option>

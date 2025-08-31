@@ -1,4 +1,4 @@
-type repeat = "" | "daily" | "weekly" | "bi-weekly" | "monthly" | undefined;
+type repeat = "one-time" | "daily" | "weekly" | "bi-weekly" | "monthly";
 
 interface Transaction {
   id: string;

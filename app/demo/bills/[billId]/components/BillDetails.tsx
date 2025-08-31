@@ -186,11 +186,16 @@ const BillDetails = ({ billId }: { billId: string }) => {
         <select
           name="repeat"
           id="repeat"
-          className="bg-gray-100 border border-black rounded p-2 w-full"
+          className={`bg-gray-100 border border-black rounded p-2 w-full ${
+            isDemo
+              ? "disabled:bg-gray-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:italic"
+              : ""
+          }`}
+          disabled={isDemo} // Disable if not in demo mode
           value={bill.repeat}
           onChange={handleChange}
         >
-          <option value="">No Repeat</option>
+          <option value="one-time">One-Time</option>
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
           <option value="bi-weekly">Bi-Weekly</option>

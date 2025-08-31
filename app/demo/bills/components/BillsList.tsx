@@ -25,13 +25,14 @@ const BillsList = ({ bills }: { bills: Bill[] }) => {
               </p>
               <p className="flex-1 text-center">{bill.name}</p>
               <p className="flex-1 text-center">${bill.amount}</p>
-              <input
-                className="flex-1 text-center z-10"
-                type="checkbox"
-                checked={bill.paid}
-                onClick={(e) => e.stopPropagation()}
-                onChange={() => handleTogglePaid(bill)}
-              />
+              <div className="flex-1 flex items-center justify-center">
+                <input
+                  type="checkbox"
+                  checked={bill.paid}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={() => handleTogglePaid(bill)}
+                />
+              </div>
             </div>
           </Link>
         ))}

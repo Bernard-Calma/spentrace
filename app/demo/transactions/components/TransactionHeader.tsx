@@ -58,6 +58,12 @@ const TransactionHeader = ({
                 </li>
                 <li
                   className="cursor-pointer hover:bg-gray-200 p-1"
+                  onClick={() => handleFilterChange("sent")}
+                >
+                  Sent
+                </li>
+                <li
+                  className="cursor-pointer hover:bg-gray-200 p-1"
                   onClick={() => handleFilterChange("pending")}
                 >
                   Pending

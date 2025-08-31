@@ -26,7 +26,9 @@ const TotalBalance = ({ income, expenses }: TotalBalanceProps) => {
       <div className="text-sm lg:text-lg font-semibold bg-white lg:p-2 rounded flex-1 lg:flex justify-center gap-2 shadow">
         <p>Total Balance:</p>
         <p className={`balance ${balance <= 0 ? "negative" : "positive"}`}>
-          ${balance.toFixed(2)}
+          {balance < 0
+            ? `-$${Math.abs(balance).toFixed(2)}`
+            : `$${balance.toFixed(2)}`}
         </p>
       </div>
     </div>

@@ -84,6 +84,13 @@ const BillDetails = ({ billId }: { billId: string }) => {
     });
   };
 
+  const handleTogglePaid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBill({
+      ...bill,
+      paid: e.target.value === "paid",
+    });
+  };
+
   const handleSubmitEditBill = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(editBill(bill));
@@ -125,6 +132,29 @@ const BillDetails = ({ billId }: { billId: string }) => {
           onChange={handleChange}
           required
         />
+      </div>
+
+      <div className="paid flex items-center justify-center gap-2">
+        <label>
+          <input
+            type="radio"
+            name="paid"
+            value="paid"
+            checked={bill.paid}
+            onChange={handleTogglePaid}
+          />
+          Paid
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="paid"
+            value="unpaid"
+            checked={!bill.paid}
+            onChange={handleTogglePaid}
+          />
+          Unpaid
+        </label>
       </div>
 
       <LabelInput

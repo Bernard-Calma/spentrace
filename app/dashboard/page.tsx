@@ -1,0 +1,17 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+
+const DashboardPage = async () => {
+  const session = await auth();
+
+  console.log("Session:", session);
+
+  if (!session?.user) redirect("/register");
+  return (
+    <div className="dashboard h-full w-full flex flex-1 flex-col">
+      Dashboard
+    </div>
+  );
+};
+
+export default DashboardPage;

@@ -1,5 +1,6 @@
 "use client";
 
+import { login } from "@/utils/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -178,10 +179,12 @@ const RegisterPage = () => {
 
         {/* Social logins */}
         <div className="flex flex-col space-y-3">
-          <button className="w-full py-2 border rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
-            <img src="/google.svg" alt="Google" className="w-5 h-5" />
-            Continue with Google
-          </button>
+          <img
+            src="/icons/google-sign-in.svg"
+            alt="Google sign-in"
+            className="w-full h-10 cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => login()}
+          />
         </div>
 
         {/* Login link */}

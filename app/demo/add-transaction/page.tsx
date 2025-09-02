@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
+const AddTransaction = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 

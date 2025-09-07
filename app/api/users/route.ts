@@ -25,8 +25,10 @@ const POST = async (req: Request) => {
     const client = await clientPromise;
     const db = client.db("spentrace");
 
-    const newUser = req.body;
-    const result = await db.collection("users").insertOne(newUser as {});
+    const newUser = await req.json();
+    delete newUser.verifyPassword;
+    console.log("Received new user data:", newUser);
+    const result = await db.collection("users").insertOne(newUser);
 
     return NextResponse.json(result);
   } catch (error) {

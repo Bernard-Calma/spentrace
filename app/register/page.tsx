@@ -3,6 +3,9 @@
 import { login } from "@/utils/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userRegister } from "@/store/features/userSlice";
+import { AppDispatch } from "@/store/store";
 
 const validatePassword = (password: string, repeatPassword: string) => {
   const errors: string[] = [];
@@ -42,6 +45,7 @@ const validatePassword = (password: string, repeatPassword: string) => {
 };
 
 const RegisterPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [newUser, setNewUser] = useState<NewUser>({
     username: "",
     email: "",
@@ -79,7 +83,7 @@ const RegisterPage = () => {
       return;
     }
 
-    alert("✅ Registration successful!");
+    dispatch(userRegister(newUser));
   };
 
   return (

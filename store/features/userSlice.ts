@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface UserState {
   id: string;
@@ -23,6 +24,25 @@ const initialState: UserState = {
   isDemo: false,
   isLoading: false,
 };
+
+export const userRegister = createAsyncThunk(
+  "user/userRegister",
+  async (newUser: NewUser, thunkAPI) => {
+    delete newUser.verifyPassword;
+    try {
+      const res = await axios({
+        method: "POST",
+        url: `api/users`,
+        data: newUser,
+        withCredentials: true,
+      });
+      return res.data.user;
+    } catch (err: any) {
+      // console.log("Registration Error: ", err);
+      return thunkAPI.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",

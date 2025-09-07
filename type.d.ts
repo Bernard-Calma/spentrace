@@ -64,7 +64,7 @@ interface NewUser {
   username: string;
   email: string;
   password: string;
-  verifyPassword: string;
+  verifyPassword?: string;
 }
 
 type TransactionStatus = "pending" | "sent" | "paid" | "cancelled";

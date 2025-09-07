@@ -46,6 +46,13 @@ interface Demo {
   defaultBudget: Budget;
 }
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+}
+
 type TransactionStatus = "pending" | "sent" | "paid" | "cancelled";
 type TransactionFilters = TransactionStatus | "all" | "completed";
 type TransactionType = "income" | "expense";

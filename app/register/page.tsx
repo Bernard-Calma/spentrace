@@ -42,25 +42,25 @@ const validatePassword = (password: string, repeatPassword: string) => {
 };
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({
+  const [newUser, setNewUser] = useState<NewUser>({
     username: "",
     email: "",
     password: "",
-    repeatPassword: "",
+    verifyPassword: "",
   });
 
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedForm = { ...formData, [name]: value };
-    setFormData(updatedForm);
+    const updatedForm = { ...newUser, [name]: value };
+    setNewUser(updatedForm);
 
     // validate on each change
-    if (name === "password" || name === "repeatPassword") {
+    if (name === "password" || name === "verifyPassword") {
       const { errors } = validatePassword(
         updatedForm.password,
-        updatedForm.repeatPassword
+        updatedForm.verifyPassword
       );
       setErrors(errors);
     }
@@ -70,8 +70,8 @@ const RegisterPage = () => {
     e.preventDefault();
 
     const { isValid, errors } = validatePassword(
-      formData.password,
-      formData.repeatPassword
+      newUser.password,
+      newUser.verifyPassword
     );
 
     if (!isValid) {
@@ -108,7 +108,7 @@ const RegisterPage = () => {
             <input
               type="text"
               name="username"
-              value={formData.username}
+              value={newUser.username}
               onChange={handleChange}
               autoComplete="off"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -120,7 +120,7 @@ const RegisterPage = () => {
             <input
               type="email"
               name="email"
-              value={formData.email}
+              value={newUser.email}
               onChange={handleChange}
               autoComplete="off"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -132,7 +132,7 @@ const RegisterPage = () => {
             <input
               type="password"
               name="password"
-              value={formData.password}
+              value={newUser.password}
               onChange={handleChange}
               autoComplete="new-password"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -145,8 +145,8 @@ const RegisterPage = () => {
             </label>
             <input
               type="password"
-              name="repeatPassword"
-              value={formData.repeatPassword}
+              name="verifyPassword"
+              value={newUser.verifyPassword}
               onChange={handleChange}
               autoComplete="new-password"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

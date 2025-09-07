@@ -50,7 +50,15 @@ interface User {
   id: string;
   username: string;
   email: string;
+  image: string;
+  emailVerified: boolean | null;
+}
+
+interface NewUser {
+  username: string;
+  email: string;
   password: string;
+  verifyPassword: string;
 }
 
 type TransactionStatus = "pending" | "sent" | "paid" | "cancelled";

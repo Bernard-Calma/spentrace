@@ -7,10 +7,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [Google],
   callbacks: {
-    async signIn({ user, profile }: { user: User; profile: any }) {
+    async signIn(params) {
+      const { user, profile } = params;
       if (profile) {
-        user.username = profile.name.replace(/\s+/g, "").toLowerCase();
-        user.email = profile.email;
+        (user as any).username =
+          profile.name?.replace(/\s+/g, "").toLowerCase() ?? "User";
+        (user as any).email = profile.email;
       }
       return true;
     },

@@ -10,6 +10,10 @@ export const githubLogin = async () => {
   await signIn("github", { redirectTo: "/dashboard" });
 };
 
+export const linkedinLogin = async () => {
+  await signIn("linkedin", { redirectTo: "/dashboard" });
+};
+
 export const logout = async () => {
   await signOut({ redirectTo: "/" });
 };

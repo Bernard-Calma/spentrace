@@ -1,6 +1,6 @@
 "use client";
 
-import { googleLogin, githubLogin } from "@/utils/auth";
+import { googleLogin, githubLogin, linkedinLogin } from "@/utils/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -182,18 +182,24 @@ const RegisterPage = () => {
         </div>
 
         {/* Social logins */}
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 items-center">
           <img
             src="/icons/google-sign-in.svg"
             alt="Google sign-in"
-            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
             onClick={() => googleLogin()}
           />
           <img
             src="/icons/github-sign-in.png"
             alt="GitHub sign-in"
-            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
             onClick={() => githubLogin()}
+          />
+          <img
+            src="/icons/linkedin-sign-in.png"
+            alt="LinkedIn sign-in"
+            className="w-full h-7 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => linkedinLogin()}
           />
         </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/utils/auth";
+import { googleLogin, githubLogin } from "@/utils/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -57,14 +57,14 @@ const RegisterPage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedForm = { ...newUser, [name]: value };
+    const updatedForm: NewUser = { ...newUser, [name]: value };
     setNewUser(updatedForm);
 
     // validate on each change
     if (name === "password" || name === "verifyPassword") {
       const { errors } = validatePassword(
-        updatedForm.password,
-        updatedForm.verifyPassword
+        updatedForm.password ?? "",
+        updatedForm.verifyPassword ?? ""
       );
       setErrors(errors);
     }
@@ -74,8 +74,8 @@ const RegisterPage = () => {
     e.preventDefault();
 
     const { isValid, errors } = validatePassword(
-      newUser.password,
-      newUser.verifyPassword
+      newUser.password ?? "",
+      newUser.verifyPassword ?? ""
     );
 
     if (!isValid) {
@@ -186,8 +186,14 @@ const RegisterPage = () => {
           <img
             src="/icons/google-sign-in.svg"
             alt="Google sign-in"
-            className="w-full h-10 cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => login()}
+            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => googleLogin()}
+          />
+          <img
+            src="/icons/github-sign-in.png"
+            alt="GitHub sign-in"
+            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => githubLogin()}
           />
         </div>
 

@@ -7,14 +7,7 @@ import LinkedIn from "next-auth/providers/linkedin";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
-  providers: [
-    Google,
-    GitHub,
-    LinkedIn({
-      clientId: process.env.AUTH_LINKEDIN_CLIENT_ID!,
-      clientSecret: process.env.AUTH_LINKEDIN_CLIENT_SECRET!,
-    }),
-  ],
+  providers: [Google, GitHub, LinkedIn],
   callbacks: {
     async signIn(params) {
       const { user, profile } = params;

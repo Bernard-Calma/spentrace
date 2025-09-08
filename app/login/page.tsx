@@ -1,6 +1,6 @@
 "use client";
 
-import { githubLogin, googleLogin, linkedinLogin } from "@/utils/auth";
+import { providerLogin } from "@/actions/auth";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -162,19 +162,19 @@ const LoginPage = () => {
             src="/icons/google-sign-in.svg"
             alt="Google sign-in"
             className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => googleLogin()}
+            onClick={() => providerLogin("google")}
           />
           <img
             src="/icons/github-sign-in.png"
             alt="GitHub sign-in"
             className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => githubLogin()}
+            onClick={() => providerLogin("github")}
           />
           <img
             src="/icons/linkedin-sign-in.png"
             alt="LinkedIn sign-in"
             className="w-full h-7 object-contain cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => linkedinLogin()}
+            onClick={() => providerLogin("linkedin")}
           />
         </div>
 

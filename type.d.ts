@@ -46,6 +46,27 @@ interface Demo {
   defaultBudget: Budget;
 }
 
+interface User {
+  account?: Account | null;
+  profile?: Profile;
+  credentials?: Record<string, CredentialInput>;
+  id: string;
+  username: string;
+  email: string;
+  email?: {
+    verificationRequest?: boolean;
+  };
+  image: string;
+  emailVerified: boolean | null;
+}
+
+interface NewUser {
+  username: string;
+  email: string;
+  password: string;
+  verifyPassword?: string;
+}
+
 type TransactionStatus = "pending" | "sent" | "paid" | "cancelled";
 type TransactionFilters = TransactionStatus | "all" | "completed";
 type TransactionType = "income" | "expense";

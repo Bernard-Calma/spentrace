@@ -1,22 +1,21 @@
 "use server";
 
-import clientPromise from "@/lib/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import dbConnect from "@/lib/db";
+import { User } from "@/models/User";
 
-// Get Users api/users
+// GET /api/users
 const GET = async () => {
   try {
-    const client = await clientPromise;
-    const db = client.db("spentrace");
+    await dbConnect(); // ensure Mongoose is connected
 
-    const users = await db.collection("users").find({}).toArray();
-
-    return NextResponse.json(users);
-  } catch (error) {
-    console.error("Error occurred:", error);
+    const users = await User.find({}).lean(); // plain JS objects
+    return NextResponse.json({ success: true, users });
+  } catch (err: any) {
+    console.error("Error fetching users:", err);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { success: false, message: err.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -25,39 +24,41 @@ const GET = async () => {
 // POST /api/users
 const POST = async (req: Request) => {
   try {
-    const client = await clientPromise;
-    const db = client.db("spentrace");
+    await dbConnect(); // ensure Mongoose is connected
 
-    const newUser = await req.json();
-    delete newUser.verifyPassword;
+    const body = await req.json();
+    delete body.verifyPassword;
 
-    const passwordHash = await bcrypt.hash(newUser.password, 10);
-    newUser.password = passwordHash;
+    const passwordHash = await bcrypt.hash(body.password, 10);
+    body.password = passwordHash;
 
-    const result = await db.collection("users").insertOne(newUser);
+    const newUser = await User.create(body);
 
-    const userResponse = {
-      id: result.insertedId.toString(),
-      username: newUser.username,
-      email: newUser.email,
-      budgets: [],
-      defaultBudget: null,
-      subscribed: false,
-      bills: [],
-      isDemo: false,
-    };
-
-    return NextResponse.json({ success: true, user: userResponse });
+    return NextResponse.json({
+      success: true,
+      user: {
+        id: newUser._id.toString(),
+        username: newUser.username,
+        email: newUser.email,
+        budgets: newUser.budgets,
+        defaultBudget: newUser.defaultBudget,
+        subscribed: newUser.subscribed,
+        bills: newUser.bills,
+        isDemo: newUser.isDemo,
+      },
+    });
   } catch (err: any) {
-    console.error("Error occurred:", err);
+    console.error("Error creating user:", err);
 
-    // Check if it's a Mongo duplicate key error
-    const mongoError = err as { code?: number; keyValue?: Record<string, any> };
-    if (mongoError.code === 11000 && mongoError.keyValue) {
-      const field = Object.keys(mongoError.keyValue)[0]; // e.g. 'username' or 'email'
-      const value = mongoError.keyValue[field];
+    // Handle duplicate keys (username or email)
+    if (err.code === 11000 && err.keyValue) {
+      const field = Object.keys(err.keyValue)[0];
+      const value = err.keyValue[field];
       return NextResponse.json(
-        { success: false, message: `${field} "${value}" already exists` },
+        {
+          success: false,
+          message: `${field} "${value}" already exists`,
+        },
         { status: 400 }
       );
     }

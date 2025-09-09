@@ -28,19 +28,15 @@ const initialState: UserState = {
 export const userRegister = createAsyncThunk(
   "user/userRegister",
   async (newUser: NewUser, thunkAPI) => {
-    console.log("Registering new user:", newUser);
-    delete newUser.verifyPassword;
     try {
-      const res = await axios({
-        method: "POST",
-        url: `api/users`,
-        data: newUser,
+      const res = await axios.post("/api/users", newUser, {
         withCredentials: true,
       });
       return res.data.user;
     } catch (err: any) {
-      // console.log("Registration Error: ", err);
-      return thunkAPI.rejectWithValue(err.response.data.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || "Something went wrong"
+      );
     }
   }
 );

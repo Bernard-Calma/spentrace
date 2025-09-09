@@ -83,8 +83,15 @@ const RegisterPage = () => {
       return;
     }
 
-    const res = dispatch(userRegister(newUser));
-    console.log("Registration response:", res);
+    dispatch(userRegister(newUser))
+      .unwrap()
+      .then((user) => {
+        console.log("User registered:", user);
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err); // will now log "Email already exists" if duplicate
+        setErrors([err]);
+      });
   };
 
   return (

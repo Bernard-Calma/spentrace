@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userRegister } from "@/store/features/userSlice";
 import { AppDispatch } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const validatePassword = (password: string, repeatPassword: string) => {
   const errors: string[] = [];
@@ -45,6 +46,7 @@ const validatePassword = (password: string, repeatPassword: string) => {
 };
 
 const RegisterPage = () => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [newUser, setNewUser] = useState<NewUser>({
     username: "",
@@ -87,6 +89,7 @@ const RegisterPage = () => {
       .unwrap()
       .then((user) => {
         console.log("User registered:", user);
+        router.push("/dashboard");
       })
       .catch((err) => {
         console.error("Registration failed:", err); // will now log "Email already exists" if duplicate

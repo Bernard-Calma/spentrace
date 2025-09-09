@@ -83,7 +83,8 @@ const RegisterPage = () => {
       return;
     }
 
-    dispatch(userRegister(newUser));
+    const res = dispatch(userRegister(newUser));
+    console.log("Registration response:", res);
   };
 
   return (

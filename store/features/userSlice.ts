@@ -28,6 +28,7 @@ const initialState: UserState = {
 export const userRegister = createAsyncThunk(
   "user/userRegister",
   async (newUser: NewUser, thunkAPI) => {
+    console.log("Registering new user:", newUser);
     delete newUser.verifyPassword;
     try {
       const res = await axios({
@@ -60,6 +61,27 @@ export const userSlice = createSlice({
     setDefaultBudget: (state, { payload }: { payload: Budget }) => {
       state.defaultBudget = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(userRegister.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(userRegister.fulfilled, (state, { payload }) => {
+      console.log("User registered successfully:", payload);
+      state.isLoading = false;
+      state.id = payload.id;
+      state.username = payload.username;
+      state.email = payload.email;
+      state.budgets = payload.budgets;
+      state.defaultBudget = payload.defaultBudget;
+      state.subscribed = payload.subscribed;
+      state.bills = payload.bills;
+      state.isDemo = payload.isDemo;
+    });
+    builder.addCase(userRegister.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      console.log("User registration failed:", payload);
+    });
   },
 });
 

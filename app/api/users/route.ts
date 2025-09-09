@@ -21,6 +21,7 @@ const GET = async () => {
 
 // POST /api/users
 const POST = async (req: Request) => {
+  console.log("Received POST request to /api/users");
   try {
     const client = await clientPromise;
     const db = client.db("spentrace");

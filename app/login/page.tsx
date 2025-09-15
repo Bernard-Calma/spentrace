@@ -21,12 +21,18 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting login form with user:", user);
-    const res = await credentialLogin(user.email, user.password);
+    // console.log("Submitting login form with user:", user);
+    try {
+      const res = await credentialLogin(user.email, user.password);
 
-    console.log("Response from credentialLogin:", res);
-    if (!res || res.error) {
-      setErrors([res?.error || "Invalid email or password"]);
+      console.log("Response from credentialLogin:", res);
+      if (!res || res.error) {
+        setErrors([res?.error || "Invalid email or password"]);
+        return;
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrors(["Invalid email or password"]);
       return;
     }
     // Redirect to demo page

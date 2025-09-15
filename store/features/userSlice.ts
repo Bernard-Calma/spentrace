@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { clear } from "console";
 
 interface UserState {
   id: string;
@@ -45,6 +46,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser: (state, action: PayloadAction<UserState>) => {
+      return { ...state, ...action.payload };
+    },
+    clearUser: () => {
+      return initialState;
+    },
     demoUser: (state) => {
       state.id = "demo";
       state.username = "Demo User";
@@ -81,6 +88,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { demoUser, addBudget, setDefaultBudget } = userSlice.actions;
+export const { setUser, clearUser, demoUser, addBudget, setDefaultBudget } =
+  userSlice.actions;
 
 export default userSlice.reducer;

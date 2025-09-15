@@ -71,7 +71,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = (user as any).id; // 👈 add custom fields
+        token.id = (user as any).id;
         token.username = (user as any).username;
         token.email = user.email;
       }

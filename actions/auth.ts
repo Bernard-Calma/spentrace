@@ -23,12 +23,8 @@ export const credentialLogin = async (email: string, password: string) => {
       return { error: "Invalid email or password" };
     }
 
-    if (res.ok && res.url) {
-      console.log("Login successful, redirecting to", res.url);
-      return { success: true, url: res.url };
-    }
-
-    return { error: "res" };
+    // Login successful
+    return { success: true };
   } catch (error) {
     console.error("Unexpected login error:", error);
     return { error: "Invalid email or password" };

@@ -9,7 +9,10 @@ const DashboardPage = async () => {
   if (!session?.user) redirect("/register");
   return (
     <div className="dashboard h-full w-full flex flex-1 flex-col">
-      Dashboard
+      Dashboard{" "}
+      {session?.user
+        ? `- Welcome, ${session.user.name || session.user.email}`
+        : ""}
     </div>
   );
 };

@@ -55,8 +55,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             return {
               id: user._id.toString(),
               email: user.email,
-              name: user.username,
-              test: "test", // 👈 custom field
+              username: user.username,
             };
           }
         }
@@ -70,6 +69,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = (user as any).id; // 👈 add custom fields
+        token.username = (user as any).username;
+        token.email = user.email;
+      }
+      return token; // ✅ must return token
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as any).id = token.id as string;
+        (session.user as any).username = token.username as string;
+        (session.user as any).email = token.email as string;
+      }
+      return session; // ✅ must return session
+    },
     async signIn(params) {
       const { user, profile } = params;
       if (profile) {

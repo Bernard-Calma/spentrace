@@ -32,7 +32,9 @@ export const credentialLogin = async (email: string, password: string) => {
 };
 
 export const providerLogin = async (provider: string) => {
-  await signIn(provider, { redirectTo: "/dashboard" });
+  // Clear any existing session
+  await signOut({ redirect: false });
+  await signIn(provider, { callbackUrl: "/dashboard" });
 };
 
 export const logout = async () => {

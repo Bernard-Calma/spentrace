@@ -13,21 +13,19 @@ export interface User extends Document {
   budgets: string[]; // Array of Budget Ids
   defaultBudget: string; // Budget Id
   subscribed: string; // Stripe Customer ID
-  isDemo: boolean;
 }
 
 const UserSchema: Schema<User> = new Schema(
   {
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String, required: false },
     image: { type: String, default: "" },
     emailVerified: { type: Boolean, default: false },
     bills: { type: [String], default: [] },
     budgets: { type: [String], default: [] },
     defaultBudget: { type: String, default: "" },
     subscribed: { type: String, default: "" },
-    isDemo: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

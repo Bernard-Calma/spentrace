@@ -30,6 +30,7 @@ const LoginPage = () => {
         setErrors([res?.error || "Invalid email or password"]);
         return;
       } else {
+        console.log("Login successful, redirecting to dashboard");
         // Login successful, redirect to dashboard
         router.push("/dashboard");
         return;

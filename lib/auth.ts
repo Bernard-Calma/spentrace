@@ -173,6 +173,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           token.defaultBudget = (dbUser as any).defaultBudget;
           token.subscribed = (dbUser as any).subscribed;
           token.email = (dbUser as any).email;
+        } else {
+          // Add fields to token
+          token.id = (dbUser as any)._id.toString();
+          token.username = (dbUser as any).username;
+          token.bills = (dbUser as any).bills;
+          token.budgets = (dbUser as any).budgets;
+          token.defaultBudget = (dbUser as any).defaultBudget;
+          token.subscribed = (dbUser as any).subscribed;
+          token.email = (dbUser as any).email;
         }
       }
 
@@ -181,6 +190,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
     // Session callback
     async session({ session, token }) {
+      console.log("Session callback - session:", session);
+      console.log("Session callback - token:", token);
       if (session.user) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;

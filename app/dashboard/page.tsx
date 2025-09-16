@@ -8,7 +8,7 @@ import { User } from "@/models/User";
 const DashboardPage = async () => {
   const session = await auth();
 
-  // console.log("Session:", session);
+  console.log("Session:", session);
 
   if (!session?.user) redirect("/login");
 
@@ -18,7 +18,7 @@ const DashboardPage = async () => {
 
   // Get fresh user data from DB
   const user = await User.findById(userId).select("-password -__v").lean();
-
+  console.log("DB User:", user);
   if (!user) {
     // User not found in DB (shouldn't really happen)
     redirect("/register");

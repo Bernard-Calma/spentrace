@@ -3,6 +3,7 @@
 import { signIn, signOut } from "@/lib/auth";
 
 export const credentialLogin = async (email: string, password: string) => {
+  await signOut({ redirect: false }); // clear any existing session
   try {
     const res = await signIn("credentials", {
       email,
@@ -34,7 +35,7 @@ export const credentialLogin = async (email: string, password: string) => {
 export const providerLogin = async (provider: string) => {
   // Clear any existing session
   await signOut({ redirect: false });
-  await signIn(provider, { callbackUrl: "/dashboard" });
+  await signIn(provider, { redirectTo: "/dashboard" });
 };
 
 export const logout = async () => {

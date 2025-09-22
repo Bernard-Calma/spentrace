@@ -17,11 +17,16 @@ const DashboardPage = async () => {
   await dbConnect();
 
   // Get fresh user data from DB
-  const user = await User.findById(userId).select("-password -__v").lean();
+  const user = await User.findById(userId)
+    .select("-password -__v -createdAt -updatedAt")
+    .lean();
   console.log("DB User:", user);
   if (!user) {
     // User not found in DB (shouldn't really happen)
     redirect("/register");
+  } else if (!Array.isArray(user)) {
+    // User object mongoose -> plain JS object
+    (user as { _id: any })._id = (user as { _id: any })._id.toString(); // 👈 convert ObjectId
   }
   return (
     <div className="dashboard h-full w-full flex flex-1">

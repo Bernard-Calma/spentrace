@@ -1,11 +1,12 @@
 "use client";
 
-import { googleLogin, githubLogin } from "@/utils/auth";
+import { providerLogin } from "@/actions/auth";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userRegister } from "@/store/features/userSlice";
 import { AppDispatch } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const validatePassword = (password: string, repeatPassword: string) => {
   const errors: string[] = [];
@@ -45,6 +46,7 @@ const validatePassword = (password: string, repeatPassword: string) => {
 };
 
 const RegisterPage = () => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [newUser, setNewUser] = useState<NewUser>({
     username: "",
@@ -83,7 +85,16 @@ const RegisterPage = () => {
       return;
     }
 
-    dispatch(userRegister(newUser));
+    dispatch(userRegister(newUser))
+      .unwrap()
+      .then((user) => {
+        console.log("User registered:", user);
+        router.push("/dashboard");
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err); // will now log "Email already exists" if duplicate
+        setErrors([err]);
+      });
   };
 
   return (
@@ -182,18 +193,24 @@ const RegisterPage = () => {
         </div>
 
         {/* Social logins */}
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 items-center">
           <img
             src="/icons/google-sign-in.svg"
             alt="Google sign-in"
-            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => googleLogin()}
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("google")}
           />
           <img
             src="/icons/github-sign-in.png"
             alt="GitHub sign-in"
-            className="w-full h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => githubLogin()}
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("github")}
+          />
+          <img
+            src="/icons/linkedin-sign-in.png"
+            alt="LinkedIn sign-in"
+            className="w-full h-7 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("linkedin")}
           />
         </div>
 

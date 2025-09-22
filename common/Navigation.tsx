@@ -13,7 +13,7 @@ const Navigation = () => {
   // Subscribed: Dashboard, Transactions, Bills, Reports, Analytics, Profile, Help & Support
   const navLinks = [
     {
-      href: "/dashboard",
+      href: isDemo ? "/demo" : "/dashboard",
       label: "Dashboard",
       icon: "🏠",
       demo: true,
@@ -21,21 +21,21 @@ const Navigation = () => {
       subscribed: true,
     },
     {
-      href: "/transactions",
+      href: isDemo ? "/demo/transactions" : "/transactions",
       label: "Transactions",
       icon: "💳",
       demo: true,
       registered: true,
       subscribed: true,
     },
-    // {
-    //   href: "/bills",
-    //   label: "Bills",
-    //   icon: "💰",
-    //   demo: false,
-    //   registered: true,
-    //   subscribed: true,
-    // },
+    {
+      href: isDemo ? "/demo/bills" : "/bills",
+      label: "Bills",
+      icon: "💰",
+      demo: false,
+      registered: true,
+      subscribed: true,
+    },
     // {
     //   href: "/reports",
     //   label: "Reports",
@@ -89,23 +89,18 @@ const Navigation = () => {
         </Link>
       </div>
       <ul className="nav-links flex flex-1 flex-col space-y-2 p-4">
-        <Link
-          href={"/demo"}
-          className="text-gray-700 hover:text-blue-500 transition-colors"
-        >
-          🏠 Dashboard
-        </Link>
-        {id && (
-          <Link
-            href={`/demo/transactions`}
-            className="text-gray-700 hover:text-blue-500 transition-colors"
-          >
-            💳 Transactions
-          </Link>
+        {navLinks.map((link) =>
+          link.label === "Transactions" && !id ? null : (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-700 hover:text-blue-500 transition-colors"
+            >
+              <span className="icon">{link.icon}</span>
+              <span className="label">{link.label}</span>
+            </Link>
+          )
         )}
-        <li>
-          <Link href="/demo/bills">💰 Bills</Link>
-        </li>
       </ul>
       {/* For User Menu, Help & Support */}
       <div className="bottom-nav flex flex-col p-2 space-y-2">

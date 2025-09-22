@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { clear } from "console";
 
 interface UserState {
   id: string;
@@ -28,18 +29,15 @@ const initialState: UserState = {
 export const userRegister = createAsyncThunk(
   "user/userRegister",
   async (newUser: NewUser, thunkAPI) => {
-    delete newUser.verifyPassword;
     try {
-      const res = await axios({
-        method: "POST",
-        url: `api/users`,
-        data: newUser,
+      const res = await axios.post("/api/users", newUser, {
         withCredentials: true,
       });
       return res.data.user;
     } catch (err: any) {
-      // console.log("Registration Error: ", err);
-      return thunkAPI.rejectWithValue(err.response.data.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || "Something went wrong"
+      );
     }
   }
 );
@@ -48,6 +46,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser: (state, action: PayloadAction<UserState>) => {
+      return { ...state, ...action.payload };
+    },
+    clearUser: () => {
+      return initialState;
+    },
     demoUser: (state) => {
       state.id = "demo";
       state.username = "Demo User";
@@ -61,8 +65,30 @@ export const userSlice = createSlice({
       state.defaultBudget = payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(userRegister.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(userRegister.fulfilled, (state, { payload }) => {
+      console.log("User registered successfully:", payload);
+      state.isLoading = false;
+      state.id = payload.id;
+      state.username = payload.username;
+      state.email = payload.email;
+      state.budgets = payload.budgets;
+      state.defaultBudget = payload.defaultBudget;
+      state.subscribed = payload.subscribed;
+      state.bills = payload.bills;
+      state.isDemo = payload.isDemo;
+    });
+    builder.addCase(userRegister.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      console.log("User registration failed:", payload);
+    });
+  },
 });
 
-export const { demoUser, addBudget, setDefaultBudget } = userSlice.actions;
+export const { setUser, clearUser, demoUser, addBudget, setDefaultBudget } =
+  userSlice.actions;
 
 export default userSlice.reducer;

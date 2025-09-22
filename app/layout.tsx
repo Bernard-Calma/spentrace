@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/globals.scss";
 import ReduxProvider from "@/store/provider";
 import { Navigation } from "@/common";
+import { SessionProvider } from "next-auth/react";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -51,7 +52,9 @@ export default function RootLayout({
       <body
         className={` ${kanit.variable} antialiased flex flex-col min-h-screen`}
       >
-        <ReduxProvider children={children} />
+        <ReduxProvider>
+          <SessionProvider children={children} />
+        </ReduxProvider>
       </body>
     </html>
   );

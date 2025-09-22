@@ -1,89 +1,47 @@
 "use client";
 
-import { login } from "@/utils/auth";
+import { credentialLogin, providerLogin } from "@/actions/auth";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const validatePassword = (password: string, repeatPassword: string) => {
-  const errors: string[] = [];
-
-  // Regex for validation
-  const passwordRegex = {
-    length: /^.{8,}$/, // at least 8 chars
-    upper: /[A-Z]/, // at least one uppercase
-    lower: /[a-z]/, // at least one lowercase
-    number: /[0-9]/, // at least one number
-    special: /[^A-Za-z0-9]/, // at least one special character
-  };
-
-  if (!passwordRegex.length.test(password)) {
-    errors.push("At least 8 characters long");
-  }
-  if (!passwordRegex.upper.test(password)) {
-    errors.push("At least one uppercase letter");
-  }
-  if (!passwordRegex.lower.test(password)) {
-    errors.push("At least one lowercase letter");
-  }
-  if (!passwordRegex.number.test(password)) {
-    errors.push("At least one number");
-  }
-  if (!passwordRegex.special.test(password)) {
-    errors.push("At least one special character");
-  }
-  if (password && repeatPassword && password !== repeatPassword) {
-    errors.push("Passwords do not match");
-  }
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  };
-};
-
 const LoginPage = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    username: "",
+  const [user, setUser] = useState({
     email: "",
     password: "",
-    repeatPassword: "",
   });
 
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedForm = { ...formData, [name]: value };
-    setFormData(updatedForm);
-
-    // validate on each change
-    if (name === "password" || name === "repeatPassword") {
-      const { errors } = validatePassword(
-        updatedForm.password,
-        updatedForm.repeatPassword
-      );
-      setErrors(errors);
-    }
+    setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // console.log("Submitting login form with user:", user);
+    try {
+      const res = await credentialLogin(user.email, user.password);
 
-    // const { isValid, errors } = validatePassword(
-    //   formData.password,
-    //   formData.repeatPassword
-    // );
-
-    // if (!isValid) {
-    //   setErrors(errors);
-    //   return;
-    // }
-
-    alert("✅ Login successful! \n Redirecting to Demo");
+      console.log("Response from credentialLogin:", res);
+      if (!res || res.error) {
+        setErrors([res?.error || "Invalid email or password"]);
+        return;
+      } else {
+        console.log("Login successful, redirecting to dashboard");
+        // Login successful, redirect to dashboard
+        router.push("/dashboard");
+        return;
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrors(["Invalid email or password"]);
+      return;
+    }
     // Redirect to demo page
-    router.push("/demo");
+    // router.push("/demo");
   };
 
   return (
@@ -113,7 +71,7 @@ const LoginPage = () => {
             <input
               type="email"
               name="email"
-              value={formData.email}
+              value={user.email}
               onChange={handleChange}
               autoComplete="off"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -125,7 +83,7 @@ const LoginPage = () => {
             <input
               type="password"
               name="password"
-              value={formData.password}
+              value={user.password}
               onChange={handleChange}
               autoComplete="new-password"
               className="w-full border p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -157,12 +115,24 @@ const LoginPage = () => {
         </div>
 
         {/* Social logins */}
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 items-center">
           <img
             src="/icons/google-sign-in.svg"
             alt="Google sign-in"
-            className="w-full h-10 cursor-pointer hover:transform hover:scale-105 transition"
-            onClick={() => login()}
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("google")}
+          />
+          <img
+            src="/icons/github-sign-in.png"
+            alt="GitHub sign-in"
+            className="w-64 h-10 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("github")}
+          />
+          <img
+            src="/icons/linkedin-sign-in.png"
+            alt="LinkedIn sign-in"
+            className="w-full h-7 object-contain cursor-pointer hover:transform hover:scale-105 transition"
+            onClick={() => providerLogin("linkedin")}
           />
         </div>
 

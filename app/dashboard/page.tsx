@@ -17,20 +17,25 @@ const DashboardPage = async () => {
   await dbConnect();
 
   // Get fresh user data from DB
-  const user = await User.findById(userId)
+  const dbUser = await User.findById(userId)
     .select("-password -__v -createdAt -updatedAt")
     .lean();
-  console.log("DB User:", user);
-  if (!user) {
+  // console.log("DB User:", dbUser);
+  if (!dbUser || Array.isArray(dbUser)) {
     // User not found in DB (shouldn't really happen)
     redirect("/register");
-  } else if (!Array.isArray(user)) {
-    // User object mongoose -> plain JS object
-    (user as { _id: any })._id = (user as { _id: any })._id.toString(); // 👈 convert ObjectId
   }
+  // Ensure user is a plain object and matches the User type
+  const user = {
+    id: (dbUser as { _id: any })._id.toString(),
+    username: dbUser.username,
+    email: dbUser.email,
+    image: dbUser.image ?? null,
+    emailVerified: dbUser.emailVerified ?? null,
+  };
+
   return (
     <div className="dashboard h-full w-full flex flex-1">
-      <Navigation />
       <Dashboard user={user} />
     </div>
   );

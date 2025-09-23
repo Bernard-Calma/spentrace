@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { LabelInput } from "@/common";
 import { EmailTagTextarea } from "./components";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const CreateBudgetPage = () => {
   const [newBudget, setNewBudget] = useState({
     budgetName: "",
-    budgetAmount: 0,
-    owner: "",
+    owner: useSession().data?.user?.id || "",
     collaborators: [] as string[],
     transactions: [],
     history: [],
@@ -32,6 +33,15 @@ const CreateBudgetPage = () => {
     newBudget.collaborators = emailList;
     // Handle form submission logic here
     console.log("Creating budget:", newBudget);
+    axios
+      .post("/api/budgets", newBudget)
+      .then((res) => {
+        console.log("Budget created successfully:", res.data);
+        // Optionally reset form or redirect user
+      })
+      .catch((err) => {
+        console.error("Error creating budget:", err);
+      });
   };
   return (
     <div className="create-budget-page min-h-screen flex flex-col items-center justify-center p-12">

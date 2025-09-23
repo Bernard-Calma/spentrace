@@ -164,7 +164,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               },
             }
           );
-          console.log("Updated user with missing fields:", dbUser);
+          // console.log("Updated user with missing fields:", dbUser);
           // Add fields to token
           token.id = (dbUser as any)._id.toString();
           token.username = (dbUser as any).username;
@@ -190,8 +190,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
     // Session callback
     async session({ session, token }) {
-      console.log("Session callback - session:", session);
-      console.log("Session callback - token:", token);
+      // console.log("Session callback - session:", session);
+      // console.log("Session callback - token:", token);
       if (session.user) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;

@@ -26,7 +26,14 @@ const POST = async (
     }
 
     // Add budgetId to user's budgets array
-    await User.findByIdAndUpdate(userId, { $addToSet: { budgets: budgetId } });
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $addToSet: { budgets: budgetId },
+        $set: { defaultBudget: budgetId },
+      },
+      { new: true }
+    );
 
     return NextResponse.json({ success: true });
   } catch (err: any) {

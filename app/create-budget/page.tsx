@@ -5,8 +5,10 @@ import { LabelInput } from "@/common";
 import { EmailTagTextarea } from "./components";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const CreateBudgetPage = () => {
+  const router = useRouter();
   const session = useSession();
   const [newBudget, setNewBudget] = useState({
     budgetName: "",
@@ -47,6 +49,16 @@ const CreateBudgetPage = () => {
           .then((res) => {
             console.log("Budget added to user successfully:", res.data);
             // Optionally reset form or redirect user
+            setNewBudget({
+              budgetName: "",
+              owner: newBudget.owner,
+              collaborators: [],
+              transactions: [],
+              history: [],
+            });
+            setEmailList([]); // Clear email list
+            // Redirect to dashboard
+            router.push("/");
           })
           .catch((err) => {
             console.error("Error adding budget to user:", err);

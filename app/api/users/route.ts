@@ -5,22 +5,6 @@ import bcrypt from "bcrypt";
 import dbConnect from "@/lib/db";
 import { User } from "@/models/User";
 
-// GET /api/users
-const GET = async () => {
-  try {
-    await dbConnect(); // ensure Mongoose is connected
-
-    const users = await User.find({}).lean(); // plain JS objects
-    return NextResponse.json({ success: true, users });
-  } catch (err: any) {
-    console.error("Error fetching users:", err);
-    return NextResponse.json(
-      { success: false, message: err.message || "Internal Server Error" },
-      { status: 500 }
-    );
-  }
-};
-
 // POST /api/users
 const POST = async (req: Request) => {
   try {
@@ -70,4 +54,4 @@ const POST = async (req: Request) => {
   }
 };
 
-export { GET, POST };
+export { POST };

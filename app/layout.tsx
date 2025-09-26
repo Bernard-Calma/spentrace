@@ -3,7 +3,6 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import "../styles/globals.scss";
 import ReduxProvider from "@/store/provider";
-import { Navigation } from "@/common";
 import { SessionProvider } from "next-auth/react";
 
 const kanit = Kanit({

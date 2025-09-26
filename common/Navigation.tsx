@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const Navigation = () => {
+const Navigation = ({ user }: { user: any }) => {
   const { isDemo, defaultBudget } = useSelector((state: any) => state.user);
   const { id } = defaultBudget || {};
 
@@ -73,7 +73,7 @@ const Navigation = () => {
     // },
     {
       href: isDemo ? "/demo" : "/profile",
-      label: "Demo User",
+      label: user?.name || "Demo User",
       icon: "👤",
       demo: true,
       registered: true,
@@ -82,7 +82,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between min-h-screen w-48">
+    <nav className="navigation flex flex-col justify-between min-h-screen w-auto pb-2">
       <div className="top-nav flex ">
         <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
           SpenTrace

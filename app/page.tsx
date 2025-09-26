@@ -9,20 +9,26 @@ import {
 } from "./components";
 import { Navigation } from "@/common";
 import { redirect } from "next/navigation";
+import axios from "axios";
 
 const Home = async () => {
   const session = await auth();
 
-  console.log("Session:", session);
+  // console.log("Session:", session);
   if (session?.user) {
-    // User is logged in, redirect to dashboard
-    // Note: This won't be a full redirect since it's in a Server Component
-    if (!session.user.defaultBudget) {
+    // Check if user has a default budget from database
+    const res = await axios.get(
+      `${process.env.NEXTAUTH_URL}/api/users/${session.user.id}`
+    );
+
+    const user = await res.data.user;
+    console.log("User Data: ", user);
+    if (user?.defaultBudget == null) {
       redirect("/create-budget");
     }
     return (
       <main className="h-full w-full flex flex-1">
-        <Navigation />
+        <Navigation user={session.user} />
       </main>
     );
   }

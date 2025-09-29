@@ -46,7 +46,7 @@ interface Demo {
   defaultBudget: Budget;
 }
 
-interface User {
+interface AppUser {
   credentials?: Record<string, CredentialInput>;
   id: string;
   username: string;
@@ -56,6 +56,10 @@ interface User {
   };
   image: string;
   emailVerified: boolean | null;
+  bills: Bill[];
+  budgets: string[]; // Array of Budget Ids
+  defaultBudget: string; // Budget Id
+  subscribed: string; // Stripe Customer ID
 }
 
 interface NewUser {

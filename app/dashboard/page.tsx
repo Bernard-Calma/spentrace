@@ -1,4 +1,3 @@
-import { Navigation } from "@/common";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Dashboard } from "./components";
@@ -39,7 +38,6 @@ const DashboardPage = async () => {
   };
   return (
     <div className="dashboard h-full w-full flex flex-1">
-      <Navigation />
       <Dashboard user={user} />
     </div>
   );

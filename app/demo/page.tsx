@@ -6,8 +6,12 @@ import { AppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { setDefaultBudget } from "@/store/features/userSlice";
 
-import { BudgetList, Calendar, TotalBalance } from "@/common";
-import RecentTransactions from "./RecentTransactions";
+import {
+  BudgetList,
+  Calendar,
+  TotalBalance,
+  RecentTransactions,
+} from "@/common";
 import BudgetPreview from "./BudgetPreview";
 
 import "./styles.scss";

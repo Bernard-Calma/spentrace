@@ -6,7 +6,7 @@ const BudgetList = ({ budgets }: { budgets?: string[] }) => {
   const router = useRouter();
   const { isDemo, id } = useSelector((state: any) => state.user);
   const demo = useSelector((state: any) => state.demo);
-  console.log("Is Demo User:", isDemo);
+  // console.log("Is Demo User:", isDemo);
   // If there's no user ID, route to /
   if (!id) {
     router.push("/");

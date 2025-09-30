@@ -5,13 +5,15 @@ import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
 import BudgetList from "./BudgetList";
 import Calendar from "./Calendar";
+import RecentTransactions from "./RecentTransactions";
 
 export {
   LabelInput,
   TotalBalance,
   ListPreview,
-  Navigation,
-  MobileNavigation,
   BudgetList,
   Calendar,
+  RecentTransactions,
+  Navigation,
+  MobileNavigation,
 };

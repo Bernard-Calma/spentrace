@@ -21,7 +21,7 @@ const Home = async () => {
     );
 
     const user = await res.data.user;
-    console.log("User Data: ", user);
+    // console.log("User Data: ", user);
     if (user?.defaultBudget == null) {
       redirect("/create-budget");
     } else {

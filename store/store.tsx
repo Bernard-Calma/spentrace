@@ -3,6 +3,7 @@ import { loadDemoState } from "@/utils/localStorage";
 
 import userReducer from "./features/userSlice";
 import demoReducer from "./features/demoSlice";
+import budgetReducer from "./features/budgetSlice";
 
 const preloadedState = {
   // If no demo state exists in localStorage, initialize with an empty demo state
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     demo: demoReducer,
+    budget: budgetReducer,
   },
   preloadedState,
 });

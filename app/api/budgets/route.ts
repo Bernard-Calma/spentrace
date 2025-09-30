@@ -11,7 +11,7 @@ const POST = async (req: Request) => {
 
     const body = await req.json();
 
-    console.log("Incoming budget data:", body);
+    // console.log("Incoming budget data:", body);
 
     // Create and save
     const newBudget = await BudgetModel.create(body);

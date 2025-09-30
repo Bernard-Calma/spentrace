@@ -51,11 +51,8 @@ interface AppUser {
   id: string;
   username: string;
   email: string;
-  email?: {
-    verificationRequest?: boolean;
-  };
-  image: string;
-  emailVerified: boolean | null;
+  emailVerified: boolean;
+  image: string | null;
   bills: Bill[];
   budgets: string[]; // Array of Budget Ids
   defaultBudget: string; // Budget Id

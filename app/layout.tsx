@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/globals.scss";
 import ReduxProvider from "@/store/provider";
 import { SessionProvider } from "next-auth/react";
+import { Navigation } from "@/common";
 
 const kanit = Kanit({
   variable: "--font-kanit",

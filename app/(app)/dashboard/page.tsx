@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Dashboard } from "./components";
+import { BudgetList } from "./components";
 import dbConnect from "@/lib/db";
 import { User } from "@/models/User";
 
@@ -30,7 +30,7 @@ const DashboardPage = async () => {
     username: dbUser.username,
     email: dbUser.email,
     image: dbUser.image ?? null,
-    emailVerified: dbUser.emailVerified ?? null,
+    emailVerified: dbUser.emailVerified ?? false,
     bills: dbUser.bills || [],
     budgets: dbUser.budgets || [],
     defaultBudget: dbUser.defaultBudget || "",
@@ -38,7 +38,8 @@ const DashboardPage = async () => {
   };
   return (
     <div className="dashboard h-full w-full flex flex-1">
-      <Dashboard user={user} />
+      <BudgetList />
+      <p>Test</p>
     </div>
   );
 };

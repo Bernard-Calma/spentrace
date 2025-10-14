@@ -23,7 +23,7 @@ const AppLayoutClient = ({
     // e.g., dispatch(setUser(user));
     dispatch(setBudget(budget));
     dispatch(setUser(user));
-  }, [user, dispatch]);
+  }, []);
   return (
     <main className="flex flex min-h-screen">
       <Navigation user={user} />

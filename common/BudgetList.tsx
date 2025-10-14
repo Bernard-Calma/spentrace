@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 // Budget prop is optional for demo user
@@ -8,10 +9,12 @@ const BudgetList = ({ budgets }: { budgets?: string[] }) => {
   const demo = useSelector((state: any) => state.demo);
   // console.log("Is Demo User:", isDemo);
   // If there's no user ID, route to /
-  if (!id) {
-    router.push("/");
-    return null; // Prevent rendering until redirect happens
-  }
+  useEffect(() => {
+    if (!id) {
+      console.log("No user ID, redirecting to /");
+      router.push("/");
+    }
+  }, []);
   if (isDemo) {
     return (
       <div className="budget-list text-sm flex w-full flex-col shadow-md rounded-lg pb-4">

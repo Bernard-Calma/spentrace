@@ -27,7 +27,7 @@ const DashboardPage = () => {
 
   return (
     <div className="dashboard h-full w-full flex flex-col flex-1">
-      <p>Default Budget: {budgetName}</p>
+      <h1 className="text-xl font-bold">Budget: {budgetName}</h1>
       <TotalBalance income={totalIncome} expenses={totalExpenses} />
       <RecentTransactions transactions={transactions} budgetName={budgetName} />
       <BudgetList budgets={budgets} />

@@ -7,7 +7,6 @@ import {
   HeroSection,
   PlanSection,
 } from "./components";
-import { Navigation } from "@/common";
 import { redirect } from "next/navigation";
 import axios from "axios";
 
@@ -22,15 +21,13 @@ const Home = async () => {
     );
 
     const user = await res.data.user;
-    console.log("User Data: ", user);
+    // console.log("User Data: ", user);
     if (user?.defaultBudget == null) {
       redirect("/create-budget");
+    } else {
+      console.log("User has a default budget, redirecting to dashboard");
+      redirect("/dashboard");
     }
-    return (
-      <main className="h-full w-full flex flex-1">
-        <Navigation user={session.user} />
-      </main>
-    );
   }
   return (
     <>

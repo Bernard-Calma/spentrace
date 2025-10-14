@@ -139,7 +139,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             subscribed: "",
           });
 
-          console.log("Created new user:", createdUser);
+          // console.log("Created new user:", createdUser);
 
           // Convert Mongoose document to plain object
           dbUser = createdUser.toObject();

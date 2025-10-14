@@ -6,7 +6,7 @@ export interface User extends Document {
   id: string;
   username: string;
   email: string;
-  password: string;
+  password?: string;
   image: string;
   emailVerified: boolean | null;
   bills: string[]; // Bill[]

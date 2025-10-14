@@ -1,3 +1,4 @@
 import BudgetList from "./budgetList";
+import PendingTransactions from "./pendingTransactions";
 
-export { BudgetList };
+export { BudgetList, PendingTransactions };

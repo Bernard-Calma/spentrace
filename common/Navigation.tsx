@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Navigation = ({ user }: { user: any }) => {
   const { isDemo, defaultBudget } = useSelector((state: any) => state.user);
-  const { id } = defaultBudget || {};
+  const [id] = useState<string | null>(
+    isDemo ? defaultBudget?.id : defaultBudget || null
+  );
 
   // Nav links can be customized based on user state
   // Demo: Dashboard, Transactions, Profile, Help & Support

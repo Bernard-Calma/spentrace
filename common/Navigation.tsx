@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const Navigation = ({
-  user,
-  budgetName,
-}: {
-  user: any;
-  budgetName: string;
-}) => {
+const Navigation = ({ user }: { user: any }) => {
   const { isDemo, defaultBudget } = useSelector((state: any) => state.user);
   const [id] = useState<string | null>(
     isDemo ? defaultBudget?.id : defaultBudget || null

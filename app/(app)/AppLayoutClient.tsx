@@ -26,7 +26,7 @@ const AppLayoutClient = ({
   }, []);
   return (
     <main className="flex flex min-h-screen">
-      <Navigation user={user} defaultBudget={budget?.name} />
+      <Navigation user={user} />
       {children}
     </main>
   );

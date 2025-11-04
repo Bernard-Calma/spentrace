@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^3.10.0",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
     "mongodb": "^6.19.0",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

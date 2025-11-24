@@ -127,11 +127,15 @@ const Calendar = ({ itemListProp }: { itemListProp: any[] }) => {
   return (
     <div className="summary calendar-box flex flex-col flex-1 bg-white rounded-lg shadow-md p-2">
       <div className="calendar-header flex items-center justify-around mb-4">
-        <button onClick={handlePrevMonth}>&lt;</button>
+        <button onClick={handlePrevMonth} className="cursor-pointer">
+          &lt;
+        </button>
         <h2 className="subtitle text-lg font-semibold">
           {format(currentDate, "MMMM yyyy")}
         </h2>
-        <button onClick={handleNextMonth}>&gt;</button>
+        <button onClick={handleNextMonth} className="cursor-pointer">
+          &gt;
+        </button>
       </div>
       <div className="summary-content calendar flex flex-col w-1/2 m-auto">
         <div className="calendar-weekdays grid grid-cols-7 gap-2">

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import { BudgetModel } from "@/models/Budget";
 
+// Get Budget By ID
 const GET = async (
   _: Request,
   context: { params: Promise<{ id: string }> }

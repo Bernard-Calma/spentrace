@@ -1,9 +1,12 @@
+// Currently used for Demo
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Budget prop is optional for demo user
 const BudgetList = ({ budgets }: { budgets?: string[] }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { isDemo, id } = useSelector((state: any) => state.user);
   const demo = useSelector((state: any) => state.demo);
@@ -13,6 +16,11 @@ const BudgetList = ({ budgets }: { budgets?: string[] }) => {
     if (!id) {
       console.log("No user ID, redirecting to /");
       router.push("/");
+    } else {
+      axios.get(`/api/budgets/userBudgets/${id}`).then((response) => {
+        // Handle the response if needed
+        // console.log("Fetched budgets for user:", response.data);
+      });
     }
   }, []);
   if (isDemo) {

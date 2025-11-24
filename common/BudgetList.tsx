@@ -2,11 +2,10 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 // Budget prop is optional for demo user
-const BudgetList = ({ budgets }: { budgets?: string[] }) => {
-  const dispatch = useDispatch();
+const BudgetList = ({ budgets }: { budgets?: Budget[] }) => {
   const router = useRouter();
   const { isDemo, id } = useSelector((state: any) => state.user);
   const demo = useSelector((state: any) => state.demo);
@@ -16,11 +15,6 @@ const BudgetList = ({ budgets }: { budgets?: string[] }) => {
     if (!id) {
       console.log("No user ID, redirecting to /");
       router.push("/");
-    } else {
-      axios.get(`/api/budgets/userBudgets/${id}`).then((response) => {
-        // Handle the response if needed
-        // console.log("Fetched budgets for user:", response.data);
-      });
     }
   }, []);
   if (isDemo) {
@@ -120,7 +114,7 @@ const BudgetList = ({ budgets }: { budgets?: string[] }) => {
                 className="flex justify-between items-center py-2 border-b"
               >
                 <span className="flex-1 text-center cursor-pointer">
-                  {budget}
+                  {budget.budgetName}
                 </span>
               </li>
             ))}

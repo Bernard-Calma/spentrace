@@ -10,15 +10,26 @@ import {
 } from "@/common";
 import { useEffect, useState } from "react";
 import { PendingTransactions } from "./components";
+import axios from "axios";
 
 const DashboardPage = () => {
   const { budgets } = useSelector((state: RootState) => state.user);
   const { budgetName, transactions } = useSelector(
     (state: RootState) => state.budget
   );
+  const { id } = useSelector((state: RootState) => state.user);
 
+  const [userBudgets, setUserBudgets] = useState<Budget[]>([]);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
+
+  useEffect(() => {
+    axios.get(`/api/budgets/userBudgets/${id}`).then((response) => {
+      // Handle the response if needed
+      // console.log("Fetched budgets for user:", response.data.budgets);
+      setUserBudgets(response.data.budgets);
+    });
+  }, [id]);
 
   useEffect(() => {
     const expenses = transactions
@@ -41,7 +52,7 @@ const DashboardPage = () => {
       </div>
       <RecentTransactions transactions={transactions} budgetName={budgetName} />
 
-      <BudgetList budgets={budgets} />
+      <BudgetList budgets={userBudgets} />
     </div>
   );
 };

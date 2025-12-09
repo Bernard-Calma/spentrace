@@ -43,7 +43,7 @@ const DashboardPage = () => {
   }, [transactions]);
 
   return (
-    <div className="dashboard h-full w-full flex flex-col flex-1">
+    <div className="dashboard h-auto w-full flex flex-col flex-1 overflow-y-auto p-6 gap-6">
       <h1 className="text-xl font-bold">Budget: {budgetName}</h1>
       <TotalBalance income={totalIncome} expenses={totalExpenses} />
       <div className="flex gap-4">

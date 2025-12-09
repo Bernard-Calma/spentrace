@@ -25,7 +25,7 @@ const AppLayoutClient = ({
     dispatch(setUser(user));
   }, []);
   return (
-    <main className="flex flex min-h-screen">
+    <main className="flex max-h-screen overflow-hidden">
       <Navigation user={user} />
       {children}
     </main>

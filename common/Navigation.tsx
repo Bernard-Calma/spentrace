@@ -85,7 +85,7 @@ const Navigation = ({ user }: { user: any }) => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between min-h-screen w-auto pb-2">
+    <nav className="navigation flex flex-col justify-between max-h-screen w-auto pb-2">
       <div className="top-nav flex ">
         <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
           SpenTrace

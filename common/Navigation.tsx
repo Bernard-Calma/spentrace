@@ -85,9 +85,9 @@ const Navigation = ({ user }: { user: any }) => {
   ];
 
   return (
-    <nav className="navigation flex flex-col justify-between max-h-screen w-auto pb-2">
+    <nav className="navigation flex flex-col justify-between max-h-screen w-auto pb-2 text-sm">
       <div className="top-nav flex ">
-        <Link href="/demo" className="text-lg font-bold pt-2 pl-4">
+        <Link href="/demo" className="font-bold pt-2 pl-4">
           SpenTrace
         </Link>
       </div>
@@ -97,7 +97,7 @@ const Navigation = ({ user }: { user: any }) => {
             <Link
               key={link.href}
               href={link.href}
-              className="text-gray-700 hover:text-blue-500 transition-colors"
+              className="text-gray-700 hover:text-blue-500 transition-colors flex justify-between gap-2"
             >
               <span className="icon">{link.icon}</span>
               <span className="label">{link.label}</span>
@@ -106,14 +106,14 @@ const Navigation = ({ user }: { user: any }) => {
         )}
       </ul>
       {/* For User Menu, Help & Support */}
-      <div className="bottom-nav flex flex-col p-2 space-y-2">
+      <div className="bottom-nav flex flex-col p-2 space-y-2 max-w-40">
         {bottomNav.map(
           (link) =>
             (link.demo || link.registered || link.subscribed) && (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-2 text-gray-700 hover:text-blue-500 transition-colors"
+                className="flex items-center gap-2 text-gray-700 hover:text-blue-500 transition-colors text-center"
               >
                 <span className="icon">{link.icon}</span>
                 <span className="label">{link.label}</span>

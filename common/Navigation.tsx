@@ -87,7 +87,7 @@ const Navigation = ({ user }: { user: any }) => {
   return (
     <nav className="navigation flex flex-col justify-between max-h-screen w-auto pb-2 text-sm">
       <div className="top-nav flex ">
-        <Link href="/demo" className="font-bold pt-2 pl-4">
+        <Link href="/" className="font-bold pt-2 pl-4">
           SpenTrace
         </Link>
       </div>

@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddTransaction = ({ hideComponent }: { hideComponent: () => void }) => {
+const AddTransaction = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { id, isDemo }: { id: string; isDemo: boolean } = useSelector(
-    (state: any) => state.user
+    (state: any) => state.user,
   );
   const { collaborators } = useSelector((state: any) => state.demo);
   const [newTransaction, setNewTransaction] = useState({
